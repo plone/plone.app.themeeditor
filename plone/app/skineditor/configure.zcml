@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope">
+  
+  <include package=".browser"/>
+
+  <utility factory=".retriever.ResourceRetriever"/>
+  <utility factory=".cmf.CMFSkinsResourceType"
+           name="cmfskins"/>
+  <utility factory=".zopeview.ZopeViewResourceType"
+           name="zopeview"/>
+
+</configure>

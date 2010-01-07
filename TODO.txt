@@ -1,0 +1,20 @@
+- tests
+- refactor now that grouping registrations by name is the responsibility of the
+  retriever
+- only load registration details on demand
+- browser view resource type
+  - actions
+- viewlets and portlets
+- handle nested skin items
+- edit forms
+  - Approach 1: clean up reuse of ZMI forms
+    - warning on customizing something that has already been customized
+  - Approach 2: custom forms
+    - filesystem page template: view, customize
+    - filesystem image: view, customize
+    - page template: view, edit, remove
+    - image: view, edit, remove
+- fallback to unskinned main template
+- support showing resources for themes other than the active one
+- filter out known ZMI views unless overridden
+- exporters
