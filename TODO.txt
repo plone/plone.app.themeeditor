@@ -1,6 +1,4 @@
 - tests
-- browser view resource type
-  - actions
 - viewlets and portlets
 - handle nested skin items
 - edit forms

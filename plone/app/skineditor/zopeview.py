@@ -49,7 +49,7 @@ class ZopeViewResourceType(object):
     
     def __iter__(self):
         """ Returns an iterator enumerating the resources of this type. """
-        pvc_path = '/'.join(getToolByName(getSite(), 'portal_view_customizations').getPhysicalPath())
+        pvc = getToolByName(getSite(), 'portal_view_customizations')
         layer_precedence = self.layer_precedence()
         by_layer_precedence_and_ttwness = lambda x: (layer_precedence.index(x.required[1]), int(not ITTWViewTemplate.providedBy(x.factory)))
         regs = sorted(self.iter_view_registrations(), key=by_layer_precedence_and_ttwness)
@@ -66,10 +66,16 @@ class ZopeViewResourceType(object):
             res.layer = required[1]
             res.actions = []
             if info['customized']:
-                path = pvc_path + '/' + info['customized']
+                obj = getattr(pvc, info['customized'])
+                path = '/'.join(obj.getPhysicalPath())
                 res.info = 'In the database: %s' % path
+                res.actions.append(('Edit', obj.absolute_url() + '/manage_main'))
+                remove_url = pvc.absolute_url() + '/manage_delObjects?ids=' + info['customized']
+                res.actions.append(('Remove', remove_url))
             else:
                 res.info = 'On the filesystem: %s' % info['zptfile']
+                view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
+                res.actions.append(('View', view_url))
             yield res
     
     def export(self, context):

@@ -16,9 +16,9 @@ jq(function() {
   }
   var activateUI = function() {
     // edit popups
-    jq('a[href*=/manage_main]', this).prepOverlay({
+    jq('a[href*=/manage_main],a[href*=/@@customizezpt]', this).prepOverlay({
       subtype: 'ajax',
-      filter: 'form,form+*',
+      filter: 'form,form+*', // everything after the 2nd table
       formselector: 'form',
       config: {
         onLoad: function() {
@@ -57,7 +57,7 @@ jq(function() {
       while(dd.is('dd')) { dd.slideToggle('fast'); dd = dd.next(); }
     } else {
       jq('<div><' + '/div>').load(jq(this).attr('href'), null, function() {
-        jq('dd', this).insertAfter(link).slideDown().each(function() {
+        jq('dd', this).insertAfter(link).slideDown('fast').each(function() {
           activateUI.apply(this);
         });
       });

@@ -59,8 +59,5 @@ class CMFSkinsResourceType(object):
                     res.actions.append(('Remove', obj.aq_parent.absolute_url() + '/manage_delObjects?ids=' + obj.getId()))
                 yield res
     
-    def __getitem__(self, name):
-        raise NotImplemented
-    
     def export(self, context):
         raise NotImplemented

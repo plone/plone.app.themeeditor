@@ -20,9 +20,6 @@ class IResourceType(Interface):
     def __iter__():
         """ Returns an iterator enumerating the resources of this type. """
     
-    def __getitem__(id):
-        """ Return a resource by id. """
-    
     def export(context):
         """ Exports TTW-customized resources to an export context. """
 
