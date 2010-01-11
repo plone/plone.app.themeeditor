@@ -2,8 +2,8 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.FSObject import FSObject
 from persistent import Persistent
 from zope.app.component.hooks import getSite
-from plone.skins.interfaces import IResourceType
-from plone.skins.interfaces import IResource, IResourceRegistration
+from plone.app.skineditor.interfaces import IResourceType
+from plone.app.skineditor.interfaces import IResource, IResourceRegistration
 from zope.interface import implements, Interface
 
 class CMFResource(object):
