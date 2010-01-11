@@ -3,14 +3,11 @@ import itertools
 from zope.component import getGlobalSiteManager, getSiteManager
 from zope.app.component.hooks import getSite
 from plone.app.skineditor.interfaces import IResourceType
-from plone.app.skineditor.interfaces import IResource, IResourceRegistration
+from plone.app.skineditor.interfaces import IResourceRegistration
 from zope.interface import implements
 from plone.app.customerize.registration import templateViewRegistrationInfos
 from plone.memoize.instance import memoize
 from five.customerize.interfaces import ITTWViewTemplate
-
-class ViewResource(object):
-    implements(IResource)
 
 class ViewResourceRegistration(object):
     implements(IResourceRegistration)
@@ -28,14 +25,10 @@ class ZopeViewResourceType(object):
     Make sure the first resource found looks reasonable:
       >>> resources[0].__dict__
       {'layer': 'Images', 'description': u'CMF skin item', 'title': 'preview_icon.png', 'registrations': [<plone.app.skineditor.cmf.CMFResourceRegistration object at ...>], 'context': <InterfaceClass zope.interface.Interface>, 'type': 'cmf_skins', 'name': 'preview_icon.png'}
-      >>> resources[0].registrations[0].__dict__
-      {'info': 'On the filesystem: /.../Products/CMFDefault/skins/Images/preview_icon.png', 'active': True, 'actions': [('View', 'http://nohost/cmf/portal_skins/Images/preview_icon.png/manage_main')], 'title': 'Images'}
     """
     
     implements(IResourceType)
-    
     name = 'zopeview'
-    precedence = 2
 
     @memoize
     def layer_precedence(self):
@@ -62,28 +55,21 @@ class ZopeViewResourceType(object):
         regs = sorted(self.iter_view_registrations(), key=by_layer_precedence_and_ttwness)
         for info in templateViewRegistrationInfos(regs, mangle=False):
             required = info['required'].split(',')
-            res = ViewResource()
+            res = ViewResourceRegistration()
             res.name = info['viewname']
             res.type = self.name
-            res.title = info['viewname']
             res.context = required[0]
             if res.context == 'zope.interface.Interface':
                 res.description = 'View for *'
             else:
                 res.description = u'View for %s' % required[0]
-            res.registrations = []
-
-            reg = ViewResourceRegistration()
-            reg.title = res.layer = required[1]
-            reg.actions = []
+            res.layer = required[1]
+            res.actions = []
             if info['customized']:
                 path = pvc_path + '/' + info['customized']
-                reg.info = 'In the database: %s' % path
+                res.info = 'In the database: %s' % path
             else:
-                reg.info = 'On the filesystem: %s' % info['zptfile']
-            reg.active = True
-            res.registrations.append(reg)
-
+                res.info = 'On the filesystem: %s' % info['zptfile']
             yield res
     
     def export(self, context):

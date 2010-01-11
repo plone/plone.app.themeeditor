@@ -12,11 +12,11 @@
 <script type="text/javascript">
 jq(function() {
   var updateResults = function() {
-    jq('#plone-app-skineditor-browser').load('@@plone.app.skineditor.browse #plone-app-skineditor-browser', {'name': jq('#plone-app-skineditor-name-field').val()}, activateUI);
+    jq('#plone-app-skineditor-browser').load('@@plone.app.skineditor.browse #plone-app-skineditor-browser', {'name': jq('#plone-app-skineditor-name-field').val()});
   }
   var activateUI = function() {
     // edit popups
-    jq('#plone-app-skineditor-browser a[href*=/manage_main]').prepOverlay({
+    jq('a[href*=/manage_main]', this).prepOverlay({
       subtype: 'ajax',
       filter: 'form,form+*',
       formselector: 'form',
@@ -35,31 +35,41 @@ jq(function() {
       }
     });
     // removal of customized items
-    jq('#plone-app-skineditor-browser a[href*=/manage_delObjects]').click(function(e) {
+    jq('a[href*=/manage_delObjects]', this).click(function(e) {
       e.preventDefault();
       jq.get(jq(this).attr('href'));
       jq(this).closest('dd').remove();
     });
   }
-  activateUI();
+  activateUI.apply(jq('#plone-app-skineditor-browser'));
   // update results via AJAX
   jq('#plone-app-skineditor-filter-form').submit(function(e) {
     e.preventDefault();
     updateResults();
   });
   // collapsible layer lists
-  jq('.plone-app-skineditor-resource').live('click', function() {
-    jq(this).toggleClass('open');
+  jq('.plone-app-skineditor-resource').live('click', function(e) {
+    e.preventDefault();
+    var link = jq(this);
+    link.toggleClass('open');
     var dd = jq(this).next();
-    while(dd.is('dd')) { dd.slideToggle('fast'); dd = dd.next(); }
+    if (dd.is('dd')) {
+      while(dd.is('dd')) { dd.slideToggle('fast'); dd = dd.next(); }
+    } else {
+      jq('<div><' + '/div>').load(jq(this).attr('href'), null, function() {
+        jq('dd', this).insertAfter(link).slideDown().each(function() {
+          activateUI.apply(this);
+        });
+      });
+    }
   });
 });
 </script>
 <style type="text/css">
 #plone-app-skineditor-browser p { margin: 0; }
 .plone-app-skineditor-result-count { margin: .5em 0; }
-.plone-app-skineditor-resource { border: solid 1px #ccc; cursor: pointer; -moz-border-radius: 5px; -webkit-border-radius: 5px; margin-top: 1px; padding: 0 .5em 0 2em; background: #f8f8f8 url(treeCollapsed.png) 5px 50% no-repeat; }
-.plone-app-skineditor-resource.open { background-image: url(treeExpanded.png); }
+.plone-app-skineditor-resource dt { border: solid 1px #ccc; cursor: pointer; -moz-border-radius: 5px; -webkit-border-radius: 5px; margin-top: 1px; padding: 0 .5em 0 2em; background: #f8f8f8 url(treeCollapsed.png) 5px 50% no-repeat; }
+.plone-app-skineditor-resource.open dt { background-image: url(treeExpanded.png); }
 .plone-app-skineditor-resource .description { display: inline; font-size: 80%; font-weight: normal; margin-left: 1em;}
 dd.plone-app-skineditor-layers { display: none; border: solid 1px #ccc; border-top: none; padding: 0 .5em; margin: 0 5px 0 1em;}
 .plone-app-skineditor-layers h3 { font-size: 1em; margin: 0; }
@@ -86,31 +96,16 @@ dd.plone-app-skineditor-layers { display: none; border: solid 1px #ccc; border-t
         results for "<strong tal:content="request/form/name|nothing"/>"
       </p>
       <tal:block tal:repeat="resource view/results">
-        <dt class="plone-app-skineditor-resource">
-          <tal:block tal:content="resource/title"/>
-          <p class="description"
-             tal:content="string:(${resource/description})"
-             tal:condition="resource/description"/>
-        </dt>
-        <dd class="plone-app-skineditor-layers"
-            tal:repeat="layer resource/registrations"
-            tal:attributes="class python:'plone-app-skineditor-layers ' + (layer.active and ' active' or '')">
-            <div class="plone-app-skineditor-layer-action">
-              <a tal:repeat="action layer/actions"
-                 tal:content="python:action[0]"
-                 tal:attributes="href python:action[1]" />
-            </div>
-            <a 
-               tal:attributes="href python:layer.actions and layer.actions[0][1] or '#'"
-               tal:omit-tag="not:layer/actions">
-              <h3>
-                <span tal:condition="repeat/layer/start" class="plone-app-skineditor-active">*</span>
-                <span tal:replace="layer/title"/>
-              </h3>
-              <p class="discreet"
-                 tal:content="layer/info"/>
-            </a>
-        </dd>
+        <a class="plone-app-skineditor-resource"
+           tal:define="first_resource python:resource[0]"
+           tal:attributes="href string:@@plone.app.skineditor.layers?name=${first_resource/name}">
+          <dt>
+            <tal:block tal:content="first_resource/name"/>
+            <p class="description"
+               tal:content="string:(${first_resource/description})"
+               tal:condition="first_resource/description"/>
+          </dt>
+        </a>
       </tal:block>
     </dl>
 

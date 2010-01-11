@@ -24,11 +24,9 @@ class ResourceRetriever(object):
       ...     precedence = 1
       ...     def __iter__(self):
       ...         yield DummyResource(
-      ...             title = 'main logo',
       ...             name = 'dummy1',
       ...             description = 'test resource',
       ...             context = Interface,
-      ...             registrations = (),
       ...             )
       >>> sm = getSiteManager()
       >>> sm.registerUtility(DummyResourceType(), provided=IResourceType, name=u'dummy')
@@ -41,7 +39,7 @@ class ResourceRetriever(object):
       
     And we can query the resource manager for available resources:
       >>> list(rm.iter_resources())
-      [<plone.app.skineditor.retriever.DummyResource object at ...>]
+      [[<plone.app.skineditor.retriever.DummyResource object at ...>]]
       >>> len(list(rm.iter_resources(name='dummy')))
       1
       >>> len(list(rm.iter_resources(name='Dummy')))
@@ -68,20 +66,22 @@ class ResourceRetriever(object):
         for _, rt in getUtilitiesFor(IResourceType):
             yield rt
     
-    def iter_resources(self, name=None, type=None, context=None):
+    def iter_resources(self, name=None, type=None, context=None, exact=False):
         resource_types = self.iter_resource_types()
-        by_name_and_context = lambda x:(x.title.lower(),x.context)
+        by_name_and_context = lambda x:(x.name.lower(),x.context)
         # XXX use something Swartzian transform-like to avoid duplicate key calculation
-        resources = sorted(itertools.chain(*resource_types), key=by_name_and_context)
-        for _, resources in itertools.groupby(resources, key=by_name_and_context):
-            resources = list(resources)
-            if name is not None and name.lower() not in resources[0].name.lower():
+        regs = sorted(itertools.chain(*resource_types), key=by_name_and_context)
+        for _, regs in itertools.groupby(regs, key=by_name_and_context):
+            regs = list(regs)
+            if name is not None:
+                if exact:
+                    if name != regs[0].name:
+                        continue
+                elif name.lower() not in regs[0].name.lower():
+                    continue
+            if type is not None and type.lower() not in regs[0].type.lower():
                 continue
-            if type is not None and type.lower() not in resources[0].type.lower():
-                continue
-            if context is not None and context is not resources[0].context:
+            if context is not None and context is not regs[0].context:
                 continue
 
-            for resource in resources[1:]:
-                resources[0].registrations.extend(resource.registrations)
-            yield resources[0]
+            yield regs

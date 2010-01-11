@@ -1,7 +1,4 @@
 - tests
-- refactor now that grouping registrations by name is the responsibility of the
-  retriever
-- only load registration details on demand
 - browser view resource type
   - actions
 - viewlets and portlets

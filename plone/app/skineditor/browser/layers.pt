@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en-US" lang="en-US"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone">
+
+<body>
+    <tal:block metal:define-macro="main">
+    <h1 class="documentFirstHeading"
+        tal:content="request/form/name"/>
+    
+    <dl id="plone-app-skineditor-browser"
+        tal:define="regs python:view.results(exact=True)[0]">
+        <dd class="plone-app-skineditor-layers"
+            tal:repeat="reg regs">
+            <div class="plone-app-skineditor-layer-action">
+              <a tal:repeat="action reg/actions"
+                 tal:content="python:action[0]"
+                 tal:attributes="href python:action[1]" />
+            </div>
+            <a 
+               tal:attributes="href python:reg.actions and reg.actions[0][1] or '#'"
+               tal:omit-tag="not:reg/actions">
+              <h3>
+                <span tal:condition="repeat/reg/start" class="plone-app-skineditor-active">*</span>
+                <span tal:replace="reg/layer"/>
+              </h3>
+              <p class="discreet"
+                 tal:content="reg/info"/>
+            </a>
+        </dd>
+    </dl>
+
+</tal:block>
+    
+</body>
+</html>
