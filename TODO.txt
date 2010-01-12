@@ -9,6 +9,9 @@
     - filesystem image: view, customize
     - page template: view, edit, remove
     - image: view, edit, remove
+- put JS and CSS in separate files
+- register configlet
+- add random salt to GET requests that shouldn't be cached, for IE
 - fallback to unskinned main template
 - support showing resources for themes other than the active one
 - filter out known ZMI views unless overridden
