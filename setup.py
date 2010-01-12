@@ -21,8 +21,17 @@ setup(name='plone.app.skineditor',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
+          'five.customerize',
+          'Products.CMFCore',
+          'plone.app.customerize',
+          'plone.app.jquerytools>=1.0b12',
+          'plone.memoize',
           'setuptools',
-          # -*- Extra requirements: -*-
+          'zope.component',
+          'zope.app.component',
+          'zope.interface',
+          'Zope2',
+          'ZODB3',
       ],
       entry_points="""
       [z3c.autoinclude.plugin]
