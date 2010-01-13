@@ -10,31 +10,17 @@ class CMFResourceRegistration(object):
     implements(IResourceRegistration)
         
 class CMFSkinsResourceType(object):
-    """
-    Test setup.
-      >>> from plone.app.skineditor.cmf import CMFSkinsResourceType
-    
-    Make sure we can iterate the resources:
-      >>> resources = list(o for o in CMFSkinsResourceType())
-      >>> len(resources) > 0
-      True
-    
-    Make sure the first resource found looks reasonable:
-      >>> resources[0].__dict__
-      {'layer': 'Images', 'description': u'CMF skin item', 'title': 'preview_icon.png', 'registrations': [<plone.app.skineditor.cmf.CMFResourceRegistration object at ...>], 'context': <InterfaceClass zope.interface.Interface>, 'type': 'cmf_skins', 'name': 'preview_icon.png'}
-    """
-    
     implements(IResourceType)
     name = 'cmfskins'
 
     skins_tool = None
     skin = None
     
-    def __init__(self, skin=None):
+    def __init__(self, skins_tool=None, skin=None):
+        self.skins_tool = skins_tool
         self.skin = skin
     
     def __iter__(self):
-        """ Returns an iterator enumerating the resources of this type. """
         if self.skins_tool is None:
             self.skins_tool = getToolByName(getSite(), 'portal_skins')
         if self.skin is None:
