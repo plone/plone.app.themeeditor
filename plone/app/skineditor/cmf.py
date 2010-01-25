@@ -8,7 +8,11 @@ from zope.interface import implements, Interface
 
 class CMFResourceRegistration(object):
     implements(IResourceRegistration)
-        
+    
+    type = 'cmfskins'
+    context = Interface.__identifier__
+    description = u'CMF skin item'
+
 class CMFSkinsResourceType(object):
     implements(IResourceType)
     name = 'cmfskins'
@@ -34,9 +38,6 @@ class CMFSkinsResourceType(object):
             for name, obj in layer_folder.items():
                 res = CMFResourceRegistration()
                 res.name = name
-                res.type = self.name
-                res.context = Interface.__identifier__
-                res.description = u'CMF skin item'
                 res.layer = layer_path
                 res.actions = []
                 if isinstance(obj, FSObject):

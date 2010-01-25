@@ -18,7 +18,7 @@ class CMFResourceTestLayer:
         addDirectoryViews(tool, 'cmf_test_skins', globals())
         tool.addSkinSelection('test', 'test')
 
-class TestResourceRetriever(unittest.TestCase):
+class TestCMFResourceType(unittest.TestCase):
     layer = CMFResourceTestLayer
 
     def setUp(self):

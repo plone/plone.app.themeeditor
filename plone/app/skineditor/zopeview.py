@@ -11,22 +11,9 @@ from five.customerize.interfaces import ITTWViewTemplate
 
 class ViewResourceRegistration(object):
     implements(IResourceRegistration)
+    type = 'zopeview'
 
 class ZopeViewResourceType(object):
-    """
-    Test setup.
-      >>> from plone.app.skineditor.zopeview import ZopeViewResourceType
-    
-    Make sure we can iterate the resources:
-      >>> resources = list(o for o in ZopeViewResourceType())
-      >>> len(resources) > 0
-      True
-    
-    Make sure the first resource found looks reasonable:
-      >>> resources[0].__dict__
-      {'layer': 'Images', 'description': u'CMF skin item', 'title': 'preview_icon.png', 'registrations': [<plone.app.skineditor.cmf.CMFResourceRegistration object at ...>], 'context': <InterfaceClass zope.interface.Interface>, 'type': 'cmf_skins', 'name': 'preview_icon.png'}
-    """
-    
     implements(IResourceType)
     name = 'zopeview'
 
@@ -38,15 +25,16 @@ class ZopeViewResourceType(object):
     def iter_view_registrations(self):
         gsm = getGlobalSiteManager()
         sm = getSiteManager()
+        layer_precedence = self.layer_precedence()
         for reg in itertools.chain(gsm.registeredAdapters(), sm.registeredAdapters()):
             if len(reg.required) != 2:
                 continue
-            if reg.required[1] not in self.layer_precedence():
+            if reg.required[1] not in layer_precedence:
                 continue
             if getattr(reg.factory, '__name__', '').startswith('SimpleViewClass') \
                     or ITTWViewTemplate.providedBy(reg.factory):
                 yield reg
-    
+
     def __iter__(self):
         """ Returns an iterator enumerating the resources of this type. """
         pvc = getToolByName(getSite(), 'portal_view_customizations')
@@ -57,7 +45,6 @@ class ZopeViewResourceType(object):
             required = info['required'].split(',')
             res = ViewResourceRegistration()
             res.name = info['viewname']
-            res.type = self.name
             res.context = required[0]
             if res.context == 'zope.interface.Interface':
                 res.description = 'View for *'
