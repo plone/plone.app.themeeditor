@@ -26,13 +26,16 @@ class CMFSkinsResourceType(object):
         if self.skin is None:
             self.skin = self.skins_tool.getDefaultSkin()
         
-        for layer_path in self.skins_tool.getSkinPath(self.skin).split(','):
+        skin_path = self.skins_tool.getSkinPath(self.skin)
+        if skin_path is None:
+            return
+        for layer_path in skin_path.split(','):
             layer_folder = self.skins_tool.unrestrictedTraverse(layer_path)
             for name, obj in layer_folder.items():
                 res = CMFResourceRegistration()
                 res.name = name
                 res.type = self.name
-                res.context = Interface
+                res.context = Interface.__identifier__
                 res.description = u'CMF skin item'
                 res.layer = layer_path
                 res.actions = []
