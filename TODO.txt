@@ -1,18 +1,26 @@
+Alpha 1:
 - tests
 - viewlets and portlets
 - handle nested skin items
-- edit forms
-  - Approach 1: clean up reuse of ZMI forms
-    - warning on customizing something that has already been customized
-  - Approach 2: custom forms
-    - filesystem page template: view, customize
-    - filesystem image: view, customize
-    - page template: view, edit, remove
-    - image: view, edit, remove
+- fix or at least find workaround for uploading files in popups
 - put JS and CSS in separate files
 - register configlet
 - add random salt to GET requests that shouldn't be cached, for IE
-- fallback to unskinned main template
-- support showing resources for themes other than the active one
-- filter out known ZMI views unless overridden
+- on popup close, update opened drawers rather than entire page
+
+Research:
+- warning on customizing something that has already been customized
+- drag-and-drop upload
 - exporters
+- fallback to unskinned main template
+  - any way to detect when switching to Restricted Python is going to cause access problems?
+- filter out known ZMI views unless overridden
+
+Alpha 2:
+- gloworm integration
+- custom forms
+  - filesystem page template: view, customize
+  - filesystem image: view, customize
+  - page template: view, edit, remove
+  - image: view, edit, remove
+- support showing resources for themes other than the active one
