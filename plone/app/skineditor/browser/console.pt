@@ -26,7 +26,7 @@ jq(function() {
           var base = this.getTrigger().data('target');
           jq('form', this.getContent()).each(function() {
             var action = jq(this).attr('action');
-            if (action.charAt(0) != '/') {
+            if (action.charAt(0) == '/') {
               jq(this).attr('action', base.substr(0,base.lastIndexOf('/')) + '/' + action);
             }
           });

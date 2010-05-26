@@ -1,15 +1,18 @@
 Alpha 1:
-- tests
-- viewlets and portlets
+- add support for viewlets and portlets
 - handle nested skin items
 - fix or at least find workaround for uploading files in popups
-- put JS and CSS in separate files
+  - the jquery forms plugin looks promising for this. David G will tt Steve M about incorporating into plone.app.jquerytools
+- put JS and CSS in separate files instead of inline in the templates
 - register configlet
 - add random salt to GET requests that shouldn't be cached, for IE
+  - (first check to confirm if this is an issue)
 - on popup close, update opened drawers rather than entire page
+- option to show only customized resources
 
 Research:
 - warning on customizing something that has already been customized
+  --> probably not needed, b/c it doesn't clobber an existing item
 - drag-and-drop upload
 - exporters
 - fallback to unskinned main template
@@ -24,3 +27,50 @@ Alpha 2:
   - page template: view, edit, remove
   - image: view, edit, remove
 - support showing resources for themes other than the active one
+
+
+
+User stories
+============
+
+Webmaster
+---------
+
+browse and filter CMF skin items nested in other CMF skin folders
+browse and filter viewlets
+browse and filter portlets
+replace images via file upload in popup AJAX forms
+support file upload by dragging from desktop
+customize templates in CMF skin layers by copying to a new layer
+customize browser view templates by creating a local registration of the view
+create a nicer UI for viewing/editing resources
+ - CMF ZPT
+ - browser view ZPT
+ - image
+ - file
+ - Python script
+view a list of all customized resources
+create a new template
+create a new image, stylesheet, or other file
+make changes to templates without worrying about breaking the skin editor such that I can't revert my changes
+make changes to CSS or javascript without having to remember to re-cook the relevant registry
+read good tutorial documentation of how to use the skin editor
+edit templates with the aid of a library of common variables and snippets
+
+Site administrator
+------------------
+
+export a theme and import to another site
+
+Developer
+---------
+
+export a theme and turn into a filesystem-based package
+view a diff of TTW changes
+
+Package maintainer
+------------------
+
+have automated tests to give me confidence that changes are not breaking the system
+have selenium tests to give coverage for parts of the system that use Javascript
+have performance benchmarks to give confidence that the system is not getting slower
