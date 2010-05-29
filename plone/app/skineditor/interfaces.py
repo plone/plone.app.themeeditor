@@ -13,6 +13,8 @@ class IResourceRegistration(Interface):
     layer = Attribute(u'The identifier of the layer for which this resource is registered.')
     actions = Attribute(u'List of (label, url) tuples for actions that can be performed on this registration.')
 
+    icon = Attribute(u'The path to the icon of the object.')
+
 class IResourceType(Interface):
     
     name = Attribute(u'Name of this resource type')

@@ -43,6 +43,7 @@
            tal:attributes="href string:@@plone.app.skineditor.layers?name=${first_resource/name};
                            id string:skineditor-${first_resource/name}">
           <dt>
+            <img tal:condition="first_resource/icon" tal:attributes="src first_resource/icon" />
             <tal:block tal:content="first_resource/name"/>
             <p class="description"
                tal:content="string:(${first_resource/description})"

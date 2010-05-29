@@ -13,6 +13,7 @@ from zope.viewlet.interfaces import IViewlet
 class ViewletResourceRegistration(object):
     implements(IResourceRegistration)
     type = 'viewlet'
+    icon = '/misc_/PageTemplates/zpt.gif'
 
 class ViewletResourceType(object):
     implements(IResourceType)

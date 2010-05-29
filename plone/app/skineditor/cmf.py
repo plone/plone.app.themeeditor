@@ -40,6 +40,7 @@ class CMFSkinsResourceType(object):
                 res.name = name
                 res.layer = layer_path
                 res.actions = []
+                res.icon = obj.icon
                 if isinstance(obj, FSObject):
                     res.info = 'On the filesystem: %s' % obj._filepath
                     res.actions.append(('View', obj.absolute_url() + '/manage_main'))

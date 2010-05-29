@@ -12,6 +12,7 @@ from five.customerize.interfaces import ITTWViewTemplate
 class ViewResourceRegistration(object):
     implements(IResourceRegistration)
     type = 'zopeview'
+    icon = '/misc_/PageTemplates/zpt.gif'
 
 class ZopeViewResourceType(object):
     implements(IResourceType)
