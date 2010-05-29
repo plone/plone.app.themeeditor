@@ -10,5 +10,6 @@
            name="zopeview"/>
   <utility factory=".viewlet.ViewletResourceType"
            name="viewlet"/>
-
+  <utility factory=".portlet.PortletResourceType"
+           name="portlet"/>
 </configure>
