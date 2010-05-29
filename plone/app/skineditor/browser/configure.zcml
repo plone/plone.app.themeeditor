@@ -17,5 +17,14 @@
     permission="cmf.ManagePortal"
     />
   <!-- XXX change permission -->
-  
+
+  <browser:resource
+    name="plone.app.skineditor.js"
+    file="resources/skineditor.js"
+    />
+    
+  <browser:resource
+    name="plone.app.skineditor.css"
+    file="resources/style.css"
+    />
 </configure>

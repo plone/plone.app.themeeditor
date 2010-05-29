@@ -9,92 +9,16 @@
 <head>
 <tal:block metal:fill-slot="top_slot"
   tal:define="dummy python:request.set('disable_border',1)">
-<script type="text/javascript">
-jq(function() {
-  var updateResults = function() {
-    jq('#plone-app-skineditor-browser').load(
-      '@@plone.app.skineditor.browse #plone-app-skineditor-browser', 
-      {'name': jq('#plone-app-skineditor-name-field').val()}
-    );
-  }
-  var activateUI = function() {
-    // edit popups
-    jq('a[href*=/manage_main],a[href*=/@@customizezpt]', this).prepOverlay({
-      subtype: 'ajax',
-      filter: 'form,form+*', // everything after the 2nd table
-      formselector: 'form',
-      config: {
-        onLoad: function() {
-          // absolutize relative form actions
-          var base = this.getTrigger().data('target');
-          var content = document;
-          if(this.getContent != undefined){
-            content = this.getContent();
-          }
-          jq('form', content).each(function() {
-            var action = jq(this).attr('action');
-            if (action.charAt(0) == '/') {
-              jq(this).attr('action', base.substr(0,base.lastIndexOf('/')) + '/' + action);
-            }
-          });
-        },
-        onClose: function(){
-          var trigger = this.getTrigger().data('source').parent();
-          var title = trigger.prev('.plone-app-skineditor-resource.open');
-          trigger.load(title.attr('href'), null, function(){
-            title.nextUntil('.plone-app-skineditor-resource').remove(); //remove custom and view info
-            var dd = jq(this).find('dd');
-            dd.show();
-            activateUI.apply(dd);
-            title.after(jq(this).find('dd'));
-          });
-        }
-      }
-    });
-    // removal of customized items
-    jq('a[href*=/manage_delObjects]', this).click(function(e) {
-      e.preventDefault();
-      jq.get(jq(this).attr('href'));
-      jq(this).closest('dd').remove();
-    });
-  }
-  activateUI.apply(jq('#plone-app-skineditor-browser'));
-  // update results via AJAX
-  jq('#plone-app-skineditor-filter-form').submit(function(e) {
-    e.preventDefault();
-    updateResults();
-  });
-  // collapsible layer lists
-  jq('.plone-app-skineditor-resource').live('click', function(e) {
-    e.preventDefault();
-    var link = jq(this);
-    link.toggleClass('open');
-    var dd = jq(this).next();
-    if (dd.is('dd')) {
-      while(dd.is('dd')) { dd.slideToggle('fast'); dd = dd.next(); }
-    } else {
-      jq('<div><' + '/div>').load(jq(this).attr('href'), null, function() {
-        jq('dd', this).insertAfter(link).slideDown('fast').each(function() {
-          activateUI.apply(this);
-        });
-      });
-    }
-  });
-});
-</script>
-<style type="text/css">
-#plone-app-skineditor-browser p { margin: 0; }
-.plone-app-skineditor-result-count { margin: .5em 0; }
-.plone-app-skineditor-resource dt { border: solid 1px #ccc; cursor: pointer; -moz-border-radius: 5px; -webkit-border-radius: 5px; margin-top: 1px; padding: 0 .5em 0 2em; background: #f8f8f8 url(treeCollapsed.png) 5px 50% no-repeat; }
-#content .plone-app-skineditor-resource.open dt { background-image: url(treeExpanded.png); margin-bottom: 0;}
-.plone-app-skineditor-resource .description { display: inline; font-size: 80%; font-weight: normal; margin-left: 1em;}
-#content dd.plone-app-skineditor-layers { display: none; border: solid 1px #ccc; border-top: none; padding: 0 .5em; margin: 0 5px 0 1em;}
-.plone-app-skineditor-layers h3 { font-size: 1em; margin: 0; }
-.plone-app-skineditor-active { color: #f00; }
-.plone-app-skineditor-layer-action { float: right; }
-.plone-app-skineditor-resource 
-</style>
 </tal:block>
+<tal:javascript metal:fill-slot="javascript_head_slot">
+  <script type="text/javascript" src="++resource++plone.app.skineditor.js"></script>
+</tal:javascript>
+
+<tal:css metal:fill-slot="style_slot">
+  
+  <link rel="stylesheet" type="text/css" media="screen" href="++resource++plone.app.skineditor.css" />
+  
+</tal:css>
 </head>
 
 <body>
