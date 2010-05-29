@@ -86,12 +86,13 @@ jq(function() {
 #plone-app-skineditor-browser p { margin: 0; }
 .plone-app-skineditor-result-count { margin: .5em 0; }
 .plone-app-skineditor-resource dt { border: solid 1px #ccc; cursor: pointer; -moz-border-radius: 5px; -webkit-border-radius: 5px; margin-top: 1px; padding: 0 .5em 0 2em; background: #f8f8f8 url(treeCollapsed.png) 5px 50% no-repeat; }
-.plone-app-skineditor-resource.open dt { background-image: url(treeExpanded.png); }
+#content .plone-app-skineditor-resource.open dt { background-image: url(treeExpanded.png); margin-bottom: 0;}
 .plone-app-skineditor-resource .description { display: inline; font-size: 80%; font-weight: normal; margin-left: 1em;}
-dd.plone-app-skineditor-layers { display: none; border: solid 1px #ccc; border-top: none; padding: 0 .5em; margin: 0 5px 0 1em;}
+#content dd.plone-app-skineditor-layers { display: none; border: solid 1px #ccc; border-top: none; padding: 0 .5em; margin: 0 5px 0 1em;}
 .plone-app-skineditor-layers h3 { font-size: 1em; margin: 0; }
 .plone-app-skineditor-active { color: #f00; }
 .plone-app-skineditor-layer-action { float: right; }
+.plone-app-skineditor-resource 
 </style>
 </tal:block>
 </head>
