@@ -12,7 +12,10 @@
 <script type="text/javascript">
 jq(function() {
   var updateResults = function() {
-    jq('#plone-app-skineditor-browser').load('@@plone.app.skineditor.browse #plone-app-skineditor-browser', {'name': jq('#plone-app-skineditor-name-field').val()});
+    jq('#plone-app-skineditor-browser').load(
+      '@@plone.app.skineditor.browse #plone-app-skineditor-browser', 
+      {'name': jq('#plone-app-skineditor-name-field').val()}
+    );
   }
   var activateUI = function() {
     // edit popups
@@ -24,14 +27,28 @@ jq(function() {
         onLoad: function() {
           // absolutize relative form actions
           var base = this.getTrigger().data('target');
-          jq('form', this.getContent()).each(function() {
+          var content = document;
+          if(this.getContent != undefined){
+            content = this.getContent();
+          }
+          jq('form', content).each(function() {
             var action = jq(this).attr('action');
             if (action.charAt(0) == '/') {
               jq(this).attr('action', base.substr(0,base.lastIndexOf('/')) + '/' + action);
             }
           });
         },
-        onClose: updateResults
+        onClose: function(){
+          var trigger = this.getTrigger().data('source').parent();
+          var title = trigger.prev('.plone-app-skineditor-resource.open');
+          trigger.load(title.attr('href'), null, function(){
+            title.nextUntil('.plone-app-skineditor-resource').remove(); //remove custom and view info
+            var dd = jq(this).find('dd');
+            dd.show();
+            activateUI.apply(dd);
+            title.after(jq(this).find('dd'));
+          });
+        }
       }
     });
     // removal of customized items
@@ -98,7 +115,8 @@ dd.plone-app-skineditor-layers { display: none; border: solid 1px #ccc; border-t
       <tal:block tal:repeat="resource view/results">
         <a class="plone-app-skineditor-resource"
            tal:define="first_resource python:resource[0]"
-           tal:attributes="href string:@@plone.app.skineditor.layers?name=${first_resource/name}">
+           tal:attributes="href string:@@plone.app.skineditor.layers?name=${first_resource/name};
+                           id string:skineditor-${first_resource/name}">
           <dt>
             <tal:block tal:content="first_resource/name"/>
             <p class="description"
