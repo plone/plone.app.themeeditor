@@ -43,9 +43,11 @@ class CMFSkinsResourceType(object):
                 res.icon = obj.icon
                 if isinstance(obj, FSObject):
                     res.info = 'On the filesystem: %s' % obj._filepath
+                    res.path = obj._filepath
                     res.actions.append(('View', obj.absolute_url() + '/manage_main'))
                 elif isinstance(obj, Persistent):
-                    res.info = 'In the database: %s' % '/'.join(obj.getPhysicalPath())
+                    res.path = '/'.join(obj.getPhysicalPath())
+                    res.info = 'In the database: ' + res.path
                     res.actions.append(('Edit', obj.absolute_url() + '/manage_main'))
                     res.actions.append(('Remove', obj.aq_parent.absolute_url() + '/manage_delObjects?ids=' + obj.getId()))
                 yield res

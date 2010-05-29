@@ -2,29 +2,15 @@ import unittest
 import zope.component.testing
 from zope.component import provideAdapter
 from zope.app.component.hooks import setSite, setHooks
-from zope.component.registry import Components
-from zope.interface import Interface, implements
+from zope.interface import Interface
 from zope.publisher.interfaces.browser import IBrowserRequest
 
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from five.customerize.zpt import TTWViewTemplate
-from plone.app.customerize.tool import ViewTemplateContainer
 from plone.app.skineditor.zopeview import ZopeViewResourceType
 
-class IDummyBrowserLayer(IBrowserRequest):
-    pass
-
-class DummyRequest(object):
-    implements(IDummyBrowserLayer)
-
-class DummySite(object):
-    REQUEST = DummyRequest()
-    def __init__(self):
-        self.registry = Components('components')
-        self.portal_view_customizations = ViewTemplateContainer()
-    def getSiteManager(self):
-        return self.registry
+from plone.app.skineditor.tests.utils import IDummyBrowserLayer, DummySite
 
 class SimpleViewClass(BrowserView):
     index = ViewPageTemplateFile('cmf_test_skins/test/test.pt')
@@ -70,11 +56,12 @@ class TestZopeViewResourceType(unittest.TestCase):
         self.assertEqual(res.name, 'view')
         self.assertEqual(res.type, 'zopeview')
         self.assertEqual(res.description, 'View for *')
-        self.assertEqual(res.info, 'In the database: portal_view_customizations/customized_view')
+        self.assertEqual(res.info, 'In the database: /portal_view_customizations/customized_view')
+        self.assertEqual(res.path, '/portal_view_customizations/customized_view')
         self.assertEqual(res.context, 'zope.interface.Interface')
-        self.assertEqual(res.layer, 'plone.app.skineditor.tests.test_zopeview.IDummyBrowserLayer')
-        self.assertEqual(res.actions, [('Edit', 'customized_view/manage_main'),
-                                       ('Remove', '/manage_delObjects?ids=customized_view')])
+        self.assertEqual(res.layer, 'plone.app.skineditor.tests.utils.IDummyBrowserLayer')
+        self.assertEqual(res.actions, [('Edit', 'portal_view_customizations/customized_view/manage_main'),
+                                       ('Remove', 'portal_view_customizations/manage_delObjects?ids=customized_view')])
 
         # second resource: global registration, specific browser layer
         res = resources[1]
@@ -83,9 +70,10 @@ class TestZopeViewResourceType(unittest.TestCase):
         self.assertEqual(res.description, 'View for *')
         self.failUnless(res.info.startswith('On the filesystem: '))
         self.failUnless(res.info.endswith('cmf_test_skins/test/test.pt'))
+        self.failUnless(res.path.endswith('cmf_test_skins/test/test.pt'))
         self.assertEqual(res.context, 'zope.interface.Interface')
-        self.assertEqual(res.layer, 'plone.app.skineditor.tests.test_zopeview.IDummyBrowserLayer')
-        self.assertEqual(res.actions, [('View', '/@@customizezpt.html?required=zope.interface.Interface,plone.app.skineditor.tests.test_zopeview.IDummyBrowserLayer&view_name=view')])
+        self.assertEqual(res.layer, 'plone.app.skineditor.tests.utils.IDummyBrowserLayer')
+        self.assertEqual(res.actions, [('View', 'portal_view_customizations/@@customizezpt.html?required=zope.interface.Interface,plone.app.skineditor.tests.utils.IDummyBrowserLayer&view_name=view')])
 
         # third resource: global registration, general browser layer
         res = resources[2]
@@ -94,9 +82,10 @@ class TestZopeViewResourceType(unittest.TestCase):
         self.assertEqual(res.description, 'View for *')
         self.failUnless(res.info.startswith('On the filesystem: '))
         self.failUnless(res.info.endswith('cmf_test_skins/test/test.pt'))
+        self.failUnless(res.path.endswith('cmf_test_skins/test/test.pt'))
         self.assertEqual(res.context, 'zope.interface.Interface')
         self.assertEqual(res.layer, 'zope.publisher.interfaces.browser.IBrowserRequest')
-        self.assertEqual(res.actions, [('View', '/@@customizezpt.html?required=zope.interface.Interface,zope.publisher.interfaces.browser.IBrowserRequest&view_name=view')])
+        self.assertEqual(res.actions, [('View', 'portal_view_customizations/@@customizezpt.html?required=zope.interface.Interface,zope.publisher.interfaces.browser.IBrowserRequest&view_name=view')])
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)

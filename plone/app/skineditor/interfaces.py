@@ -9,6 +9,7 @@ class IResourceRegistration(Interface):
     description = Attribute(u"User-oriented clarification of this resource's type and context")
     info = Attribute(u'Additional details about this resource.')
     
+    path = Attribute(u'The path to the resource (on the filesystem or in the ZMI)')
     context = Attribute(u'The context interface for which this resource is registered.')
     layer = Attribute(u'The identifier of the layer for which this resource is registered.')
     actions = Attribute(u'List of (label, url) tuples for actions that can be performed on this registration.')

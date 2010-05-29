@@ -55,13 +55,14 @@ class ZopeViewResourceType(object):
             res.actions = []
             if info['customized']:
                 obj = getattr(pvc, info['customized'])
-                path = '/'.join(obj.getPhysicalPath())
-                res.info = 'In the database: %s' % path
+                res.path = '/'.join(obj.getPhysicalPath())
+                res.info = 'In the database: %s' % res.path
                 res.actions.append(('Edit', obj.absolute_url() + '/manage_main'))
                 remove_url = pvc.absolute_url() + '/manage_delObjects?ids=' + info['customized']
                 res.actions.append(('Remove', remove_url))
             else:
                 res.info = 'On the filesystem: %s' % info['zptfile']
+                res.path = info['zptfile']
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
                 res.actions.append(('View', view_url))
             yield res

@@ -37,6 +37,7 @@ class TestCMFResourceType(unittest.TestCase):
         self.assertEqual(res.layer, 'test')
         self.failUnless(res.info.startswith('On the filesystem: '))
         self.failUnless(res.info.endswith('cmf_test_skins/test/test.pt'))
+        self.failUnless(res.path.endswith('cmf_test_skins/test/test.pt'))
         self.assertEqual(res.actions, [('View', 'test/test/manage_main')])
 
     def test_only_items_in_current_skin_path_found(self):
@@ -51,6 +52,7 @@ class TestCMFResourceType(unittest.TestCase):
         res = list(self.rt)[0]
         
         self.assertEqual(res.info, 'In the database: portal_skins/folder/image')
+        self.assertEqual(res.path, 'portal_skins/folder/image')
         self.assertEqual(res.actions, [('Edit', 'folder/image/manage_main'),
                                        ('Remove', 'folder/manage_delObjects?ids=image')])
     
