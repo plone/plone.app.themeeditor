@@ -14,6 +14,7 @@ from plone.portlets.interfaces import IPortletType, IPortletRenderer
 class PortletResourceRegistration(object):
     implements(IResourceRegistration)
     type = 'portlet'
+    icon = '/misc_/PageTemplates/zpt.gif'
 
 class PortletResourceType(object):
     implements(IResourceType)
