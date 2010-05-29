@@ -9,6 +9,7 @@ Alpha 1:
   - (first check to confirm if this is an issue)
 - on popup close, update opened drawers rather than entire page
 - option to show only customized resources
+- fix lookup of layers for 2 views with the same name but different contexts
 
 Research:
 - warning on customizing something that has already been customized

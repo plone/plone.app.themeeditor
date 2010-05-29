@@ -6,8 +6,17 @@ from plone.memoize.instance import memoize
 
 class SkinsConsole(BrowserView):
     
-    index = ViewPageTemplateFile('console.pt')
+    console = ViewPageTemplateFile('console.pt')
     layers = ViewPageTemplateFile('layers.pt')
+
+    main_template = 'main_template'
+
+    def index(self):
+        try:
+            return self.console()
+        except:
+            self.main_template = '@@failsafe_main_template'
+            return self.console()
     
     @memoize
     def results(self, exact=False):

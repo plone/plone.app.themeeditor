@@ -27,4 +27,11 @@
     name="plone.app.skineditor.css"
     file="resources/style.css"
     />
+  <browser:page
+    for="*"
+    name="failsafe_main_template"
+    template="failsafe_main_template.pt"
+    permission="zope.Public"
+    />
+  
 </configure>

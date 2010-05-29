@@ -21,7 +21,7 @@ jq(function() {
           }
           jq('form', content).each(function() {
             var action = jq(this).attr('action');
-            if (action.charAt(0) == '/') {
+            if (action.charAt(0) != '/') {
               jq(this).attr('action', base.substr(0,base.lastIndexOf('/')) + '/' + action);
             }
           });

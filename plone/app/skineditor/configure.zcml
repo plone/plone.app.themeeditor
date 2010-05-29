@@ -8,5 +8,7 @@
            name="cmfskins"/>
   <utility factory=".zopeview.ZopeViewResourceType"
            name="zopeview"/>
+  <utility factory=".viewlet.ViewletResourceType"
+           name="viewlet"/>
 
 </configure>
