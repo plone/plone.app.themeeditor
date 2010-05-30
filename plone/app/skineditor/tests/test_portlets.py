@@ -89,7 +89,7 @@ class TestPortletResourceType(unittest.TestCase):
         self.assertEqual(res.layer, 'plone.app.skineditor.tests.test_portlets.IDummyBrowserLayer')
         self.assertEqual(res.actions, [('Edit', 'customized_portlet/manage_main'),
                                        ('Remove', '/manage_delObjects?ids=customized_portlet')])
-        self.assertEqual(set(res.tags), set(['template','customized']))
+        self.assertEqual(set(res.tags), set(['portlet','customized']))
 
         # second resource: global registration, specific browser layer
         res = resources[1]
@@ -101,7 +101,7 @@ class TestPortletResourceType(unittest.TestCase):
         self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.skineditor.tests.test_portlets.IDummyPortletManager'))
         self.assertEqual(res.layer, 'plone.app.skineditor.tests.test_portlets.IDummyBrowserLayer')
         self.assertEqual(res.actions, [('View', '/@@customizezpt.html?required=zope.interface.Interface,plone.app.skineditor.tests.test_portlets.IDummyBrowserLayer,zope.browser.interfaces.IView,plone.app.skineditor.tests.test_portlets.IDummyPortletManager,zope.interface.Interface&view_name=portlet')])
-        self.assertEqual(res.tags, ['template'])
+        self.assertEqual(res.tags, ['portlet'])
 
         # third resource: global registration, general browser layer
         res = resources[2]
@@ -113,7 +113,7 @@ class TestPortletResourceType(unittest.TestCase):
         self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.skineditor.tests.test_portlets.IDummyPortletManager'))
         self.assertEqual(res.layer, 'zope.publisher.interfaces.browser.IBrowserRequest')
         self.assertEqual(res.actions, [('View', '/@@customizezpt.html?required=zope.interface.Interface,zope.publisher.interfaces.browser.IBrowserRequest,zope.browser.interfaces.IView,plone.app.skineditor.tests.test_portlets.IDummyPortletManager,zope.interface.Interface&view_name=portlet')])
-        self.assertEqual(res.tags, ['template'])
+        self.assertEqual(res.tags, ['portlet'])
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)

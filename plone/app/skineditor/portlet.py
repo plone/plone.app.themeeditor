@@ -54,7 +54,7 @@ class PortletResourceType(object):
             res.description += ' in the %s manager' % required[3]
             res.layer = required[1]
             res.actions = []
-            res.tags = ['template']
+            res.tags = ['portlet']
             if info['customized']:
                 res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])

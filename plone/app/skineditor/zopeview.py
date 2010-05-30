@@ -67,10 +67,16 @@ class ZopeViewResourceType(object):
                 res.path = info['zptfile']
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
                 res.actions.append(('View', view_url))
-            if info['viewname'].endswith('.css'):
+            name = info['viewname'].lower()
+            if name.endswith('.css'):
                 res.tags.append('stylesheet')
-            if info['viewname'].endswith('.js'):
+            elif name.endswith('.js'):
                 res.tags.append('javascript')
+            elif name.endswith('.kss'):
+                res.tags.append('kss')
+            elif name.endswith('.jpg') or name.endswith('.gif') or name.endswith('.png'):
+                res.tags.append('image')
+                
             yield res
     
     def export(self, context):

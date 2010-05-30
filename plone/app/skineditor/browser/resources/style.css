@@ -9,5 +9,5 @@
 .plone-app-skineditor-layer-action { float: right; }
 #content .plone-app-skineditor-resource dt{ margin-top:1px; margin-bottom: 1px;}
 #content #plone-app-skineditor-tags { float: right; }
-#content #plone-app-skineditor-tags li { list-style: none; display: inline; margin: 0 3px 0 0; background-color: #ccc; -moz-border-radius: 5px; padding: 2px .5em;}
+#content #plone-app-skineditor-tags li { list-style: none; display: inline; margin: 0 3px 0 0; background-color: #ccc; -webkit-border-radius: 5px; -moz-border-radius: 5px; padding: 2px .5em;}
 #content #plone-app-skineditor-tags li.selected { background-color: #fff; border: solid 2px #999; }

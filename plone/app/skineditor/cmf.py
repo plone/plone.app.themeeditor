@@ -9,6 +9,10 @@ from zope.interface import implements, Interface
 from zope.pagetemplate.interfaces import IPageTemplate
 from OFS.Image import Image
 from Products.CMFCore.FSImage import FSImage
+from Products.CMFCore.FSPythonScript import FSPythonScript, CustomizedPythonScript
+from Products.CMFFormController.FSControllerValidator import FSControllerValidator
+from Products.CMFFormController.FSControllerPythonScript import FSControllerPythonScript
+from Products.CMFCore.FSDTMLMethod import FSDTMLMethod
 
 class CMFResourceRegistration(object):
     implements(IResourceRegistration)
@@ -56,14 +60,31 @@ class CMFSkinsResourceType(object):
                     res.info = 'In the database: ' + res.path
                     res.actions.append(('Edit', obj.absolute_url() + '/manage_main'))
                     res.actions.append(('Remove', obj.aq_parent.absolute_url() + '/manage_delObjects?ids=' + obj.getId()))
+                elif isinstance(obj, Persistent):
+                    res.path = '/'.join(obj.getPhysicalPath())
+                    res.info = 'In the database: ' + res.path
+                    
                 if IPageTemplate.providedBy(obj):
                     res.tags.append('template')
+                    
                 if isinstance(obj, Image) or isinstance(obj, FSImage):
                     res.tags.append('image')
-                if obj.getId().endswith('.css'):
+                elif isinstance(obj, FSPythonScript) or isinstance(obj, CustomizedPythonScript):
+                    res.tags.append('python-script')
+                elif isinstance(obj, FSControllerValidator) or \
+                 isinstance(obj, FSControllerPythonScript):
+                    res.tags.append('controller-page-template')
+                elif isinstance(obj, FSDTMLMethod):
+                    res.tags.append('dtml')
+                    
+                id = obj.getId().lower()
+                if id.endswith('.css'):
                     res.tags.append('stylesheet')
-                if obj.getId().endswith('.js'):
+                elif id.endswith('.js'):
                     res.tags.append('javascript')
+                elif id.endswith('.kss'):
+                    res.tags.append('kss')
+                    
                 yield res
     
     def export(self, context):
