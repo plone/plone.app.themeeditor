@@ -53,8 +53,9 @@ class ZopeViewResourceType(object):
                 res.description = u'View for %s' % required[0]
             res.layer = required[1]
             res.actions = []
-            res.customized = bool(info['customized'])
+            res.tags = ['template']
             if info['customized']:
+                res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])
                 res.path = '/'.join(obj.getPhysicalPath())
                 res.info = 'In the database: %s' % res.path
@@ -66,6 +67,10 @@ class ZopeViewResourceType(object):
                 res.path = info['zptfile']
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
                 res.actions.append(('View', view_url))
+            if info['viewname'].endswith('.css'):
+                res.tags.append('stylesheet')
+            if info['viewname'].endswith('.js'):
+                res.tags.append('javascript')
             yield res
     
     def export(self, context):

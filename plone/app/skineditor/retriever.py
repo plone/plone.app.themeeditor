@@ -12,7 +12,7 @@ class ResourceRetriever(object):
             yield rt
     
     def iter_resources(self, name=None, type=None, context=None, path=None,
-            customized=None, exact=False):
+            tags=None, exact=False):
         resource_types = self.iter_resource_types()
         by_name_and_context = lambda x:(x.name.lower(),x.context)
         # XXX use something Swartzian transform-like to avoid duplicate key calculation
@@ -31,7 +31,14 @@ class ResourceRetriever(object):
                 continue
             if path is not None and path != regs[0].path:
                 continue
-            if customized is not None and regs[0].customized != bool(customized):
-                continue
+            if tags is not None:
+                if isinstance(tags, basestring):
+                    tags = [tags]
+                tags_found = list(tags)
+                for tag in tags:
+                    if tag not in regs[0].tags:
+                        tags_found.remove(tag)
+                if not tags_found:
+                    continue
 
             yield regs

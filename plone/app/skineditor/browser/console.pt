@@ -54,11 +54,20 @@
         Oops, something broke!
       </dl>
 
+      <ul id="plone-app-skineditor-tags">
+        <tal:block tal:repeat="tag view/tags">
+          <li tal:define="tag_id python:tag[0]"
+              tal:attributes="class python:tag_id == request.form.get('tag') and 'selected' or None">
+            <a tal:attributes="href string:${portal_url}/@@plone.app.skineditor.browse?tag=${tag_id}"
+               tal:content="python:tag[1]"/>
+          </li>
+        </tal:block>
+      </ul>
+
       <form action="@@plone.app.skineditor.browse" method="GET" id="plone-app-skineditor-filter-form">
         <input id="plone-app-skineditor-name-field" type="text" name="name"
                tal:attributes="value request/form/name|nothing"/>
         <input id="plone-app-skineditor-filter-button" type="submit" value="Filter" class="allowMultiSubmit"/>
-        <input type="checkbox" id="plone-app-skineditor-customized-checkbox" tal:attributes="checked python:'customized' in request.form and 'checked' or None" name="customized" value="1"/> Customized resources only
       </form>
     
       <dl id="plone-app-skineditor-browser">
@@ -66,7 +75,7 @@
           Displaying <strong tal:content="python:len(view.results())"/>
           results for "<strong tal:content="request/form/name|nothing"/>"
         </p>
-        <tal:block tal:repeat="resource python:view.results(customized=request.form.get('customized', None))">
+        <tal:block tal:repeat="resource view/results">
           <a class="plone-app-skineditor-resource"
              tal:define="first_resource python:resource[0]"
              tal:attributes="href string:@@plone.app.skineditor.layers?name=${first_resource/name};

@@ -15,15 +15,15 @@ class DummyResource(object):
 class DummyResourceType(object):
     name = 'dummy'
     def __iter__(self):
-        yield DummyResource(name='ZZZ_last_resource', context='Interface', path='/', customized=False)
-        yield DummyResource(name='dummy1', context='Interface', layer='high_layer', path='/', customized=False)
-        yield DummyResource(name='dummy1', context='Interface', layer='low_layer', path='/', customized=False)
-        yield DummyResource(name='dummy1', context='MoreSpecificInterface', layer='low_layer', path='/', customized=False)
+        yield DummyResource(name='ZZZ_last_resource', context='Interface', path='/', tags=('template',))
+        yield DummyResource(name='dummy1', context='Interface', layer='high_layer', path='/', tags=('template',))
+        yield DummyResource(name='dummy1', context='Interface', layer='low_layer', path='/', tags=('template',))
+        yield DummyResource(name='dummy1', context='MoreSpecificInterface', layer='low_layer', path='/', tags=('template',))
 
 class YummyResourceType(object):
     name = 'yummy'
     def __iter__(self):
-        yield DummyResource(name='dummy1', context='Interface', layer='from_yummy', path='/', customized=False)
+        yield DummyResource(name='dummy1', context='Interface', layer='from_yummy', path='/', tags=('template',))
 
 class RetrieverTestLayer:
     
@@ -81,9 +81,11 @@ class TestResourceRetriever(unittest.TestCase):
         self.failUnless(self.filter(path='/'))
         self.failIf(self.filter(path='/foo'))
     
-    def testFilterByCustomized(self):
-        self.failUnless(self.filter(customized=False))
-        self.failIf(self.filter(customized=True))
+    def testFilterByTags(self):
+        self.failUnless(self.filter(tags=('template',)))
+        self.failIf(self.filter(tags=('foobar',)))
+        self.failUnless(self.filter(tags='template'))
+        self.failIf(self.filter(tags='foobar'))
     
     def testResourcesGroupedByNameAndContext(self):
         for resource_group in self.filter():

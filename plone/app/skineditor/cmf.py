@@ -6,6 +6,9 @@ from zope.app.component.hooks import getSite
 from plone.app.skineditor.interfaces import IResourceType
 from plone.app.skineditor.interfaces import IResourceRegistration
 from zope.interface import implements, Interface
+from zope.pagetemplate.interfaces import IPageTemplate
+from OFS.Image import Image
+from Products.CMFCore.FSImage import FSImage
 
 class CMFResourceRegistration(object):
     implements(IResourceRegistration)
@@ -42,17 +45,25 @@ class CMFSkinsResourceType(object):
                 res.layer = layer_path
                 res.actions = []
                 res.icon = obj.icon
-                res.customized = False
+                res.tags = []
                 if isinstance(obj, FSObject):
                     res.info = 'On the filesystem: %s' % obj._filepath
                     res.path = obj._filepath
                     res.actions.append(('View', obj.absolute_url() + '/manage_main'))
                 elif isinstance(obj, Persistent) and not isinstance(obj, DirectoryViewSurrogate):
-                    res.customized = True
+                    res.tags.append('customized')
                     res.path = '/'.join(obj.getPhysicalPath())
                     res.info = 'In the database: ' + res.path
                     res.actions.append(('Edit', obj.absolute_url() + '/manage_main'))
                     res.actions.append(('Remove', obj.aq_parent.absolute_url() + '/manage_delObjects?ids=' + obj.getId()))
+                if IPageTemplate.providedBy(obj):
+                    res.tags.append('template')
+                if isinstance(obj, Image) or isinstance(obj, FSImage):
+                    res.tags.append('image')
+                if obj.getId().endswith('.css'):
+                    res.tags.append('stylesheet')
+                if obj.getId().endswith('.js'):
+                    res.tags.append('javascript')
                 yield res
     
     def export(self, context):

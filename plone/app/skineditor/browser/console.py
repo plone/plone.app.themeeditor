@@ -10,6 +10,13 @@ class SkinsConsole(BrowserView):
     layers = ViewPageTemplateFile('layers.pt')
 
     main_template = 'main_template'
+    tags = (
+        ('template', 'Templates'),
+        ('image', 'Images'),
+        ('stylesheet', 'Stylesheets'),
+        ('javascript', 'Javascripts'),
+        ('customized', 'Customized Items'),
+        )
 
     def index(self):
         try:
@@ -19,7 +26,8 @@ class SkinsConsole(BrowserView):
             return self.console()
     
     @memoize
-    def results(self, exact=False, customized=None):
+    def results(self, exact=False):
         name = self.request.form.get('name')
+        tag = self.request.form.get('tag')
         rm = getUtility(IResourceRetriever)
-        return list(rm.iter_resources(name=name, exact=exact, customized=customized))
+        return list(rm.iter_resources(name=name, exact=exact, tags=tag))

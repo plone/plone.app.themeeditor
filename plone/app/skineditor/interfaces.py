@@ -9,11 +9,11 @@ class IResourceRegistration(Interface):
     description = Attribute(u"User-oriented clarification of this resource's type and context")
     info = Attribute(u'Additional details about this resource.')
     
-    customized = Attribute(u'Boolean indicating if the resource has been customized')
     path = Attribute(u'The path to the resource (on the filesystem or in the ZMI)')
     context = Attribute(u'The context interface for which this resource is registered.')
     layer = Attribute(u'The identifier of the layer for which this resource is registered.')
     actions = Attribute(u'List of (label, url) tuples for actions that can be performed on this registration.')
+    tags = Attribute(u'List of arbitrary tags applying to this resource.')
 
     icon = Attribute(u'The path to the icon of the object.')
 
@@ -33,7 +33,7 @@ class IResourceRetriever(Interface):
     def iter_resource_types():
         """ Returns an iterator of known resource types. """
     
-    def iter_resources(name=None, type=None, context=None):
+    def iter_resources(name=None, type=None, context=None, tags=None):
         """ Returns an iterator of lists of resource registrations grouped by name.
         
         Results are filtered by the supplied criteria and ordered by name.

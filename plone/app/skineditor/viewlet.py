@@ -54,8 +54,9 @@ class ViewletResourceType(object):
             res.description += ' in the %s manager' % required[3]
             res.layer = required[1]
             res.actions = []
-            res.customized = bool(info['customized'])
+            res.tags = ['template']
             if info['customized']:
+                res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])
                 res.path = '/'.join(obj.getPhysicalPath())
                 res.info = 'In the database: %s' % res.path
