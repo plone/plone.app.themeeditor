@@ -73,6 +73,7 @@ class TestViewletResourceType(unittest.TestCase):
         self.assertEqual(res.layer, 'plone.app.skineditor.tests.utils.IDummyBrowserLayer')
         self.assertEqual(res.actions, [('Edit', 'portal_view_customizations/customized_viewlet/manage_main'),
                                        ('Remove', 'portal_view_customizations/manage_delObjects?ids=customized_viewlet')])
+        self.failUnless(res.customized)
 
         # second resource: global registration, specific browser layer
         res = resources[1]
@@ -85,6 +86,7 @@ class TestViewletResourceType(unittest.TestCase):
         self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.skineditor.tests.test_viewlets.IDummyViewletManager'))
         self.assertEqual(res.layer, 'plone.app.skineditor.tests.utils.IDummyBrowserLayer')
         self.assertEqual(res.actions, [('View', 'portal_view_customizations/@@customizezpt.html?required=zope.interface.Interface,plone.app.skineditor.tests.utils.IDummyBrowserLayer,zope.browser.interfaces.IView,plone.app.skineditor.tests.test_viewlets.IDummyViewletManager&view_name=viewlet')])
+        self.failIf(res.customized)
 
         # third resource: global registration, general browser layer
         res = resources[2]
@@ -97,6 +99,7 @@ class TestViewletResourceType(unittest.TestCase):
         self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.skineditor.tests.test_viewlets.IDummyViewletManager'))
         self.assertEqual(res.layer, 'zope.publisher.interfaces.browser.IBrowserRequest')
         self.assertEqual(res.actions, [('View', 'portal_view_customizations/@@customizezpt.html?required=zope.interface.Interface,zope.publisher.interfaces.browser.IBrowserRequest,zope.browser.interfaces.IView,plone.app.skineditor.tests.test_viewlets.IDummyViewletManager&view_name=viewlet')])
+        self.failIf(res.customized)
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)

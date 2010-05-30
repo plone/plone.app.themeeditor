@@ -2,7 +2,8 @@ jq(function() {
   var updateResults = function() {
     jq('#plone-app-skineditor-browser').load(
       '@@plone.app.skineditor.browse #plone-app-skineditor-browser', 
-      {'name': jq('#plone-app-skineditor-name-field').val()}
+	{'name': jq('#plone-app-skineditor-name-field').val(),
+	'customized': jq('#plone-app-skineditor-name-field').attr('checked')}
     );
   }
   var activateUI = function() {

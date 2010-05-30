@@ -11,7 +11,8 @@ class ResourceRetriever(object):
         for _, rt in getUtilitiesFor(IResourceType):
             yield rt
     
-    def iter_resources(self, name=None, type=None, context=None, path=None, exact=False):
+    def iter_resources(self, name=None, type=None, context=None, path=None,
+            customized=None, exact=False):
         resource_types = self.iter_resource_types()
         by_name_and_context = lambda x:(x.name.lower(),x.context)
         # XXX use something Swartzian transform-like to avoid duplicate key calculation
@@ -29,6 +30,8 @@ class ResourceRetriever(object):
             if context is not None and context.lower() not in regs[0].context.lower():
                 continue
             if path is not None and path != regs[0].path:
+                continue
+            if customized is not None and regs[0].customized != bool(customized):
                 continue
 
             yield regs

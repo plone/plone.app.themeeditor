@@ -39,6 +39,7 @@ class TestCMFResourceType(unittest.TestCase):
         self.failUnless(res.info.endswith('cmf_test_skins/test/test.pt'))
         self.failUnless(res.path.endswith('cmf_test_skins/test/test.pt'))
         self.assertEqual(res.actions, [('View', 'test/test/manage_main')])
+        self.failIf(res.customized)
 
     def test_only_items_in_current_skin_path_found(self):
         self.layer.skins_tool.manage_properties(default_skin='nonexistent')
@@ -55,6 +56,7 @@ class TestCMFResourceType(unittest.TestCase):
         self.assertEqual(res.path, 'portal_skins/folder/image')
         self.assertEqual(res.actions, [('Edit', 'folder/image/manage_main'),
                                        ('Remove', 'folder/manage_delObjects?ids=image')])
+        self.failUnless(res.customized)
     
     def test_items_returned_in_skin_layer_order(self):
         tool = self.layer.skins_tool

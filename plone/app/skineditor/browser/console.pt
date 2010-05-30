@@ -30,6 +30,7 @@
       <input id="plone-app-skineditor-name-field" type="text" name="name"
              tal:attributes="value request/form/name|nothing"/>
       <input id="plone-app-skineditor-filter-button" type="submit" value="Filter" class="allowMultiSubmit"/>
+      <input type="checkbox" id="plone-app-skineditor-customized-checkbox" tal:attributes="checked python:'customized' in request.form and 'checked' or None" name="customized" value="1"/> Customized resources only
     </form>
     
     <dl id="plone-app-skineditor-browser">
@@ -37,7 +38,7 @@
         Displaying <strong tal:content="python:len(view.results())"/>
         results for "<strong tal:content="request/form/name|nothing"/>"
       </p>
-      <tal:block tal:repeat="resource view/results">
+      <tal:block tal:repeat="resource python:view.results(customized=('customized' in request.form or None))">
         <a class="plone-app-skineditor-resource"
            tal:define="first_resource python:resource[0]"
            tal:attributes="href string:@@plone.app.skineditor.layers?name=${first_resource/name};

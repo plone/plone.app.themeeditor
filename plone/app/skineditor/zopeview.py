@@ -53,6 +53,7 @@ class ZopeViewResourceType(object):
                 res.description = u'View for %s' % required[0]
             res.layer = required[1]
             res.actions = []
+            res.customized = bool(info['customized'])
             if info['customized']:
                 obj = getattr(pvc, info['customized'])
                 res.path = '/'.join(obj.getPhysicalPath())

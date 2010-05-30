@@ -1,5 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.FSObject import FSObject
+from Products.CMFCore.DirectoryView import DirectoryViewSurrogate
 from persistent import Persistent
 from zope.app.component.hooks import getSite
 from plone.app.skineditor.interfaces import IResourceType
@@ -41,11 +42,13 @@ class CMFSkinsResourceType(object):
                 res.layer = layer_path
                 res.actions = []
                 res.icon = obj.icon
+                res.customized = False
                 if isinstance(obj, FSObject):
                     res.info = 'On the filesystem: %s' % obj._filepath
                     res.path = obj._filepath
                     res.actions.append(('View', obj.absolute_url() + '/manage_main'))
-                elif isinstance(obj, Persistent):
+                elif isinstance(obj, Persistent) and not isinstance(obj, DirectoryViewSurrogate):
+                    res.customized = True
                     res.path = '/'.join(obj.getPhysicalPath())
                     res.info = 'In the database: ' + res.path
                     res.actions.append(('Edit', obj.absolute_url() + '/manage_main'))

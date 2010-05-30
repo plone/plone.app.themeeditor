@@ -15,15 +15,15 @@ class DummyResource(object):
 class DummyResourceType(object):
     name = 'dummy'
     def __iter__(self):
-        yield DummyResource(name='ZZZ_last_resource', context='Interface', path='/')
-        yield DummyResource(name='dummy1', context='Interface', layer='high_layer', path='/')
-        yield DummyResource(name='dummy1', context='Interface', layer='low_layer', path='/')
-        yield DummyResource(name='dummy1', context='MoreSpecificInterface', layer='low_layer', path='/')
+        yield DummyResource(name='ZZZ_last_resource', context='Interface', path='/', customized=False)
+        yield DummyResource(name='dummy1', context='Interface', layer='high_layer', path='/', customized=False)
+        yield DummyResource(name='dummy1', context='Interface', layer='low_layer', path='/', customized=False)
+        yield DummyResource(name='dummy1', context='MoreSpecificInterface', layer='low_layer', path='/', customized=False)
 
 class YummyResourceType(object):
     name = 'yummy'
     def __iter__(self):
-        yield DummyResource(name='dummy1', context='Interface', layer='from_yummy', path='/')
+        yield DummyResource(name='dummy1', context='Interface', layer='from_yummy', path='/', customized=False)
 
 class RetrieverTestLayer:
     
@@ -80,6 +80,10 @@ class TestResourceRetriever(unittest.TestCase):
     def testFilterByPath(self):
         self.failUnless(self.filter(path='/'))
         self.failIf(self.filter(path='/foo'))
+    
+    def testFilterByCustomized(self):
+        self.failUnless(self.filter(customized=False))
+        self.failIf(self.filter(customized=True))
     
     def testResourcesGroupedByNameAndContext(self):
         for resource_group in self.filter():

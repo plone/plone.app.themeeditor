@@ -8,8 +8,7 @@ from zope.interface import implements
 from plone.app.customerize.registration import templateViewRegistrationInfos
 from plone.memoize.instance import memoize
 from five.customerize.interfaces import ITTWViewTemplate
-#from zope.viewlet.interfaces import IViewlet
-from plone.portlets.interfaces import IPortletType, IPortletRenderer
+from plone.portlets.interfaces import IPortletRenderer
 
 class PortletResourceRegistration(object):
     implements(IResourceRegistration)
@@ -55,6 +54,7 @@ class PortletResourceType(object):
             res.description += ' in the %s manager' % required[3]
             res.layer = required[1]
             res.actions = []
+            res.customized = bool(info['customized'])
             if info['customized']:
                 obj = getattr(pvc, info['customized'])
                 path = '/'.join(obj.getPhysicalPath())

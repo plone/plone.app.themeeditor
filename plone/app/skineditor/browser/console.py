@@ -19,7 +19,7 @@ class SkinsConsole(BrowserView):
             return self.console()
     
     @memoize
-    def results(self, exact=False):
+    def results(self, exact=False, customized=None):
         name = self.request.form.get('name')
         rm = getUtility(IResourceRetriever)
-        return list(rm.iter_resources(name=name, exact=exact))
+        return list(rm.iter_resources(name=name, exact=exact, customized=customized))
