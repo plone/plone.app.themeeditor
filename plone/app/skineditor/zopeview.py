@@ -54,6 +54,7 @@ class ZopeViewResourceType(object):
             res.layer = required[1]
             res.actions = []
             res.tags = ['template']
+            res.path = None
             if info['customized']:
                 res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])

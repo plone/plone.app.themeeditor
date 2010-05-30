@@ -54,6 +54,8 @@ class ViewletResourceType(object):
             res.description += ' in the %s manager' % required[3]
             res.layer = required[1]
             res.actions = []
+            res.path = None
+            res.customized = bool(info['customized'])
             res.tags = ['viewlet']
             if info['customized']:
                 res.tags.append('customized')

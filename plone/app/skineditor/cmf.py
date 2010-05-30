@@ -50,6 +50,7 @@ class CMFSkinsResourceType(object):
                 res.actions = []
                 res.icon = obj.icon
                 res.tags = []
+                res.path = None
                 if isinstance(obj, FSObject):
                     res.info = 'On the filesystem: %s' % obj._filepath
                     res.path = obj._filepath
