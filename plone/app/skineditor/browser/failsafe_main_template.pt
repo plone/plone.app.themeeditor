@@ -23,6 +23,11 @@
       tal:attributes="lang lang;
                       xml:lang lang">
 
+  <head>
+    <metal:slot metal:define-slot="javascript_head_slot"/>
+    <metal:slot metal:define-slot="style_slot"/>
+  </head>
+
   <body>
     <metal:slot metal:define-slot="main"/>
   </body>
