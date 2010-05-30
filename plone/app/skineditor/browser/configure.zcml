@@ -7,16 +7,15 @@
     name="plone.app.skineditor.browse"
     class=".console.SkinsConsole"
     attribute="index"
-    permission="cmf.ManagePortal"
+    permission="plone.app.skineditor.ThemeEditor"
     />
   <browser:page
     for="Products.CMFCore.interfaces.ISiteRoot"
     name="plone.app.skineditor.layers"
     class=".console.SkinsConsole"
     attribute="layers"
-    permission="cmf.ManagePortal"
+    permission="plone.app.skineditor.ThemeEditor"
     />
-  <!-- XXX change permission -->
 
   <browser:resource
     name="plone.app.skineditor.js"

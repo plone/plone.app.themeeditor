@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<import-steps>
+
+ <import-step 
+    id="plone.app.skineditor-uninstall" 
+    handler="plone.app.skineditor.setuphandlers.uninstall"
+    title="step to uninstall plone.app.skineditor"
+    version="1">
+ </import-step>
+
+</import-steps>

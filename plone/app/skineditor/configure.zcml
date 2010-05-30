@@ -1,5 +1,10 @@
 <configure
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns="http://namespaces.zope.org/zope">
+  
+  <permission id="plone.app.skineditor.ThemeEditor"
+    title="plone.app.skineditor: Theme Editor"
+  />
   
   <include package=".browser"/>
 
@@ -12,4 +17,23 @@
            name="viewlet"/>
   <utility factory=".portlet.PortletResourceType"
            name="portlet"/>
+           
+  <genericsetup:registerProfile
+    name="default"
+    title="Theme Editor"
+    directory="profiles/default"
+    description='Mange theme resources TTW.'
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+   />
+
+  <genericsetup:registerProfile
+    name="uninstall"
+    title="Theme Editor Uninstall Profile"
+    directory="profiles/uninstall"
+    description="Removes plone.app.skineditor."
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+   />
+
 </configure>
