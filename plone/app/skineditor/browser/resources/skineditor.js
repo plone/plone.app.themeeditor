@@ -25,6 +25,13 @@ jq(function() {
               jq(this).attr('action', base.substr(0,base.lastIndexOf('/')) + '/' + action);
             }
           });
+          
+          var source = this.getTrigger().data('source');
+          if(source.find('h3 span.plone-app-skineditor-active').size() != 1){
+              var overlay = this.getOverlay();
+              overlay.find('input[type=submit]').hide();
+              overlay.find('select[name=folder_path]').parent().parent().remove();
+          }
         },
         onClose: function(){
           var trigger = this.getTrigger().data('source').parent();
