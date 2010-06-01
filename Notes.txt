@@ -1,4 +1,6 @@
-These are personal notes at the moment. Things that I'm picking up as I test.
+The purpose of this file is for keeping notes of issues that I 
+have not "distilled" into tickets that others can understand.
+Also no test may exist for these yet.
 
 - When browsing @@plone.app.skineditor.browse it might be nice to have a one click customize in addition to the customize button on the pop up view.
 
