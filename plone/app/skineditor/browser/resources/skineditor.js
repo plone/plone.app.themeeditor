@@ -1,5 +1,6 @@
 jq(function() {
   var updateResults = function() {
+    jq('#plone-app-skineditor-tags .selected').removeClass('selected');
     jq('#plone-app-skineditor-browser').load(
       '@@plone.app.skineditor.browse #plone-app-skineditor-browser', 
       jq('#plone-app-skineditor-filter-form').serialize()

@@ -71,9 +71,9 @@
       </form>
     
       <dl id="plone-app-skineditor-browser">
-        <p class="plone-app-skineditor-result-count" tal:condition="request/form/name|nothing">
+        <p class="plone-app-skineditor-result-count" tal:condition="python:len(request.form)">
           Displaying <strong tal:content="python:len(view.results())"/>
-          results for "<strong tal:content="request/form/name|nothing"/>"
+          results for "<strong tal:content="python:request.form.get('name') or request.form.get('tag') or ''"/>"
         </p>
         <tal:block tal:repeat="resource view/results">
           <a class="plone-app-skineditor-resource"
