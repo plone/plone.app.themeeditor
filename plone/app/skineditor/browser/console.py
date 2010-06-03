@@ -59,3 +59,12 @@ class SkinsConsole(BrowserView):
         tag = self.request.form.get('tag', default_tags)
         rm = getUtility(IResourceRetriever)
         return list(rm.iter_resources(name=name, exact=exact, tags=tag))
+
+    def filtered_results(self,exact=False):
+        resources = self.results(exact=exact)[0]
+        if self.mode == 'basic':
+            resources_filtered = [item for item in 
+                                   resources if item.layer == 'custom']
+            if resources_filtered:
+                resources = resources_filtered
+        return resources

@@ -11,7 +11,7 @@
         tal:content="request/form/name"/>
     
     <dl id="plone-app-skineditor-browser"
-        tal:define="regs python:view.results(exact=True)[0]">
+        tal:define="regs python:view.filtered_results(exact=True)">
         <dd class="plone-app-skineditor-layers"
             tal:repeat="reg regs">
             <div class="plone-app-skineditor-layer-action">
