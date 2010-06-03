@@ -63,8 +63,5 @@ class SkinsConsole(BrowserView):
     def filtered_results(self,exact=False):
         resources = self.results(exact=exact)[0]
         if self.mode == 'basic':
-            resources_filtered = [item for item in 
-                                   resources if item.layer == 'custom']
-            if resources_filtered:
-                resources = resources_filtered
+            return resources[:1]
         return resources
