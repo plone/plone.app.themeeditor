@@ -26,6 +26,10 @@
     name="plone.app.skineditor.css"
     file="resources/style.css"
     />
+  <browser:resource
+    name="plone.app.skineditor.icon"
+    file="resources/icon.png"
+    />
   <browser:page
     for="*"
     name="failsafe_main_template"
