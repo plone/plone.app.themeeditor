@@ -13,7 +13,8 @@
     <dl id="plone-app-skineditor-browser"
         tal:define="regs python:view.filtered_results(exact=True)">
         <dd class="plone-app-skineditor-layers"
-            tal:repeat="reg regs">
+            tal:repeat="reg regs"
+            tal:attributes="class python:'plone-app-skineditor-layers' + ('customized' in reg.tags and ' customized' or '')">
             <div class="plone-app-skineditor-layer-action">
               <a tal:repeat="action reg/actions"
                  tal:content="python:action[0]"
