@@ -33,6 +33,9 @@ setup(name='plone.app.skineditor',
           'Zope2',
           'ZODB3',
       ],
+      extras_require = {
+          'test': ['niteoweb.windmill',],
+      },
       entry_points="""
       [z3c.autoinclude.plugin]
       target = plone
