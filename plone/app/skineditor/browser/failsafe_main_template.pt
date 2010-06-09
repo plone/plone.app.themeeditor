@@ -29,7 +29,7 @@
   </head>
 
   <body>
-    <metal:slot metal:define-slot="main"/>
+    <metal:slot metal:define-slot="content"/>
   </body>
 </html>
 </metal:page>
