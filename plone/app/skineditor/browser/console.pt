@@ -32,7 +32,7 @@
 
 <body>
 <tal:block metal:fill-slot="content">
-    <tal:block metal:define-macro="main" tal:define="available_tags view/available_tags">
+    <tal:block metal:define-macro="main">
 	 <div id="edit-bar">
          <ul class="contentViews" id="content-views">
            <li tal:attributes="class python: request.SESSION.get('mode', 'basic') == 'basic' and 'selected' or ''">
@@ -55,7 +55,8 @@
       </dl>
 
       <ul id="plone-app-skineditor-tags">
-        <tal:block tal:repeat="tag available_tags">
+        <tal:block tal:define="available_tags view/available_tags"
+                   tal:repeat="tag available_tags">
           <li tal:define="tag_id python:tag[0]"
               tal:attributes="class python:tag_id == request.form.get('tag') and 'selected' or None">
             <a tal:attributes="href string:${portal_url}/@@plone.app.skineditor.browse?tag=${tag_id}"
