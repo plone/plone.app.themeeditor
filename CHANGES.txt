@@ -5,3 +5,4 @@ Changelog
 -------------------
 
 - Initial release
+- Renamed to plone.app.themeeditor (was plone.app.skineditor) [pigeonflight]

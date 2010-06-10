@@ -8,11 +8,11 @@ from zope.publisher.interfaces.browser import IBrowserRequest
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from five.customerize.zpt import TTWViewTemplate
-from plone.app.skineditor.viewlet import ViewletResourceType
+from plone.app.themeeditor.viewlet import ViewletResourceType
 from zope.viewlet.interfaces import IViewlet, IViewletManager
 from zope.viewlet.viewlet import ViewletBase
 
-from plone.app.skineditor.tests.utils import IDummyBrowserLayer, DummySite
+from plone.app.themeeditor.tests.utils import IDummyBrowserLayer, DummySite
 
 class IDummyViewletManager(IViewletManager):
     pass
@@ -66,11 +66,11 @@ class TestViewletResourceType(unittest.TestCase):
         res = resources[0]
         self.assertEqual(res.name, 'viewlet')
         self.assertEqual(res.type, 'viewlet')
-        self.assertEqual(res.description, 'Viewlet for * in the plone.app.skineditor.tests.test_viewlets.IDummyViewletManager manager')
+        self.assertEqual(res.description, 'Viewlet for * in the plone.app.themeeditor.tests.test_viewlets.IDummyViewletManager manager')
         self.assertEqual(res.info, 'In the database: /portal_view_customizations/customized_viewlet')
         self.assertEqual(res.path, '/portal_view_customizations/customized_viewlet')
-        self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.skineditor.tests.test_viewlets.IDummyViewletManager'))
-        self.assertEqual(res.layer, 'plone.app.skineditor.tests.utils.IDummyBrowserLayer')
+        self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.themeeditor.tests.test_viewlets.IDummyViewletManager'))
+        self.assertEqual(res.layer, 'plone.app.themeeditor.tests.utils.IDummyBrowserLayer')
         self.assertEqual(res.actions, [('Edit', 'portal_view_customizations/customized_viewlet/manage_main'),
                                        ('Remove', 'portal_view_customizations/manage_delObjects?ids=customized_viewlet')])
         self.assertEqual(set(res.tags), set(['viewlet','customized']))
@@ -79,26 +79,26 @@ class TestViewletResourceType(unittest.TestCase):
         res = resources[1]
         self.assertEqual(res.name, 'viewlet')
         self.assertEqual(res.type, 'viewlet')
-        self.assertEqual(res.description, 'Viewlet for * in the plone.app.skineditor.tests.test_viewlets.IDummyViewletManager manager')
+        self.assertEqual(res.description, 'Viewlet for * in the plone.app.themeeditor.tests.test_viewlets.IDummyViewletManager manager')
         self.failUnless(res.info.startswith('On the filesystem: '))
         self.failUnless(res.info.endswith('cmf_test_skins/test/test.pt'))
         self.failUnless(res.path.endswith('cmf_test_skins/test/test.pt'))
-        self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.skineditor.tests.test_viewlets.IDummyViewletManager'))
-        self.assertEqual(res.layer, 'plone.app.skineditor.tests.utils.IDummyBrowserLayer')
-        self.assertEqual(res.actions, [('View', 'portal_view_customizations/@@customizezpt.html?required=zope.interface.Interface,plone.app.skineditor.tests.utils.IDummyBrowserLayer,zope.browser.interfaces.IView,plone.app.skineditor.tests.test_viewlets.IDummyViewletManager&view_name=viewlet')])
+        self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.themeeditor.tests.test_viewlets.IDummyViewletManager'))
+        self.assertEqual(res.layer, 'plone.app.themeeditor.tests.utils.IDummyBrowserLayer')
+        self.assertEqual(res.actions, [('View', 'portal_view_customizations/@@customizezpt.html?required=zope.interface.Interface,plone.app.themeeditor.tests.utils.IDummyBrowserLayer,zope.browser.interfaces.IView,plone.app.themeeditor.tests.test_viewlets.IDummyViewletManager&view_name=viewlet')])
         self.assertEqual(res.tags, ['viewlet'])
 
         # third resource: global registration, general browser layer
         res = resources[2]
         self.assertEqual(res.name, 'viewlet')
         self.assertEqual(res.type, 'viewlet')
-        self.assertEqual(res.description, 'Viewlet for * in the plone.app.skineditor.tests.test_viewlets.IDummyViewletManager manager')
+        self.assertEqual(res.description, 'Viewlet for * in the plone.app.themeeditor.tests.test_viewlets.IDummyViewletManager manager')
         self.failUnless(res.info.startswith('On the filesystem: '))
         self.failUnless(res.info.endswith('cmf_test_skins/test/test.pt'))
         self.failUnless(res.path.endswith('cmf_test_skins/test/test.pt'))
-        self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.skineditor.tests.test_viewlets.IDummyViewletManager'))
+        self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.themeeditor.tests.test_viewlets.IDummyViewletManager'))
         self.assertEqual(res.layer, 'zope.publisher.interfaces.browser.IBrowserRequest')
-        self.assertEqual(res.actions, [('View', 'portal_view_customizations/@@customizezpt.html?required=zope.interface.Interface,zope.publisher.interfaces.browser.IBrowserRequest,zope.browser.interfaces.IView,plone.app.skineditor.tests.test_viewlets.IDummyViewletManager&view_name=viewlet')])
+        self.assertEqual(res.actions, [('View', 'portal_view_customizations/@@customizezpt.html?required=zope.interface.Interface,zope.publisher.interfaces.browser.IBrowserRequest,zope.browser.interfaces.IView,plone.app.themeeditor.tests.test_viewlets.IDummyViewletManager&view_name=viewlet')])
         self.assertEqual(res.tags, ['viewlet'])
 
 def test_suite():

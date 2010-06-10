@@ -10,12 +10,12 @@
     <h1 class="documentFirstHeading"
         tal:content="request/form/name"/>
     
-    <dl id="plone-app-skineditor-browser"
+    <dl id="plone-app-themeeditor-browser"
         tal:define="regs python:view.filtered_results(exact=True)">
-        <dd class="plone-app-skineditor-layers"
+        <dd class="plone-app-themeeditor-layers"
             tal:repeat="reg regs"
-            tal:attributes="class python:'plone-app-skineditor-layers' + ('customized' in reg.tags and ' customized' or '')">
-            <div class="plone-app-skineditor-layer-action">
+            tal:attributes="class python:'plone-app-themeeditor-layers' + ('customized' in reg.tags and ' customized' or '')">
+            <div class="plone-app-themeeditor-layer-action">
               <a tal:repeat="action reg/actions"
                  tal:content="python:action[0]"
                  tal:attributes="href python:action[1]" />
@@ -24,7 +24,7 @@
                tal:attributes="href python:reg.actions and reg.actions[0][1] or '#'"
                tal:omit-tag="not:reg/actions">
               <h3>
-                <span tal:condition="repeat/reg/start" class="plone-app-skineditor-active">*</span>
+                <span tal:condition="repeat/reg/start" class="plone-app-themeeditor-active">*</span>
                 <span tal:replace="reg/layer"/>
               </h3>
               <p class="discreet"

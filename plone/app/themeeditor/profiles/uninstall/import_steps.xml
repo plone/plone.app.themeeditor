@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<import-steps>
+
+ <import-step 
+    id="plone.app.themeeditor-uninstall" 
+    handler="plone.app.themeeditor.setuphandlers.uninstall"
+    title="step to uninstall plone.app.themeeditor"
+    version="1">
+ </import-step>
+
+</import-steps>

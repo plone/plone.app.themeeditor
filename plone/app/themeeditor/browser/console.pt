@@ -18,14 +18,14 @@
     <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++plone.app.jquerytools.js"></script>
     <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++plone.app.jquerytools.overlayhelpers.js"></script>
   </tal:failsafe_js>
-  <script type="text/javascript" src="++resource++plone.app.skineditor.js"></script>
+  <script type="text/javascript" src="++resource++plone.app.themeeditor.js"></script>
 </tal:javascript>
 
 <tal:css metal:fill-slot="style_slot">
   
   <link tal:condition="is_failsafe"
         rel="stylesheet" type="text/css" media="screen" tal:attributes="href string:${portal_url}/public.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="++resource++plone.app.skineditor.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="++resource++plone.app.themeeditor.css" />
   
 </tal:css>
 </head>
@@ -37,12 +37,12 @@
          <ul class="contentViews" id="content-views">
            <li tal:attributes="class python: request.SESSION.get('mode', 'basic') == 'basic' and 'selected' or ''">
              <a href=""
-                tal:attributes="href string:$portal_url/@@plone.app.skineditor.browse?mode=basic"
+                tal:attributes="href string:$portal_url/@@plone.app.themeeditor.browse?mode=basic"
                 i18n:translate="label_basic">Basic</a>
            </li>
            <li tal:attributes="class python: request.SESSION.get('mode', 'basic') == 'advanced' and 'selected' or ''">
              <a href=""
-                tal:attributes="href string:$portal_url/@@plone.app.skineditor.browse?mode=advanced"
+                tal:attributes="href string:$portal_url/@@plone.app.themeeditor.browse?mode=advanced"
                 i18n:translate="label_advanced">Advanced</a>
            </li>
          </ul>
@@ -54,33 +54,33 @@
         Oops, something broke!
       </dl>
 
-      <ul id="plone-app-skineditor-tags">
+      <ul id="plone-app-themeeditor-tags">
         <tal:block tal:define="available_tags view/available_tags"
                    tal:repeat="tag available_tags">
           <li tal:define="tag_id python:tag[0]"
               tal:attributes="class python:tag_id == request.form.get('tag') and 'selected' or None">
-            <a tal:attributes="href string:${portal_url}/@@plone.app.skineditor.browse?tag=${tag_id}"
+            <a tal:attributes="href string:${portal_url}/@@plone.app.themeeditor.browse?tag=${tag_id}"
                tal:content="python:tag[1]"/>
           </li>
         </tal:block>
       </ul>
 
-      <form action="@@plone.app.skineditor.browse" method="GET" id="plone-app-skineditor-filter-form">
-        <input id="plone-app-skineditor-name-field" type="text" name="name"
+      <form action="@@plone.app.themeeditor.browse" method="GET" id="plone-app-themeeditor-filter-form">
+        <input id="plone-app-themeeditor-name-field" type="text" name="name"
                tal:attributes="value request/form/name|nothing"/>
-        <input id="plone-app-skineditor-filter-button" type="submit" value="Filter" class="allowMultiSubmit"/>
+        <input id="plone-app-themeeditor-filter-button" type="submit" value="Filter" class="allowMultiSubmit"/>
       </form>
     
-      <dl id="plone-app-skineditor-browser">
-        <p class="plone-app-skineditor-result-count" tal:condition="python:len(request.form)">
+      <dl id="plone-app-themeeditor-browser">
+        <p class="plone-app-themeeditor-result-count" tal:condition="python:len(request.form)">
           Displaying <strong tal:content="python:len(view.results())"/>
           results for "<strong tal:content="python:request.form.get('name') or request.form.get('tag') or ''"/>"
         </p>
         <tal:block tal:repeat="resource view/results">
-          <a class="plone-app-skineditor-resource"
+          <a class="plone-app-themeeditor-resource"
              tal:define="first_resource python:resource[0]"
-             tal:attributes="href string:@@plone.app.skineditor.layers?name=${first_resource/name};
-                             id string:skineditor-${first_resource/name}">
+             tal:attributes="href string:@@plone.app.themeeditor.layers?name=${first_resource/name};
+                             id string:themeeditor-${first_resource/name}">
             <dt>
               <img tal:condition="first_resource/icon" tal:attributes="src first_resource/icon" />
               <tal:block tal:content="first_resource/name"/>

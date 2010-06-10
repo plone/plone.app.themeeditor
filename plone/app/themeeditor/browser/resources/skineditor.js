@@ -1,9 +1,9 @@
 jq(function() {
   var updateResults = function() {
-    jq('#plone-app-skineditor-tags .selected').removeClass('selected');
-    jq('#plone-app-skineditor-browser').load(
-      '@@plone.app.skineditor.browse #plone-app-skineditor-browser', 
-      jq('#plone-app-skineditor-filter-form').serialize()
+    jq('#plone-app-themeeditor-tags .selected').removeClass('selected');
+    jq('#plone-app-themeeditor-browser').load(
+      '@@plone.app.themeeditor.browse #plone-app-themeeditor-browser', 
+      jq('#plone-app-themeeditor-filter-form').serialize()
     );
   }
   var activateUI = function() {
@@ -29,7 +29,7 @@ jq(function() {
           
           // prevent customizing already-customized resources
           var source = this.getTrigger().data('source');
-          if(source.find('.plone-app-skineditor-layers.customized').size() >= 1){
+          if(source.find('.plone-app-themeeditor-layers.customized').size() >= 1){
               var overlay = this.getOverlay();
               overlay.find('input[type=submit]').hide();
               overlay.find('select[name=folder_path]').parent().parent().remove();
@@ -37,9 +37,9 @@ jq(function() {
         },
         onClose: function(){
           var trigger = this.getTrigger().data('source').parent();
-          var title = trigger.prev('.plone-app-skineditor-resource.open');
+          var title = trigger.prev('.plone-app-themeeditor-resource.open');
           trigger.load(title.attr('href'), null, function(){
-            title.nextUntil('.plone-app-skineditor-resource').remove(); //remove custom and view info
+            title.nextUntil('.plone-app-themeeditor-resource').remove(); //remove custom and view info
             var dd = jq(this).find('dd');
             title.after(dd);
             dd.show();
@@ -55,14 +55,14 @@ jq(function() {
       jq(this).closest('dd').remove();
     });
   }
-  activateUI.apply(jq('#plone-app-skineditor-browser'));
+  activateUI.apply(jq('#plone-app-themeeditor-browser'));
   // update results via AJAX
-  jq('#plone-app-skineditor-filter-form').submit(function(e) {
+  jq('#plone-app-themeeditor-filter-form').submit(function(e) {
     e.preventDefault();
     updateResults();
   });
   // collapsible layer lists
-  jq('.plone-app-skineditor-resource').live('click', function(e) {
+  jq('.plone-app-themeeditor-resource').live('click', function(e) {
     e.preventDefault();
     var link = jq(this);
     link.toggleClass('open');

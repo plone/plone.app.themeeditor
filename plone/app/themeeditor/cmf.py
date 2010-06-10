@@ -3,8 +3,8 @@ from Products.CMFCore.FSObject import FSObject
 from Products.CMFCore.DirectoryView import DirectoryViewSurrogate
 from persistent import Persistent
 from zope.app.component.hooks import getSite
-from plone.app.skineditor.interfaces import IResourceType
-from plone.app.skineditor.interfaces import IResourceRegistration
+from plone.app.themeeditor.interfaces import IResourceType
+from plone.app.themeeditor.interfaces import IResourceRegistration
 from zope.interface import implements, Interface
 from zope.pagetemplate.interfaces import IPageTemplate
 from OFS.Image import Image

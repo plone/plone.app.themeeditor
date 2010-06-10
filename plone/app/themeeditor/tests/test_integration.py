@@ -7,14 +7,14 @@ from Testing import ZopeTestCase as ztc
 
 @onsetup
 def load_zcml():
-    import plone.app.skineditor
-    load_config('configure.zcml', plone.app.skineditor)
-    ztc.installPackage('plone.app.skineditor')
+    import plone.app.themeeditor
+    load_config('configure.zcml', plone.app.themeeditor)
+    ztc.installPackage('plone.app.themeeditor')
 
 load_zcml()
-setupPloneSite(products=['plone.app.skineditor'])
+setupPloneSite(products=['plone.app.themeeditor'])
 
-class SkinEditorIntegrationTestCase(WindmillTestCase):
+class ThemeEditorIntegrationTestCase(WindmillTestCase):
 
     def afterSetUp(self):
         """Setup for each test
@@ -33,12 +33,12 @@ class SkinEditorIntegrationTestCase(WindmillTestCase):
         # go into advanced mode and customize based on the logo in the
         # non-active "plone_images" layer (Windmill doesn't do file uploads)
         client.click(link=u'Advanced')
-        client.click(id=u'plone-app-skineditor-name-field')
-        client.type(text=u'logo', id=u'plone-app-skineditor-name-field')
-        client.click(id=u'plone-app-skineditor-filter-button')
-        client.waits.forElement(timeout=u'', id=u'plone-app-skineditor-browser')
-        client.click(xpath=u"//a[@id='skineditor-logo.png']/dt")
-        client.waits.forElement(xpath=u"//dd[@class='plone-app-skineditor-layers']")
+        client.click(id=u'plone-app-themeeditor-name-field')
+        client.type(text=u'logo', id=u'plone-app-themeeditor-name-field')
+        client.click(id=u'plone-app-themeeditor-filter-button')
+        client.waits.forElement(timeout=u'', id=u'plone-app-themeeditor-browser')
+        client.click(xpath=u"//a[@id='themeeditor-logo.png']/dt")
+        client.waits.forElement(xpath=u"//dd[@class='plone-app-themeeditor-layers']")
         client.click(jquery=u"('a[href*=plone_images/logo.png/manage_main]')[0]")
         client.waits.forElement(jquery=u"('#pb_1 input[value=Customize]')")
         client.click(name=u'submit')
@@ -48,12 +48,12 @@ class SkinEditorIntegrationTestCase(WindmillTestCase):
         client.refresh()
         client.asserts.assertJS(js=u"$('#portal-logo').height() == 57")
         # now remove the customization
-        client.click(id=u'plone-app-skineditor-name-field')
-        client.type(text=u'logo', id=u'plone-app-skineditor-name-field')
-        client.click(id=u'plone-app-skineditor-filter-button')
-        client.waits.forElement(timeout=u'', id=u'skineditor-logo.png')
-        client.click(xpath=u"//a[@id='skineditor-logo.png']/dt")
-        client.waits.forElement(xpath=u"//dd[@class='plone-app-skineditor-layers']")
+        client.click(id=u'plone-app-themeeditor-name-field')
+        client.type(text=u'logo', id=u'plone-app-themeeditor-name-field')
+        client.click(id=u'plone-app-themeeditor-filter-button')
+        client.waits.forElement(timeout=u'', id=u'themeeditor-logo.png')
+        client.click(xpath=u"//a[@id='themeeditor-logo.png']/dt")
+        client.waits.forElement(xpath=u"//dd[@class='plone-app-themeeditor-layers']")
         client.click(link=u'Remove')
         # and confirm we're back to the original height
         client.refresh()

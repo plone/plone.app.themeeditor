@@ -2,8 +2,8 @@ from Products.CMFCore.utils import getToolByName
 import itertools
 from zope.component import getGlobalSiteManager, getSiteManager
 from zope.app.component.hooks import getSite
-from plone.app.skineditor.interfaces import IResourceType
-from plone.app.skineditor.interfaces import IResourceRegistration
+from plone.app.themeeditor.interfaces import IResourceType
+from plone.app.themeeditor.interfaces import IResourceRegistration
 from zope.interface import implements
 from plone.app.customerize.registration import templateViewRegistrationInfos
 from plone.memoize.instance import memoize

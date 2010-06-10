@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 version = '0.1dev'
 
-setup(name='plone.app.skineditor',
+setup(name='plone.app.themeeditor',
       version=version,
       description="",
       long_description=open("README.txt").read() + "\n" +

@@ -8,9 +8,9 @@ from zope.publisher.interfaces.browser import IBrowserRequest
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from five.customerize.zpt import TTWViewTemplate
-from plone.app.skineditor.zopeview import ZopeViewResourceType
+from plone.app.themeeditor.zopeview import ZopeViewResourceType
 
-from plone.app.skineditor.tests.utils import IDummyBrowserLayer, DummySite
+from plone.app.themeeditor.tests.utils import IDummyBrowserLayer, DummySite
 
 class SimpleViewClass(BrowserView):
     index = ViewPageTemplateFile('cmf_test_skins/test/test.pt')
@@ -59,7 +59,7 @@ class TestZopeViewResourceType(unittest.TestCase):
         self.assertEqual(res.info, 'In the database: /portal_view_customizations/customized_view')
         self.assertEqual(res.path, '/portal_view_customizations/customized_view')
         self.assertEqual(res.context, 'zope.interface.Interface')
-        self.assertEqual(res.layer, 'plone.app.skineditor.tests.utils.IDummyBrowserLayer')
+        self.assertEqual(res.layer, 'plone.app.themeeditor.tests.utils.IDummyBrowserLayer')
         self.assertEqual(res.actions, [('Edit', 'portal_view_customizations/customized_view/manage_main'),
                                        ('Remove', 'portal_view_customizations/manage_delObjects?ids=customized_view')])
         self.assertEqual(set(res.tags), set(['template','customized']))
@@ -73,8 +73,8 @@ class TestZopeViewResourceType(unittest.TestCase):
         self.failUnless(res.info.endswith('cmf_test_skins/test/test.pt'))
         self.failUnless(res.path.endswith('cmf_test_skins/test/test.pt'))
         self.assertEqual(res.context, 'zope.interface.Interface')
-        self.assertEqual(res.layer, 'plone.app.skineditor.tests.utils.IDummyBrowserLayer')
-        self.assertEqual(res.actions, [('View', 'portal_view_customizations/@@customizezpt.html?required=zope.interface.Interface,plone.app.skineditor.tests.utils.IDummyBrowserLayer&view_name=view')])
+        self.assertEqual(res.layer, 'plone.app.themeeditor.tests.utils.IDummyBrowserLayer')
+        self.assertEqual(res.actions, [('View', 'portal_view_customizations/@@customizezpt.html?required=zope.interface.Interface,plone.app.themeeditor.tests.utils.IDummyBrowserLayer&view_name=view')])
         self.assertEqual(res.tags, ['template'])
 
         # third resource: global registration, general browser layer

@@ -4,8 +4,8 @@ import zope.component.testing
 from zope.component import provideUtility
 from zope.interface.verify import verifyClass
 
-from plone.app.skineditor.interfaces import IResourceRetriever, IResourceType
-from plone.app.skineditor.retriever import ResourceRetriever
+from plone.app.themeeditor.interfaces import IResourceRetriever, IResourceType
+from plone.app.themeeditor.retriever import ResourceRetriever
 
 class DummyResource(object):
     type = 'dummy'

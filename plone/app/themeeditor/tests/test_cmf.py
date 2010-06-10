@@ -7,7 +7,7 @@ from Products.CMFCore.DirectoryView import addDirectoryViews
 from OFS.Folder import Folder
 from OFS.Image import Image
 
-from plone.app.skineditor.cmf import CMFSkinsResourceType
+from plone.app.themeeditor.cmf import CMFSkinsResourceType
 
 class CMFResourceTestLayer:
     

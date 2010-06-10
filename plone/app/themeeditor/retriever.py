@@ -1,8 +1,8 @@
 import itertools
 from zope.component import getUtilitiesFor
 from zope.interface import implements
-from plone.app.skineditor.interfaces import IResourceRetriever
-from plone.app.skineditor.interfaces import IResourceType
+from plone.app.themeeditor.interfaces import IResourceRetriever
+from plone.app.themeeditor.interfaces import IResourceType
 
 class ResourceRetriever(object):
     implements(IResourceRetriever)

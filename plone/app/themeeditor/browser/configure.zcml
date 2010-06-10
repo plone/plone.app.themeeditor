@@ -4,30 +4,30 @@
   
   <browser:page
     for="Products.CMFCore.interfaces.ISiteRoot"
-    name="plone.app.skineditor.browse"
+    name="plone.app.themeeditor.browse"
     class=".console.SkinsConsole"
     attribute="index"
-    permission="plone.app.skineditor.ThemeEditor"
+    permission="plone.app.themeeditor.ThemeEditor"
     />
   <browser:page
     for="Products.CMFCore.interfaces.ISiteRoot"
-    name="plone.app.skineditor.layers"
+    name="plone.app.themeeditor.layers"
     class=".console.SkinsConsole"
     attribute="layers"
-    permission="plone.app.skineditor.ThemeEditor"
+    permission="plone.app.themeeditor.ThemeEditor"
     />
 
   <browser:resource
-    name="plone.app.skineditor.js"
-    file="resources/skineditor.js"
+    name="plone.app.themeeditor.js"
+    file="resources/themeeditor.js"
     />
     
   <browser:resource
-    name="plone.app.skineditor.css"
+    name="plone.app.themeeditor.css"
     file="resources/style.css"
     />
   <browser:resource
-    name="plone.app.skineditor.icon"
+    name="plone.app.themeeditor.icon"
     file="resources/icon.png"
     />
   <browser:page
