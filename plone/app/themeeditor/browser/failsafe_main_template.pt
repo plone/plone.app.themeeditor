@@ -15,7 +15,6 @@
                   plone_view context/@@plone;
                   lang portal_state/language;
                   view nocall:view | nocall: plone_view;
-                  dummy python: plone_view.mark_view(view);
                   portal_url portal_state/portal_url;
                   checkPermission nocall: context/portal_membership/checkPermission;
                   site_properties context/portal_properties/site_properties;
