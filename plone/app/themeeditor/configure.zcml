@@ -22,7 +22,7 @@
     name="default"
     title="Theme Editor"
     directory="profiles/default"
-    description='Mange theme resources TTW.'
+    description='Manage theme resources through-the-web.'
     provides="Products.GenericSetup.interfaces.EXTENSION"
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
    />
