@@ -22,7 +22,7 @@ class PortletResourceType(object):
     @memoize
     def layer_precedence(self):
         request = getSite().REQUEST
-        return request.__provides__.__iro__
+        return list(request.__provides__.__iro__)
     
     def iter_portlet_registrations(self):
         gsm = getGlobalSiteManager()
