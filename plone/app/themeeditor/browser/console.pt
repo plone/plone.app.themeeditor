@@ -35,12 +35,12 @@
     <tal:block metal:define-macro="main">
 	 <div id="edit-bar">
          <ul class="contentViews" id="content-views">
-           <li tal:attributes="class python: request.SESSION.get('mode', 'basic') == 'basic' and 'selected' or ''">
+           <li tal:attributes="class python: view.mode == 'basic' and 'selected' or ''">
              <a href=""
                 tal:attributes="href string:$portal_url/@@plone.app.themeeditor.browse?mode=basic"
                 i18n:translate="label_basic">Basic</a>
            </li>
-           <li tal:attributes="class python: request.SESSION.get('mode', 'basic') == 'advanced' and 'selected' or ''">
+           <li tal:attributes="class python: view.mode == 'advanced' and 'selected' or ''">
              <a href=""
                 tal:attributes="href string:$portal_url/@@plone.app.themeeditor.browse?mode=advanced"
                 i18n:translate="label_advanced">Advanced</a>
