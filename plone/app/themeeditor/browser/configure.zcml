@@ -5,15 +5,15 @@
   <browser:page
     for="Products.CMFCore.interfaces.ISiteRoot"
     name="plone.app.themeeditor.browse"
-    class=".console.SkinsConsole"
-    attribute="index"
+    class=".console.EditorConsole"
+    attribute="failsafe_console"
     permission="plone.app.themeeditor.ThemeEditor"
     />
   <browser:page
     for="Products.CMFCore.interfaces.ISiteRoot"
     name="plone.app.themeeditor.layers"
-    class=".console.SkinsConsole"
-    attribute="layers"
+    class=".console.LayerListView"
+    template="layers.pt"
     permission="plone.app.themeeditor.ThemeEditor"
     />
 

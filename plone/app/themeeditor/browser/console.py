@@ -4,10 +4,9 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.themeeditor.interfaces import IResourceRetriever
 from plone.memoize.instance import memoize
 
-class SkinsConsole(BrowserView):
+class EditorConsole(BrowserView):
     
     console = ViewPageTemplateFile('console.pt')
-    layers = ViewPageTemplateFile('layers.pt')
 
     main_template = 'main_template'
     basic_tags = (
@@ -43,7 +42,7 @@ class SkinsConsole(BrowserView):
         else:
             return self.advanced_tags
     
-    def index(self):
+    def failsafe_console(self):
         try:
             return self.console()
         except:
@@ -51,17 +50,21 @@ class SkinsConsole(BrowserView):
             return self.console()
     
     @memoize
-    def results(self, exact=False):
+    def results(self):
         name = self.request.form.get('name')
         default_tags = None
         if self.mode == 'basic':
             default_tags = [t[0] for t in self.available_tags]
         tag = self.request.form.get('tag', default_tags)
         rm = getUtility(IResourceRetriever)
-        return list(rm.iter_resources(name=name, exact=exact, tags=tag))
+        return list(rm.iter_resources(name=name, tags=tag))
 
-    def filtered_results(self,exact=False):
-        resources = self.results(exact=exact)[0]
-        if self.mode == 'basic':
+class LayerListView(BrowserView):
+    
+    def lookup(self):
+        name = self.request.form.get('name')
+        rm = getUtility(IResourceRetriever)
+        resources = rm.iter_resources(name=name, exact=True).next()
+        if self.request.SESSION.get('mode', 'basic') == 'basic':
             return resources[:1]
         return resources

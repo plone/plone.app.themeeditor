@@ -11,7 +11,7 @@
         tal:content="request/form/name"/>
     
     <dl id="plone-app-themeeditor-browser"
-        tal:define="regs python:view.filtered_results(exact=True)">
+        tal:define="regs view/lookup">
         <dd class="plone-app-themeeditor-layers"
             tal:repeat="reg regs"
             tal:attributes="class python:'plone-app-themeeditor-layers' + ('customized' in reg.tags and ' customized' or '')">
