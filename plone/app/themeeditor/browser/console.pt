@@ -48,7 +48,8 @@
          </ul>
      </div>
     <div id="content">
-      <h1 class="documentFirstHeading">Skin Resource Editor</h1>
+      <h1 class="documentFirstHeading"
+                i18n:translate="label_themeeditor">Theme Editor</h1>
     
       <dl tal:condition="is_failsafe" class="portalMessage">
         Oops, something broke!
@@ -68,7 +69,9 @@
       <form action="@@plone.app.themeeditor.browse" method="GET" id="plone-app-themeeditor-filter-form">
         <input id="plone-app-themeeditor-name-field" type="text" name="name"
                tal:attributes="value request/form/name|nothing"/>
-        <input id="plone-app-themeeditor-filter-button" type="submit" value="Filter" class="allowMultiSubmit"/>
+        <input id="plone-app-themeeditor-filter-button" type="submit" 
+             i18n:attributes="value label_filter;"
+             value="Filter" class="allowMultiSubmit"/>
       </form>
     
       <dl id="plone-app-themeeditor-browser">
