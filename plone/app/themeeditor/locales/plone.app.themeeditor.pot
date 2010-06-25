@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-06-25 11:31+0000\n"
+"POT-Creation-Date: 2010-06-25 12:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,11 @@ msgstr ""
 msgid "KSS"
 msgstr ""
 
+#. Default: "On the the filesystem: ${zptfile}"
+#: ./zopeview.py:68
+msgid "On the filesystem zptfile"
+msgstr "the ${zptfile} Mix it up"
+
 #: ./browser/console.py:16
 msgid "Portlets"
 msgstr ""
@@ -63,5 +68,25 @@ msgstr ""
 
 #: ./browser/console.py:17
 msgid "Viewlets"
+msgstr ""
+
+#. Default: "Advanced"
+#: ./browser/console.pt:45
+msgid "label_advanced"
+msgstr ""
+
+#. Default: "Basic"
+#: ./browser/console.pt:39
+msgid "label_basic"
+msgstr ""
+
+#. Default: "Filter"
+#: ./browser/console.pt:75
+msgid "label_filter"
+msgstr ""
+
+#. Default: "Theme Editor"
+#: ./browser/console.pt:53
+msgid "label_themeeditor"
 msgstr ""
 

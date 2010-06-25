@@ -9,6 +9,9 @@ from plone.app.customerize.registration import templateViewRegistrationInfos
 from plone.memoize.instance import memoize
 from five.customerize.interfaces import ITTWViewTemplate
 
+# get the message factory
+from plone.app.themeeditor.interfaces import _
+
 class ViewResourceRegistration(object):
     implements(IResourceRegistration)
     type = 'zopeview'
@@ -64,7 +67,11 @@ class ZopeViewResourceType(object):
                 remove_url = pvc.absolute_url() + '/manage_delObjects?ids=' + info['customized']
                 res.actions.append(('Remove', remove_url))
             else:
-                res.info = 'On the filesystem: %s' % info['zptfile']
+                #res.info = 'On the filesystem: %s' % info['zptfile']
+                res.info = _(u"On the filesystem zptfile", 
+                               default=u"On the the filesystem: ${zptfile}",
+                               mapping={u"zptfile" : info['zptfile']})
+
                 res.path = info['zptfile']
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
                 res.actions.append(('View', view_url))

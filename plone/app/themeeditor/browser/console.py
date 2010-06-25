@@ -3,6 +3,8 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.themeeditor.interfaces import IResourceRetriever
 from plone.memoize.instance import memoize
+
+# get the message factory
 from plone.app.themeeditor.interfaces import _
 
 class EditorConsole(BrowserView):
