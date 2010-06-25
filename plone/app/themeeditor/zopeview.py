@@ -52,6 +52,7 @@ class ZopeViewResourceType(object):
             res.context = required[0]
             if res.context == 'zope.interface.Interface':
                 res.description = 'View for *'
+                # BBB need to translate above
             else:
                 res.description = u'View for %s' % required[0]
             res.layer = required[1]
@@ -68,11 +69,11 @@ class ZopeViewResourceType(object):
                 res.actions.append(('Remove', remove_url))
             else:
                 #res.info = 'On the filesystem: %s' % info['zptfile']
+                res.path = info['zptfile']
                 res.info = _(u"On the filesystem zptfile", 
                                default=u"On the the filesystem: ${zptfile}",
-                               mapping={u"zptfile" : info['zptfile']})
+                               mapping={u"zptfile" : res.path})
 
-                res.path = info['zptfile']
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
                 res.actions.append(('View', view_url))
             name = info['viewname'].lower()

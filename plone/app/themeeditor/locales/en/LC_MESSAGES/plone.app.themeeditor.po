@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-06-25 11:31+0000\n"
+"POT-Creation-Date: 2010-06-25 13:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <david.bain@alteroo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,43 +14,69 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone.app.themeeditor\n"
 
-#: ./browser/console.py:25
+#: ./browser/console.py:27
 msgid "CPT"
 msgstr ""
 
-#: ./browser/console.py:14
+#: ./browser/console.py:16
 msgid "Customized Items"
 msgstr ""
 
-#: ./browser/console.py:27
+#: ./browser/console.py:29
 msgid "DTML"
 msgstr ""
 
-#: ./browser/console.py:18
+#: ./browser/console.py:20
 msgid "Images"
 msgstr ""
 
-#: ./browser/console.py:20
+#. Default: "In the database: ${path}"
+#: ./cmf.py:67
+#: ./portlet.py:73
+#: ./viewlet.py:70
+msgid "In the database"
+msgstr ""
+
+#: ./browser/console.py:22
 msgid "Javascripts"
 msgstr ""
 
-#: ./browser/console.py:26
+#: ./browser/console.py:28
 msgid "KSS"
 msgstr ""
 
-#: ./browser/console.py:16
+#. Default: "On the filesystem: ${path}"
+#: ./portlet.py:82
+msgid "On the filesystem"
+msgstr ""
+
+#. Default: "On the the filesystem: ${zptfile}"
+#: ./zopeview.py:73
+msgid "On the filesystem zptfile"
+msgstr ""
+
+#: ./portlet.py:56
+msgid "Portlet for *"
+msgstr ""
+
+#. Default: "Portlet for ${required}"
+#: ./portlet.py:58
+msgid "Portlet for required"
+msgstr ""
+
+#: ./browser/console.py:18
 msgid "Portlets"
 msgstr ""
 
-#: ./browser/console.py:24
+#: ./browser/console.py:26
 msgid "Python Scripts"
 msgstr ""
 
-#: ./browser/console.py:19
+#: ./browser/console.py:21
 msgid "Stylesheets"
 msgstr ""
 
-#: ./browser/console.py:15
+#: ./browser/console.py:17
 msgid "Templates"
 msgstr ""
 
@@ -58,7 +84,32 @@ msgstr ""
 msgid "Theme Editor"
 msgstr ""
 
-#: ./browser/console.py:17
+#: ./browser/console.py:19
 msgid "Viewlets"
+msgstr ""
+
+#. Default: "in the ${required} manager"
+#: ./portlet.py:61
+msgid "in the manager required"
+msgstr ""
+
+#. Default: "Advanced"
+#: ./browser/console.pt:45
+msgid "label_advanced"
+msgstr ""
+
+#. Default: "Basic"
+#: ./browser/console.pt:39
+msgid "label_basic"
+msgstr ""
+
+#. Default: "Filter"
+#: ./browser/console.pt:75
+msgid "label_filter"
+msgstr ""
+
+#. Default: "Theme Editor"
+#: ./browser/console.pt:53
+msgid "label_themeeditor"
 msgstr ""
 

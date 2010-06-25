@@ -9,6 +9,11 @@ from plone.app.customerize.registration import templateViewRegistrationInfos
 from plone.memoize.instance import memoize
 from five.customerize.interfaces import ITTWViewTemplate
 from plone.portlets.interfaces import IPortletRenderer
+# translation machinery
+from plone.app.themeeditor.interfaces import  _
+# borrow some exisiting translations from plone
+from zope.i18nmessageid import MessageFactory
+PMF = MessageFactory('plone')
 
 class PortletResourceRegistration(object):
     implements(IResourceRegistration)
@@ -48,10 +53,14 @@ class PortletResourceType(object):
             res.name = info['viewname']
             res.context = required[0], required[3]
             if required[0] == 'zope.interface.Interface':
-                res.description = 'Portlet for *'
+                res.description = _(u"Portlet for *") 
             else:
-                res.description = u'Portlet for %s' % required[0]
-            res.description += ' in the %s manager' % required[3]
+                res.description = _(u"Portlet for required", 
+                               default=u"Portlet for ${required}",
+                               mapping={u"required" : required[0]})
+            res.description += _(u"in the manager required",
+                               default=u"in the ${required} manager",
+                               mapping={u"required" : required[3]})
             res.layer = required[1]
             res.actions = []
             res.tags = ['portlet']
@@ -60,14 +69,21 @@ class PortletResourceType(object):
                 res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])
                 path = '/'.join(obj.getPhysicalPath())
-                res.info = 'In the database: %s' % path
-                res.actions.append(('Edit', obj.absolute_url() + '/manage_main'))
+                #res.info = 'In the database: %s' % path
+                res.info = _(u"In the database", 
+                               default=u"In the database: ${path}",
+                               mapping={u"path" : path})
+                res.actions.append((PMF(u'Edit'), obj.absolute_url() + '/manage_main'))
                 remove_url = pvc.absolute_url() + '/manage_delObjects?ids=' + info['customized']
-                res.actions.append(('Remove', remove_url))
+                res.actions.append((PMF(u'Remove'), remove_url))
             else:
-                res.info = 'On the filesystem: %s' % info['zptfile']
+                #res.info = 'On the filesystem: %s' % info['zptfile']
+                res.path = info['zptfile']
+                res.info = _(u"On the filesystem", 
+                               default=u"On the filesystem: ${path}",
+                               mapping={u"path" : res.path})
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
-                res.actions.append(('View', view_url))
+                res.actions.append((PMF(u'View'), view_url))
             yield res
     
     def export(self, context):

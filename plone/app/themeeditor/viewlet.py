@@ -9,6 +9,11 @@ from plone.app.customerize.registration import templateViewRegistrationInfos
 from plone.memoize.instance import memoize
 from five.customerize.interfaces import ITTWViewTemplate
 from zope.viewlet.interfaces import IViewlet
+# get translation machinery
+from plone.app.themeeditor.interfaces import _
+# borrow from plone message factory
+from zope.i18nmessageid import MessageFactory
+PMF = MessageFactory('plone')
 
 class ViewletResourceRegistration(object):
     implements(IResourceRegistration)
@@ -61,15 +66,18 @@ class ViewletResourceType(object):
                 res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])
                 res.path = '/'.join(obj.getPhysicalPath())
-                res.info = 'In the database: %s' % res.path
-                res.actions.append(('Edit', obj.absolute_url() + '/manage_main'))
+                #res.info = 'In the database: %s' % res.path
+                res.info = _(u"In the database", 
+                               default=u"In the database: ${path}",
+                               mapping={u"path" : res.path})
+                res.actions.append((PMF(u'Edit'), obj.absolute_url() + '/manage_main'))
                 remove_url = pvc.absolute_url() + '/manage_delObjects?ids=' + info['customized']
-                res.actions.append(('Remove', remove_url))
+                res.actions.append((PMF(u'Remove'), remove_url))
             else:
                 res.info = 'On the filesystem: %s' % info['zptfile']
                 res.path = info['zptfile']
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
-                res.actions.append(('View', view_url))
+                res.actions.append((PMF(u'View'), view_url))
             yield res
     
     def export(self, context):

@@ -13,6 +13,11 @@ from Products.CMFCore.FSPythonScript import FSPythonScript, CustomizedPythonScri
 from Products.CMFFormController.FSControllerValidator import FSControllerValidator
 from Products.CMFFormController.FSControllerPythonScript import FSControllerPythonScript
 from Products.CMFCore.FSDTMLMethod import FSDTMLMethod
+# translation machinery
+from plone.app.themeeditor.interfaces import  _
+# borrow from plone message factory
+from zope.i18nmessageid import MessageFactory
+PMF = MessageFactory('plone')
 
 class CMFResourceRegistration(object):
     implements(IResourceRegistration)
@@ -54,16 +59,22 @@ class CMFSkinsResourceType(object):
                 if isinstance(obj, FSObject):
                     res.info = 'On the filesystem: %s' % obj._filepath
                     res.path = obj._filepath
-                    res.actions.append(('View', obj.absolute_url() + '/manage_main'))
+                    res.actions.append((PMF(u'View'), obj.absolute_url() + '/manage_main'))
                 elif isinstance(obj, Persistent) and not isinstance(obj, DirectoryViewSurrogate):
                     res.tags.append('customized')
                     res.path = '/'.join(obj.getPhysicalPath())
-                    res.info = 'In the database: ' + res.path
-                    res.actions.append(('Edit', obj.absolute_url() + '/manage_main'))
-                    res.actions.append(('Remove', obj.aq_parent.absolute_url() + '/manage_delObjects?ids=' + obj.getId()))
+                    #res.info = 'In the database: ' + res.path
+                    res.info = _(u"In the database", 
+                               default=u"In the database: ${path}",
+                               mapping={u"path" : res.path})
+                    res.actions.append((PMF(u'Edit'), obj.absolute_url() + '/manage_main'))
+                    res.actions.append((PMF(u'Remove'), obj.aq_parent.absolute_url() + '/manage_delObjects?ids=' + obj.getId()))
                 elif isinstance(obj, Persistent):
                     res.path = '/'.join(obj.getPhysicalPath())
                     res.info = 'In the database: ' + res.path
+                    res.info = _(u"In the database", 
+                               default=u"In the database: ${path}",
+                               mapping={u"path" : res.path})
                     
                 if IPageTemplate.providedBy(obj):
                     res.tags.append('template')
