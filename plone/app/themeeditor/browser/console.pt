@@ -58,6 +58,7 @@
       <ul id="plone-app-themeeditor-tags">
         <tal:block tal:define="available_tags view/available_tags"
                    tal:repeat="tag available_tags">
+     <b tal:content="python:tag[1]" />
           <li tal:define="tag_id python:tag[0]"
               tal:attributes="class python:tag_id == request.form.get('tag') and 'selected' or None">
             <a tal:attributes="href string:${portal_url}/@@plone.app.themeeditor.browse?tag=${tag_id}"

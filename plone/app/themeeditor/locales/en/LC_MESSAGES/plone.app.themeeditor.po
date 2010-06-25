@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-06-25 11:31+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <david.bain@alteroo.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone.app.themeeditor\n"
+
+#: ./browser/console.py:25
+msgid "CPT"
+msgstr ""
+
+#: ./browser/console.py:14
+msgid "Customized Items"
+msgstr ""
+
+#: ./browser/console.py:27
+msgid "DTML"
+msgstr ""
+
+#: ./browser/console.py:18
+msgid "Images"
+msgstr ""
+
+#: ./browser/console.py:20
+msgid "Javascripts"
+msgstr ""
+
+#: ./browser/console.py:26
+msgid "KSS"
+msgstr ""
+
+#: ./browser/console.py:16
+msgid "Portlets"
+msgstr ""
+
+#: ./browser/console.py:24
+msgid "Python Scripts"
+msgstr ""
+
+#: ./browser/console.py:19
+msgid "Stylesheets"
+msgstr ""
+
+#: ./browser/console.py:15
+msgid "Templates"
+msgstr ""
+
+#: ./profiles/default/controlpanel.xml
+msgid "Theme Editor"
+msgstr ""
+
+#: ./browser/console.py:17
+msgid "Viewlets"
+msgstr ""
+

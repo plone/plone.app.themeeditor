@@ -3,6 +3,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.themeeditor.interfaces import IResourceRetriever
 from plone.memoize.instance import memoize
+from plone.app.themeeditor.interfaces import _
 
 class EditorConsole(BrowserView):
     
@@ -10,20 +11,20 @@ class EditorConsole(BrowserView):
 
     main_template = 'main_template'
     basic_tags = (
-        ('customized', 'Customized Items'),
-        ('template', 'Templates'),
-        ('portlet', 'Portlets'),
-        ('viewlet', 'Viewlets'),
-        ('image', 'Images'),
-        ('stylesheet', 'Stylesheets'),
-        ('javascript', 'Javascripts'),
+        ('customized', _(u'Customized Items')),
+        ('template', _(u'Templates')),
+        ('portlet', _(u'Portlets')),
+        ('viewlet', _(u'Viewlets')),
+        ('image', _(u'Images')),
+        ('stylesheet', _(u'Stylesheets')),
+        ('javascript', _(u'Javascripts')),
     )
     
     advanced_tags = basic_tags + (
-        ('python-script', 'Python Scripts'),
-        ('controller-page-template', 'CPT'),
-        ('kss', 'KSS'),
-        ('dtml', 'DTML')
+        ('python-script', _('Python Scripts')),
+        ('controller-page-template', _('CPT')),
+        ('kss', _('KSS')),
+        ('dtml', _('DTML'))
     )
     
     @property

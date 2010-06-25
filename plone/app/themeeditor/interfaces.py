@@ -1,5 +1,8 @@
 from zope.interface import Attribute
 from zope.interface import Interface
+from zope.i18nmessageid import MessageFactory
+
+_ = MessageFactory('plone.app.themeeditor')
 
 class IResourceRegistration(Interface):
     """ Represents the registration of a resource for a particular layer. """
