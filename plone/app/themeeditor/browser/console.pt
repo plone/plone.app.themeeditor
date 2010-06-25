@@ -7,7 +7,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       metal:use-macro="context/?main_template/macros/master"
       tal:define="dummy python:request.set('disable_border',1)"
-      i18n:domain="plone">
+      i18n:domain="plone.app.themeeditor">
 
 <head>
 
@@ -38,18 +38,21 @@
            <li tal:attributes="class python: view.mode == 'basic' and 'selected' or ''">
              <a href=""
                 tal:attributes="href string:$portal_url/@@plone.app.themeeditor.browse?mode=basic"
-                i18n:translate="label_basic">Basic</a>
+                i18n:translate="label_basic"
+                >Basic</a>
            </li>
            <li tal:attributes="class python: view.mode == 'advanced' and 'selected' or ''">
              <a href=""
                 tal:attributes="href string:$portal_url/@@plone.app.themeeditor.browse?mode=advanced"
-                i18n:translate="label_advanced">Advanced</a>
+                i18n:translate="label_advanced"
+                >Advanced</a>
            </li>
          </ul>
      </div>
     <div id="content">
       <h1 class="documentFirstHeading"
-                i18n:translate="label_themeeditor">Theme Editor</h1>
+                i18n:translate="label_themeeditor"
+              >Theme Editor</h1>
     
       <dl tal:condition="is_failsafe" class="portalMessage">
         Oops, something broke!
@@ -58,7 +61,6 @@
       <ul id="plone-app-themeeditor-tags">
         <tal:block tal:define="available_tags view/available_tags"
                    tal:repeat="tag available_tags">
-     <b tal:content="python:tag[1]" />
           <li tal:define="tag_id python:tag[0]"
               tal:attributes="class python:tag_id == request.form.get('tag') and 'selected' or None">
             <a tal:attributes="href string:${portal_url}/@@plone.app.themeeditor.browse?tag=${tag_id}"
