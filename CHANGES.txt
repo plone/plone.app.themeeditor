@@ -13,3 +13,6 @@ Changelog
   p tags are not allowed within dd or dt tags [pigeonflight]
 - appended a number from the tal repeat to the end of each resource id
    to ensure that all resource items get a unique id [pigeonflight]
+- fixed code on zopeview.py, portlet.py and viewlet.py so that it works with
+   older versions of customerize (i.e. initial fixes towards Plone 3
+   compatibility) [pigeonflight]
