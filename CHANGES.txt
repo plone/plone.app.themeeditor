@@ -6,3 +6,6 @@ Changelog
 
 - Initial release
 - Renamed to plone.app.themeeditor (was plone.app.skineditor) [pigeonflight]
+- Added a link to the themeeditor in site actions via actions.xml [pigeonflight]
+- Adjusted the html in console.pt as it did not validate (a tag should not contain dt tag) [pigeonflight]
+- updated css to work with the new structure of console.pt [pigeonflight]

@@ -83,18 +83,20 @@
           results for "<strong tal:content="python:request.form.get('name') or request.form.get('tag') or ''"/>"
         </p>
         <tal:block tal:repeat="resource view/results">
-          <a class="plone-app-themeeditor-resource"
+  
+          <dt class="plone-app-themeeditor-resource"
              tal:define="first_resource python:resource[0]"
-             tal:attributes="href string:@@plone.app.themeeditor.layers?name=${first_resource/name};
-                             id string:themeeditor-${first_resource/name}">
-            <dt>
+             tal:attributes="id string:themeeditor-${first_resource/name}">
+          <a class="plone-app-themeeditor-resource"
+             tal:attributes="href string:@@plone.app.themeeditor.layers?name=${first_resource/name};">
+                    
               <img tal:condition="first_resource/icon" tal:attributes="src first_resource/icon" />
               <tal:block tal:content="first_resource/name"/>
               <p class="description"
                  tal:content="string:(${first_resource/description})"
                  tal:condition="first_resource/description"/>
-            </dt>
           </a>
+         </dt>
         </tal:block>
       </dl>
     </div>

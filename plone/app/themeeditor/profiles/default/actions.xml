@@ -1,0 +1,13 @@
+<object name="portal_actions" meta_type="Plone Actions Tool">
+    <action-provider name="portal_actions">
+        <action title="Launch Themeeditor"
+                action_id="launch_themeeditor"
+                category="site_actions" 
+                condition_expr="python: not request['URL'].endswith('@@plone.app.themeeditor.browse')"
+                url_expr="string:${globals_view/navigationRootUrl}/@@plone.app.themeeditor.browse"
+                visible="True">
+
+            <permission>plone.app.themeeditor: Theme Editor</permission>
+        </action>
+    </action-provider>
+</object>

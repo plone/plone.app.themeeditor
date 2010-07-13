@@ -38,5 +38,5 @@
     template="failsafe_main_template.pt"
     permission="zope.Public"
     />
-  
+
 </configure>

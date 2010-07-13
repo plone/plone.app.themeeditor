@@ -3,4 +3,5 @@ have not "distilled" into tickets that others can understand.
 Also no test may exist for these yet.
 
 - When browsing @@plone.app.themeeditor.browse it might be nice to have a one click customize in addition to the customize button on the pop up view.
-
+- I'm reviewing the one click customize for the following reasons:
+    1. the method of selectively loading the content via layers.pt is very efficient, the solution I've come up with would require loading all the content when very little of it would be used, in other words it would be pretty slow.
