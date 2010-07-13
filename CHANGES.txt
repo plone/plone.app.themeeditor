@@ -9,3 +9,7 @@ Changelog
 - Added a link to the themeeditor in site actions via actions.xml [pigeonflight]
 - Adjusted the html in console.pt as it did not validate (a tag should not contain dt tag) [pigeonflight]
 - updated css to work with the new structure of console.pt [pigeonflight]
+- replaced the use of p tag with span for the resource descriptions
+  p tags are not allowed within dd or dt tags [pigeonflight]
+- appended a number from the tal repeat to the end of each resource id
+   to ensure that all resource items get a unique id [pigeonflight]

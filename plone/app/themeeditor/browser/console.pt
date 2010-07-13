@@ -69,7 +69,7 @@
         </tal:block>
       </ul>
 
-      <form action="@@plone.app.themeeditor.browse" method="GET" id="plone-app-themeeditor-filter-form">
+      <form action="@@plone.app.themeeditor.browse" method="get" id="plone-app-themeeditor-filter-form">
         <input id="plone-app-themeeditor-name-field" type="text" name="name"
                tal:attributes="value request/form/name|nothing"/>
         <input id="plone-app-themeeditor-filter-button" type="submit" 
@@ -86,13 +86,13 @@
   
           <dt class="plone-app-themeeditor-resource"
              tal:define="first_resource python:resource[0]"
-             tal:attributes="id string:themeeditor-${first_resource/name}">
+             tal:attributes="id string:themeeditor-${first_resource/name}-${repeat/resource/number}">
           <a class="plone-app-themeeditor-resource"
              tal:attributes="href string:@@plone.app.themeeditor.layers?name=${first_resource/name};">
                     
-              <img tal:condition="first_resource/icon" tal:attributes="src first_resource/icon" />
+              <img tal:condition="first_resource/icon" tal:attributes="src first_resource/icon;alt first_resource/type" />
               <tal:block tal:content="first_resource/name"/>
-              <p class="description"
+              <span class="description"
                  tal:content="string:(${first_resource/description})"
                  tal:condition="first_resource/description"/>
           </a>
