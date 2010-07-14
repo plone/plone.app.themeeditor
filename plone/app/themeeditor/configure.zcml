@@ -8,6 +8,8 @@
   <permission id="plone.app.themeeditor.ThemeEditor"
     title="plone.app.themeeditor: Theme Editor"
   />
+ 
+  <include file="patches.zcml" />
   
   <include package=".browser"/>
 

@@ -21,6 +21,7 @@ setup(name='plone.app.themeeditor',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
+          'collective.monkeypatcher',
           'five.customerize',
           'Products.CMFCore',
           'plone.app.customerize',
