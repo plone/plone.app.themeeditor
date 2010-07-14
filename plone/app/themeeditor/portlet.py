@@ -48,14 +48,7 @@ class PortletResourceType(object):
         by_layer_precedence_and_ttwness = lambda x: (layer_precedence.index(x.required[1]), int(not ITTWViewTemplate.providedBy(x.factory)))
         regs = sorted(self.iter_portlet_registrations(), key=by_layer_precedence_and_ttwness)
        
-        try:
-            tempregInfo = templateViewRegistrationInfos(regs, mangle=False)
- 
-        # if we are using an older version of customerize
-        # mangle does not work to skip it
-        except:
-            tempregInfo = templateViewRegistrationInfos(regs)
-        for info in tempregInfo:
+        for info in templateViewRegistrationInfos(regs, mangle=False):
             required = info['required'].split(',')
             res = PortletResourceRegistration()
             res.name = info['viewname']
