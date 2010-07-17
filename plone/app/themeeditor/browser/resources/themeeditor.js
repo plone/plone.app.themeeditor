@@ -39,7 +39,11 @@ jq(function() {
           var trigger = this.getTrigger().data('source').parent();
           var title = trigger.prev('.plone-app-themeeditor-resource.open');
           trigger.load(title.attr('href'), null, function(){
-            title.nextUntil('.plone-app-themeeditor-resource').remove(); //remove custom and view info
+            // remove custom and view info
+            var dd = title.next();
+            while (dd.is('dd')) {
+                var to_remove = dd; dd = dd.next(); to_remove.remove();
+            }
             var dd = jq(this).find('dd');
             title.after(dd);
             dd.show();
