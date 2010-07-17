@@ -4,8 +4,6 @@ from plone.app.customerize.registration import interfaceName
 from five.customerize.utils import findViewletTemplate
 from os.path import basename
 
-
-
 def patch_templateViewRegistrationInfos(regs, mangle=True):
     for reg in regs:
         if ITTWViewTemplate.providedBy(reg.factory):
@@ -36,6 +34,3 @@ def patch_templateViewRegistrationInfos(regs, mangle=True):
             'zcmlfile': zcmlfile or 'n.a.',
             'customized': customized,
         }
-
-from plone.app.customerize import registration
-registration.templateViewRegistrationInfos = patch_templateViewRegistrationInfos

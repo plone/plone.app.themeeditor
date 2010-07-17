@@ -8,11 +8,9 @@
     <monkey:patch
         description="This imports a version of templateViewRegistrationInfos
                    which is a bit newer"
-        class="plone.app.customerize.registration"
+        module="plone.app.customerize.registration"
         original="templateViewRegistrationInfos"
         replacement=".patches.patch_templateViewRegistrationInfos"
         />
 
 </configure>
-
-
