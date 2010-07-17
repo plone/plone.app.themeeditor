@@ -1,0 +1,1 @@
+# Monkeypatches needed for Plone 3 compatibility

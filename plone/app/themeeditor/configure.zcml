@@ -10,7 +10,7 @@
     title="plone.app.themeeditor: Theme Editor"
   />
  
-  <include zcml:condition="not-installed plone.app.upgrade.v40" file="patches.zcml" />
+  <include zcml:condition="not-installed plone.app.upgrade.v40" package=".patches" />
   
   <include package=".browser"/>
 
