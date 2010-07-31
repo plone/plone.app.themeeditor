@@ -36,6 +36,8 @@ setup(name='plone.app.themeeditor',
       ],
       extras_require = {
           'test': ['niteoweb.windmill',],
+          'plone3': ['plone.app.customerize>=1.1.3',],
+                       
       },
       entry_points="""
       [z3c.autoinclude.plugin]

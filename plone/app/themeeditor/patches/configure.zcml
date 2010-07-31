@@ -4,7 +4,7 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.monkeypatcher">
 
-    <include package="collective.monkeypatcher" />
+    <include package="collective.monkeypatcher" file="meta.zcml" />
 
     <!-- update templateViewRegistrationInfos to avoid performance issue -->
     <monkey:patch
@@ -12,6 +12,7 @@
         module="plone.app.customerize.registration"
         original="templateViewRegistrationInfos"
         replacement=".patches.patch_templateViewRegistrationInfos"
+        order="800"
         />
 
     <!-- update the customize.pt template to include the relevant content in the form -->
@@ -19,7 +20,7 @@
         for="five.customerize.interfaces.IViewTemplateContainer"
         name="customizezpt.html"
         template="customize.pt"
-        layer="Products.CMFDefault.interfaces.ICMFDefaultSkin"
+        layer="Products.CMFDefault.interfaces.ICMFDefaultSkin" 
         class="plone.app.customerize.browser.RegistrationsView"
         permission="five.ManageSite"
         />

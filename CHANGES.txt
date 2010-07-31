@@ -23,3 +23,11 @@ Changelog
 - using collective.monkeypatcher preconditions parameter didn't seem to work 
     used a zcml:condition instead to select for Plone 3 and apply the patch
     [pigeonflight]
+
+July 31, 2010
+------------------
+- removed the use of collective monkey patcher [pigeonflight]
+- extended the 'extras_require' to included a [plone3] section [pigeonflight]
+- added new README information and a docs/INSTALL.txt explaining how to install 
+  noting the use of the [plone3] extra for Plone 3. [pigeonflight]
+  

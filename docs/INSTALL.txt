@@ -4,6 +4,8 @@ To install plone.app.themeeditor into the global Python environment (or a workin
 using a traditional Zope 2 instance, you can do this:
 
 
+Installing via Buildout
+===========================
 If you are using zc.buildout and the plone.recipe.zope2instance
 recipe to manage your project, you can do this:
 
@@ -29,12 +31,17 @@ recipe to manage your project, you can do this:
         
 
 Plone 3 notes
---------------
-Important information about the 'crossover release':
+------------------
+You will need to add the [plone3] "extra" to the egg entry
+and pin newer versions of plone.app.customerize and plone.app.jquerytools 
+shown below::
 
-This release introduces two new contenttypes, which allows you to manual set the order of the items.
-This order is introduced in the new contenttypes, not the old ones because this will break them and
-all the data will be lost. This is the reason why new contenttypes are introduced.
-If you want to migrate your categories and classifieds to the new contenttypes you have to
-create a 'Classifieds (with order)' container and add 'Category (with order)' items there.
-After that you can cut and paste the classifieds in the correct categories.
+    [buildout]
+    ...
+    eggs =
+        ...
+        plone.app.themeeditor [plone3]
+
+    [versions]
+    plone.app.jquerytools = 1.1.2
+    plone.app.customerize = 1.1.3

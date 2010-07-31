@@ -9,9 +9,9 @@
   <permission id="plone.app.themeeditor.ThemeEditor"
     title="plone.app.themeeditor: Theme Editor"
   />
- 
-  <include zcml:condition="not-installed plone.app.upgrade.v40" package=".patches" />
-  
+  <!--
+  <include package=".patches" />
+  --> 
   <include package=".browser"/>
 
   <utility factory=".retriever.ResourceRetriever"/>
