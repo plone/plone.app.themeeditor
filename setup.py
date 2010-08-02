@@ -1,4 +1,5 @@
 from setuptools import setup, find_packages
+import os
 
 version = '0.1dev'
 
@@ -6,12 +7,13 @@ setup(name='plone.app.themeeditor',
       version=version,
       description="",
       long_description=open("README.txt").read() + "\n" +
-                       open("CHANGES.txt").read(),
+                       open(os.path.join("docs", "INSTALL.txt")).read() + "\n" +
+                       open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Programming Language :: Python",
         ],
-      keywords='',
+      keywords='theme editor customization plone',
       author='David Glick',
       author_email='davidglick@groundwire.org',
       url='',

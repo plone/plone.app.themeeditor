@@ -28,9 +28,14 @@ Alpha 2:
   - page template: view, edit, remove
   - image: view, edit, remove
 - support showing resources for themes other than the active one
+- implement z3c.jbot based customizations (need to figure out a way to detect and how
+  jbot based customizations in the UI)
 
 Alpha 3:
 - export customizations as a new theme 
+- (based on conversation with davisagli) implement an export method for earch resource type
+  the idea is to make it possible to iterate over each customized resourse using the 
+  resource retreiever and export the result to the "export" directory
 
 
 User stories
