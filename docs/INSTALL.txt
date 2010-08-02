@@ -28,23 +28,18 @@ recipe to manage your project, you can do this:
 Plone 3 notes
 -------------
 
-You will need to add the [plone3] "extra" to the egg entry
-and pin newer versions of plone.app.customerize and plone.app.jquerytools 
-shown below::
+You will need to pin newer versions of plone.app.customerize and
+plone.app.jquerytools as shown below::
 
     [buildout]
     ...
-    eggs =
-        ...
-        plone.app.themeeditor [plone3]
-    
     versions = versions
 
     [versions]
     plone.app.jquerytools = 1.1.2
     plone.app.customerize = 1.2
 
-* Important, the versions noted here were correct at the time of release (Plone 3.3.5). 
+Important: the versions noted here were correct at the time of release (Plone 3.3.5). 
 If you are using a newer version of Plone 3.x which requires a newer version of 
 plone.app.jquerytools or plone.app.customerize there is no need to pin them in the 
 version section.

@@ -25,7 +25,7 @@ setup(name='plone.app.themeeditor',
       install_requires=[
           'five.customerize',
           'Products.CMFCore',
-          'plone.app.customerize',
+          'plone.app.customerize>=1.2',
           'plone.app.jquerytools>=1.1b6',
           'plone.memoize',
           'setuptools',
@@ -37,8 +37,6 @@ setup(name='plone.app.themeeditor',
       ],
       extras_require = {
           'test': ['niteoweb.windmill',],
-          'plone3': ['plone.app.customerize>=1.1.3',],
-                       
       },
       entry_points="""
       [z3c.autoinclude.plugin]
