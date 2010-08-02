@@ -1,37 +1,33 @@
 plone.app.themeeditor Installation
 ====================================
-To install plone.app.themeeditor into the global Python environment (or a workingenv),
-using a traditional Zope 2 instance, you can do this:
 
-
-Installing via Buildout
-===========================
 If you are using zc.buildout and the plone.recipe.zope2instance
 recipe to manage your project, you can do this:
 
- * Add ``plone.app.themeeditor`` to the list of eggs to install, e.g.:
- 
+ * Add ``plone.app.themeeditor`` to the list of eggs to install, e.g.::
+    
     [buildout]
     ...
     eggs =
         ...
         plone.app.themeeditor
-        
-  * Tell the plone.recipe.zope2instance recipe to install a ZCML slug:
   
+ * Tell the plone.recipe.zope2instance recipe to install a ZCML slug::
+   
     [instance]
     recipe = plone.recipe.zope2instance
     ...
     zcml =
         plone.app.themeeditor
-        
-  * Re-run buildout, e.g. with:
   
-    $ ./bin/buildout
+ * Re-run buildout, e.g. with:
+   
+   $ ./bin/buildout
         
 
 Plone 3 notes
-------------------
+-------------
+
 You will need to add the [plone3] "extra" to the egg entry
 and pin newer versions of plone.app.customerize and plone.app.jquerytools 
 shown below::
@@ -41,7 +37,10 @@ shown below::
     eggs =
         ...
         plone.app.themeeditor [plone3]
+    
+    versions = versions
 
     [versions]
     plone.app.jquerytools = 1.1.2
     plone.app.customerize = 1.1.3
+
