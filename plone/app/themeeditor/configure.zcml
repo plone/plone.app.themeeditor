@@ -9,9 +9,6 @@
   <permission id="plone.app.themeeditor.ThemeEditor"
     title="plone.app.themeeditor: Theme Editor"
   />
-  <!--
-  <include package=".patches" />
-  --> 
   <include package=".browser"/>
 
   <utility factory=".retriever.ResourceRetriever"/>

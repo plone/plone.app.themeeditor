@@ -3,9 +3,6 @@
     xmlns:browser="http://namespaces.zope.org/browser">
   
   <include package="plone.app.jquerytools"/>
-  <include package="plone.app.z3cform" />
-
-
   
   <browser:page
     for="Products.CMFCore.interfaces.ISiteRoot"

@@ -3,6 +3,9 @@ Changelog
 
 1.0a1 (unreleased)
 ------------------
+- removed plone.app.z3cform include from browser/configure.zcml [pigeonflight]
+
+- removed all patch related code [pigeonflight]
 
 - added an export form view @@plone.app.themeeditor.export currently only writes
   a generic zopeskel theme to a temporary directory [pigeonflight]
