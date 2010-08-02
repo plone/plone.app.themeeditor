@@ -3,6 +3,14 @@ Changelog
 
 1.0a1 (unreleased)
 ------------------
+- removed [plone3] extra from setup.py [davisagli]
+
+- fix the windmill test replaced an xpath selector with a jquery selector [davisagli]
+
+- more i18n fixes [davisagli]
+
+- fix test assertions re translated strings; add a missing translation [davisagli]
+
 - removed plone.app.z3cform include from browser/configure.zcml [pigeonflight]
 
 - removed all patch related code [pigeonflight]
