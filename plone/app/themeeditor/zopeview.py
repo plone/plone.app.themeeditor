@@ -50,12 +50,12 @@ class ZopeViewResourceType(object):
             required = info['required'].split(',')
             res = ViewResourceRegistration()
             res.name = info['viewname']
-            res.context = required[0]
-            if res.context == 'zope.interface.Interface':
-                res.description = 'View for *'
-                # BBB need to translate above
-            else:
-                res.description = u'View for %s' % required[0]
+            res.context = context = required[0]
+            if context == 'zope.interface.Interface':
+                context = '*'
+            res.description = _('View for X',
+                                default = u'View for ${context}',
+                                mapping = {'context': context})
             res.layer = required[1]
             res.actions = []
             res.tags = ['template']
@@ -64,17 +64,17 @@ class ZopeViewResourceType(object):
                 res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])
                 res.path = '/'.join(obj.getPhysicalPath())
-                res.info = 'In the database: %s' % res.path
+                res.info = _('In the database',
+                             default = u'In the database: ${path}',
+                             mapping = {'path': res.path})
                 res.actions.append(('Edit', obj.absolute_url() + '/manage_main'))
                 remove_url = pvc.absolute_url() + '/manage_delObjects?ids=' + info['customized']
                 res.actions.append(('Remove', remove_url))
             else:
-                #res.info = 'On the filesystem: %s' % info['zptfile']
                 res.path = info['zptfile']
-                res.info = _(u"On the filesystem zptfile", 
-                               default=u"On the the filesystem: ${zptfile}",
-                               mapping={u"zptfile" : res.path})
-
+                res.info = _(u"On the filesystem", 
+                               default=u"On the filesystem: ${path}",
+                               mapping={u"path" : res.path})
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
                 res.actions.append(('View', view_url))
             name = info['viewname'].lower()

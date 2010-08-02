@@ -53,15 +53,12 @@ class PortletResourceType(object):
             res = PortletResourceRegistration()
             res.name = info['viewname']
             res.context = required[0], required[3]
-            if required[0] == 'zope.interface.Interface':
-                res.description = _(u"Portlet for *") 
-            else:
-                res.description = _(u"Portlet for required", 
-                               default=u"Portlet for ${required}",
-                               mapping={u"required" : required[0]})
-            res.description += _(u"in the manager required",
-                               default=u"in the ${required} manager",
-                               mapping={u"required" : required[3]})
+            context = required[0]
+            if context == 'zope.interface.Interface':
+                context = '*'
+            res.description = _('portlet for X in the manager Y',
+                                default = u'Portlet for ${context} in the ${manager} manager',
+                                mapping = {'context': context, 'manager': required[3]})
             res.layer = required[1]
             res.actions = []
             res.tags = ['portlet']
@@ -70,7 +67,6 @@ class PortletResourceType(object):
                 res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])
                 path = '/'.join(obj.getPhysicalPath())
-                #res.info = 'In the database: %s' % path
                 res.info = _(u"In the database", 
                                default=u"In the database: ${path}",
                                mapping={u"path" : path})
@@ -78,7 +74,6 @@ class PortletResourceType(object):
                 remove_url = pvc.absolute_url() + '/manage_delObjects?ids=' + info['customized']
                 res.actions.append((PMF(u'Remove'), remove_url))
             else:
-                #res.info = 'On the filesystem: %s' % info['zptfile']
                 res.path = info['zptfile']
                 res.info = _(u"On the filesystem", 
                                default=u"On the filesystem: ${path}",

@@ -67,7 +67,6 @@ class ViewletResourceType(object):
                 res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])
                 res.path = '/'.join(obj.getPhysicalPath())
-                #res.info = 'In the database: %s' % res.path
                 res.info = _(u"In the database", 
                                default=u"In the database: ${path}",
                                mapping={u"path" : res.path})
@@ -75,7 +74,9 @@ class ViewletResourceType(object):
                 remove_url = pvc.absolute_url() + '/manage_delObjects?ids=' + info['customized']
                 res.actions.append((PMF(u'Remove'), remove_url))
             else:
-                res.info = 'On the filesystem: %s' % info['zptfile']
+                res.info = _('On the filesystem',
+                             default = u'On the filesystem: ${path}',
+                             mapping = {'path': info['zptfile']})
                 res.path = info['zptfile']
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
                 res.actions.append((PMF(u'View'), view_url))
