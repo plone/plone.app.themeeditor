@@ -1,6 +1,21 @@
 Changelog
 =========
 
+Aug 2, 2010
+---------------
+- added an export form view @@plone.app.themeeditor.export currently only writes
+  a generic zopeskel theme to a temporary directory [pigeonflight]
+- dropped dependency plone.app.z3cform and collective.monkeypatcher will 
+  introduce this when we start working on export via zopeskel [pigeonflight]
+- removed browser/export.py (will work on this in the zopeskel branch [pigeonflight]
+
+July 31, 2010
+------------------
+- removed the use of collective monkey patcher [pigeonflight]
+- extended the 'extras_require' to included a [plone3] section [pigeonflight]
+- added new README information and a docs/INSTALL.txt explaining how to install 
+  noting the use of the [plone3] extra for Plone 3. [pigeonflight]
+
 1.0dev (unreleased)
 -------------------
 
@@ -24,17 +39,4 @@ Changelog
     used a zcml:condition instead to select for Plone 3 and apply the patch
     [pigeonflight]
 
-July 31, 2010
-------------------
-- removed the use of collective monkey patcher [pigeonflight]
-- extended the 'extras_require' to included a [plone3] section [pigeonflight]
-- added new README information and a docs/INSTALL.txt explaining how to install 
-  noting the use of the [plone3] extra for Plone 3. [pigeonflight]
   
-Aug 2, 2010
----------------
-- added an export form view @@plone.app.themeeditor.export currently only writes
-  a generic zopeskel theme to a temporary directory [pigeonflight]
-- dropped dependency plone.app.z3cform and collective.monkeypatcher will 
-  introduce this when we start working on export via zopeskel [pigeonflight]
-- removed browser/export.py (will work on this in the zopeskel branch [pigeonflight]
