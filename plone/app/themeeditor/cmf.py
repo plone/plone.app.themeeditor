@@ -57,7 +57,9 @@ class CMFSkinsResourceType(object):
                 res.tags = []
                 res.path = None
                 if isinstance(obj, FSObject):
-                    res.info = 'On the filesystem: %s' % obj._filepath
+                    res.info = _('On the filesystem',
+                                 default=u'On the filesystem: ${path}',
+                                 mapping = {'path': obj._filepath})
                     res.path = obj._filepath
                     res.actions.append((PMF(u'View'), obj.absolute_url() + '/manage_main'))
                 elif isinstance(obj, Persistent) and not isinstance(obj, DirectoryViewSurrogate):

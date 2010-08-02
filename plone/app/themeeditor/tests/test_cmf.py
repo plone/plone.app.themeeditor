@@ -35,8 +35,8 @@ class TestCMFResourceType(unittest.TestCase):
         self.assertEqual(res.context, 'zope.interface.Interface')
         self.assertEqual(res.description, u'CMF skin item')
         self.assertEqual(res.layer, 'test')
-        self.failUnless(res.info.startswith('On the filesystem: '))
-        self.failUnless(res.info.endswith('cmf_test_skins/test/test.pt'))
+        self.assertEqual(res.info, 'On the filesystem')
+        self.failUnless(res.info.mapping['path'].endswith('cmf_test_skins/test/test.pt'))
         self.failUnless(res.path.endswith('cmf_test_skins/test/test.pt'))
         self.assertEqual(res.actions, [('View', 'test/test/manage_main')])
         self.assertEqual(res.tags, ['template'])
@@ -52,7 +52,8 @@ class TestCMFResourceType(unittest.TestCase):
         tool.addSkinSelection('folder', 'folder', make_default=1)
         res = list(self.rt)[0]
         
-        self.assertEqual(res.info, 'In the database: portal_skins/folder/image')
+        self.assertEqual(res.info, 'In the database')
+        self.assertEqual(res.info.mapping, {'path': 'portal_skins/folder/image'})
         self.assertEqual(res.path, 'portal_skins/folder/image')
         self.assertEqual(res.actions, [('Edit', 'folder/image/manage_main'),
                                        ('Remove', 'folder/manage_delObjects?ids=image')])
