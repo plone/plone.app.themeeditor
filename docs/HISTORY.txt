@@ -1,42 +1,47 @@
 Changelog
 =========
 
-Aug 2, 2010
----------------
+1.0a1 (unreleased)
+------------------
+
 - added an export form view @@plone.app.themeeditor.export currently only writes
   a generic zopeskel theme to a temporary directory [pigeonflight]
+
 - dropped dependency plone.app.z3cform and collective.monkeypatcher will 
   introduce this when we start working on export via zopeskel [pigeonflight]
+
 - removed browser/export.py (will work on this in the zopeskel branch [pigeonflight]
 
-July 31, 2010
-------------------
 - removed the use of collective monkey patcher [pigeonflight]
+
 - extended the 'extras_require' to included a [plone3] section [pigeonflight]
+
 - added new README information and a docs/INSTALL.txt explaining how to install 
   noting the use of the [plone3] extra for Plone 3. [pigeonflight]
 
-1.0dev (unreleased)
--------------------
-
-- Initial release
 - Renamed to plone.app.themeeditor (was plone.app.skineditor) [pigeonflight]
+
 - Added a link to the themeeditor in site actions via actions.xml [pigeonflight]
+
 - Adjusted the html in console.pt as it did not validate 
-   (a tag should not contain dt tag) [pigeonflight]
+  (a tag should not contain dt tag) [pigeonflight]
+
 - updated css to work with the new structure of console.pt [pigeonflight]
+
 - replaced the use of p tag with span for the resource descriptions
-   p tags are not allowed within dd or dt tags [pigeonflight]
+  p tags are not allowed within dd or dt tags [pigeonflight]
+
 - appended a number from the tal repeat to the end of each resource id
-   to ensure that all resource items get a unique id [pigeonflight]
+  to ensure that all resource items get a unique id [pigeonflight]
+
 - fixed code on zopeview.py, portlet.py and viewlet.py so that it works with
-   older versions of customerize (i.e. initial fixes towards Plone 3
-   compatibility) [pigeonflight]
+  older versions of customerize (i.e. initial fixes towards Plone 3
+  compatibility) [pigeonflight]
+
 - patched plone.app.customerize for performance if the version is older 1.1.3
   used collective.monkeypatcher
-   (this should improve performance of theme editor on Plone 3) [pigeonflight]
-- using collective.monkeypatcher preconditions parameter didn't seem to work 
-    used a zcml:condition instead to select for Plone 3 and apply the patch
-    [pigeonflight]
+  (this should improve performance of theme editor on Plone 3) [pigeonflight]
 
-  
+- using collective.monkeypatcher preconditions parameter didn't seem to work 
+  used a zcml:condition instead to select for Plone 3 and apply the patch
+  [pigeonflight]
