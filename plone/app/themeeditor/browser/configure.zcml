@@ -3,6 +3,9 @@
     xmlns:browser="http://namespaces.zope.org/browser">
   
   <include package="plone.app.jquerytools"/>
+  <include package="plone.app.z3cform" />
+
+
   
   <browser:page
     for="Products.CMFCore.interfaces.ISiteRoot"
@@ -38,5 +41,13 @@
     template="failsafe_main_template.pt"
     permission="zope.Public"
     />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="plone.app.themeeditor.export"
+    class=".export.ThemeEditorExportView"
+    permission="zope2.View"
+    />
+
 
 </configure>

@@ -29,6 +29,8 @@ Alpha 2:
   - image: view, edit, remove
 - support showing resources for themes other than the active one
 
+Alpha 3:
+- export customizations as a new theme 
 
 
 User stories
