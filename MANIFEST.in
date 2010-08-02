@@ -1,0 +1,4 @@
+include README.txt TODO.txt
+recursive-include plone *
+global-exclude *pyc
+
