@@ -42,12 +42,5 @@
     permission="zope.Public"
     />
 
-  <browser:page
-    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    name="plone.app.themeeditor.export"
-    class=".export.ThemeEditorExportView"
-    permission="zope2.View"
-    />
-
 
 </configure>

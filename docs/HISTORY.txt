@@ -35,4 +35,6 @@ Aug 2, 2010
 ---------------
 - added an export form view @@plone.app.themeeditor.export currently only writes
   a generic zopeskel theme to a temporary directory [pigeonflight]
-
+- dropped dependency plone.app.z3cform and collective.monkeypatcher will 
+  introduce this when we start working on export via zopeskel [pigeonflight]
+- removed browser/export.py (will work on this in the zopeskel branch [pigeonflight]
