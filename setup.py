@@ -5,7 +5,8 @@ version = '1.0a1'
 
 setup(name='plone.app.themeeditor',
       version=version,
-      description="",
+      description="""Theme Editor for Plone, Customize your theme resources
+through the web""",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "INSTALL.txt")).read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
