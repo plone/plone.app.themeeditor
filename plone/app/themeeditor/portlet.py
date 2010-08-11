@@ -67,6 +67,7 @@ class PortletResourceType(object):
                 res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])
                 path = '/'.join(obj.getPhysicalPath())
+                res.text = obj._text
                 res.info = _(u"In the database", 
                                default=u"In the database: ${path}",
                                mapping={u"path" : path})

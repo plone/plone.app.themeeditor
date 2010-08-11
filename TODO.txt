@@ -32,6 +32,7 @@ Alpha 2:
   jbot based customizations in the UI)
 - possibly create a resource that type that can introspect z3c.jbot template
   override registry
+- fix missing i18n (view X of Y in zopeview.py)
 
 Alpha 3:
 - export customizations as a new theme 

@@ -64,6 +64,7 @@ class ZopeViewResourceType(object):
                 res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])
                 res.path = '/'.join(obj.getPhysicalPath())
+                res.text = obj._text
                 res.info = _('In the database',
                              default = u'In the database: ${path}',
                              mapping = {'path': res.path})
@@ -90,4 +91,7 @@ class ZopeViewResourceType(object):
             yield res
     
     def export(self, context):
-        raise NotImplemented
+        """ return the resource information 
+            context is the export context
+        """
+        context.writeDataFile() 

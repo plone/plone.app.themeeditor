@@ -66,6 +66,7 @@ class ViewletResourceType(object):
             if info['customized']:
                 res.tags.append('customized')
                 obj = getattr(pvc, info['customized'])
+                res.text = obj._text
                 res.path = '/'.join(obj.getPhysicalPath())
                 res.info = _(u"In the database", 
                                default=u"In the database: ${path}",

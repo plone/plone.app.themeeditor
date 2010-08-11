@@ -5,3 +5,74 @@ Also no test may exist for these yet.
 - When browsing @@plone.app.themeeditor.browse it might be nice to have a one click customize in addition to the customize button on the pop up view.
 - I'm reviewing the one click customize for the following reasons:
     1. the method of selectively loading the content via layers.pt is very efficient, the solution I've come up with would require loading all the content when very little of it would be used, in other words it would be pretty slow.
+- Looking in z3c.jbot, one possible approach would involve dumping customizations to a browser/templates directory and registering the exported resources in the browser/configure.zcml to use
+  z3c.jbot
+
+to prepare for export will need to do the following:
+-----------------------------------------------------------
+from zope.component import getUtility
+from plone.app.themeeditor.interfaces import IResourceRetriever,IResourceType
+rm = getUtility(IResourceRetriever)
+resource_types = list(rm.iter_resource_types())
+
+# get the resources for export
+# (rm is the resource retriever utility)
+resources = list(rm.iter_resources(name=name,tags=['customized']))
+# iterate over the resources and export based on resource_type export method
+# we'll use a 'convenience' dictionary to store the export methods
+res_export_method = {}
+for res_type in resource_types:
+    res_export_method[res_type.name] = res_type.export
+
+for res in resources:
+    export = res_export_method[res.type]
+    export(res) #??? not sure about this step
+
+IViewTemplateContainer holds all customized items
+---------------------------------------------------
+from plone.app.customerize.registration import generateIdFromRegistration, interfaceName
+#good to know
+>>> from five.customerize.interfaces import IViewTemplateContainer, ITTWViewTemplate
+>>> container = getUtility(IViewTemplateContainer)
+>>> container
+<ViewTemplateContainer at /Plone/portal_view_customizations>
+>>> container.objectIds()
+['zope.interface.interface-calendar.pt', 'zope.interface.interface-plone.global_sections']
+>>> container.objectItems()
+[('zope.interface.interface-calendar.pt', <TTWViewTemplate at /Plone/portal_view_customizations/zope.interface.interface-calendar.pt>), ('zope.interface.interface-plone.global_sections', <TTWViewTemplate at /Plone/portal_view_customizations/zope.interface.interface-plone.global_sections>)]
+
+
+for ttw in container.objectIds():
+#        ttw_id = generateIdFromRegistration(lreg)
+        ttw = getattr(container, ttw_id)
+        ttw_info = {'for_name'  : interfaceName(lreg.required[0]),
+                    'type_name' : interfaceName(lreg.required[-1]),
+                    'view_name' : lreg.name,
+                    'kwargs'    : {'text' : ttw._text,
+                                   'content_type' : ttw.content_type,
+                                   'encoding' : ttw.output_encoding,
+                                   }}
+        result.append(ttw_info)
+
+
+how to retreive all resources for a given name
+-------------------------------------------------
+>>> from os.path import basename
+>>> from zope.component import getUtility
+>>> from plone.app.themeeditor.interfaces import IResourceRetriever,IResourceType
+>>> rm = getUtility(IResourceRetriever)
+# name is the name of the resource (e.g. plone.global_sections)
+>>> resources = rm.iter_resources(name='plone.global_sections', exact=True).next()
+>>> resources
+[<plone.app.themeeditor.viewlet.ViewletResourceRegistration object at 0x4f687b0>, <plone.app.themeeditor.viewlet.ViewletResourceRegistration object at 0x4f47890>]
+>>> if resources[-1].info == u'On the filesystem': path = resources[-1].path
+>>> path
+'/Users/david/Code/plone4c/buildout-cache/eggs/plone.app.layout-2.0b8-py2.6.egg/plone/app/layout/viewlets/sections.pt'
+>>> path_filename
+>>> context_prefix = resources[-1].context[-1].split('.interfaces')[0]
+>>> context_prefix
+'plone.app.layout.viewlets'
+>>> jbotname = '.'.join([context_prefix,basename(path)])
+>>> jbotname
+'plone.app.layout.viewlets.sections.pt'
+

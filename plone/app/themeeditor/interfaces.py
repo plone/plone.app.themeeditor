@@ -47,3 +47,44 @@ class IResourceCustomizeForm(Interface):
 
 class IResourceEditForm(Interface):
     pass
+
+class IResourceExportContext(Interface):
+    """  Define a specific context to export content """
+    name = Attribute(u'Internal resource name')
+    type = Attribute(u'The type of context, generally this will be tarball')
+    description = Attribute(u"User-oriented clarification of this resource's type and context")
+    info = Attribute(u'Additional details about this resource.')
+    path = Attribute(u'The path where resources will be exported')
+
+class IThemeExporter(Interface):
+    """ based on
+        IFileSystemExporter from collective.plone.gsxml
+        used to export customized itemes as a theme
+    """
+    def export(export_context, subdir, root=False):
+        """ Export our 'context' using the API of 'export_context'.
+
+        o 'export_context' must implement
+          Products.GenericSetup.interfaces.IExportContext.
+
+        o 'subdir', if passed, is the relative subdirectory containing our
+          context within the site.
+
+        o 'root', if true, indicates that the current context is the
+          "root" of an import (this may be used to adjust paths when
+          interacting with the context).
+        """
+
+    def customized_resources():
+        """ Return a sequence of the customized items to be exported.
+
+        o Each item in the returned sequence will be a tuple,
+          (id, object, adapter) where adapter must implement
+          IFilesystemExporter.
+        """
+
+    def set_options(**kwargs):
+        """ set additional options for marshallers """
+
+    def get_options():
+        """ return set options """

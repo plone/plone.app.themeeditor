@@ -3,6 +3,7 @@
     xmlns:browser="http://namespaces.zope.org/browser">
   
   <include package="plone.app.jquerytools"/>
+  <include package="plone.app.z3cform"/>
   
   <browser:page
     for="Products.CMFCore.interfaces.ISiteRoot"
@@ -18,12 +19,10 @@
     template="layers.pt"
     permission="plone.app.themeeditor.ThemeEditor"
     />
-
   <browser:resource
     name="plone.app.themeeditor.js"
     file="resources/themeeditor.js"
     />
-    
   <browser:resource
     name="plone.app.themeeditor.css"
     file="resources/style.css"
@@ -38,6 +37,11 @@
     template="failsafe_main_template.pt"
     permission="zope.Public"
     />
-
+  <browser:page
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    name="plone.app.themeeditor.export"
+    class=".export.ThemeEditorExportView"
+    permission="zope2.View"
+    />
 
 </configure>

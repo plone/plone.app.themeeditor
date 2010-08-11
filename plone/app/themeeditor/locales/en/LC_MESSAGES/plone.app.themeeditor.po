@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-06-25 13:05+0000\n"
+"POT-Creation-Date: 2010-08-09 21:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <david.bain@alteroo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,14 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone.app.themeeditor\n"
+
+#: ./browser/export.py:26
+msgid "Author"
+msgstr ""
+
+#: ./browser/export.py:27
+msgid "Author Email"
+msgstr ""
 
 #: ./browser/console.py:27
 msgid "CPT"
@@ -26,13 +34,25 @@ msgstr ""
 msgid "DTML"
 msgstr ""
 
+#: ./browser/export.py:25
+msgid "Description"
+msgstr ""
+
+#: ./browser/export.py:34
+msgid "Export Customizations"
+msgstr ""
+
+#: ./browser/export.py:32
+msgid "Export your customizations"
+msgstr ""
+
 #: ./browser/console.py:20
 msgid "Images"
 msgstr ""
 
 #. Default: "In the database: ${path}"
-#: ./cmf.py:67
-#: ./portlet.py:73
+#: ./cmf.py:69
+#: ./portlet.py:70
 #: ./viewlet.py:70
 msgid "In the database"
 msgstr ""
@@ -45,23 +65,15 @@ msgstr ""
 msgid "KSS"
 msgstr ""
 
+#: ./browser/export.py:23
+msgid "Name"
+msgstr ""
+
 #. Default: "On the filesystem: ${path}"
-#: ./portlet.py:82
+#: ./cmf.py:60
+#: ./portlet.py:78
+#: ./viewlet.py:77
 msgid "On the filesystem"
-msgstr ""
-
-#. Default: "On the the filesystem: ${zptfile}"
-#: ./zopeview.py:73
-msgid "On the filesystem zptfile"
-msgstr ""
-
-#: ./portlet.py:56
-msgid "Portlet for *"
-msgstr ""
-
-#. Default: "Portlet for ${required}"
-#: ./portlet.py:58
-msgid "Portlet for required"
 msgstr ""
 
 #: ./browser/console.py:18
@@ -84,13 +96,17 @@ msgstr ""
 msgid "Theme Editor"
 msgstr ""
 
-#: ./browser/console.py:19
-msgid "Viewlets"
+#: ./browser/export.py:24
+msgid "Version"
 msgstr ""
 
-#. Default: "in the ${required} manager"
-#: ./portlet.py:61
-msgid "in the manager required"
+#. Default: "View for ${context}"
+#: ./zopeview.py:56
+msgid "View for X"
+msgstr ""
+
+#: ./browser/console.py:19
+msgid "Viewlets"
 msgstr ""
 
 #. Default: "Advanced"
@@ -111,5 +127,10 @@ msgstr ""
 #. Default: "Theme Editor"
 #: ./browser/console.pt:53
 msgid "label_themeeditor"
+msgstr ""
+
+#. Default: "Portlet for ${context} in the ${manager} manager"
+#: ./portlet.py:59
+msgid "portlet for X in the manager Y"
 msgstr ""
 
