@@ -1,4 +1,5 @@
 import os
+import tarfile
 from os.path import basename
 from zope import interface, schema
 from z3c.form import form, field, button
@@ -37,8 +38,9 @@ class ThemeEditorExportForm(form.Form):
         data, errors = self.extractData()
         output_dir,namespace_package,name = self.theme_skel(data)
         self.theme_populate(output_dir,namespace_package,name)
+        tarball = self.theme_tarball(output_dir,namespace_package,name,data['version'])
+        self.theme_download(tarball)
 
-    
     def theme_skel(self,data):
         name = data.pop('name')
         data['namespace_package'],data['package'] = name.split('.')
@@ -61,7 +63,7 @@ class ThemeEditorExportForm(form.Form):
 
     def theme_populate(self,output_dir,namespace_package,name):
         """
-        " retreive all the customized items and export to the theme_skel"
+        retreive all the customized items and export to the theme_skel
         """
         # get all customized resources
         container = getUtility(IViewTemplateContainer)
@@ -73,6 +75,37 @@ class ThemeEditorExportForm(form.Form):
             if resource.type in JBOTCOMPATIBLE:
                 self.resource_to_jbot(resource,output_dir,namespace_package,name)
 
+    def theme_tarball(self,output_dir,namespace_package,name,version='0'):
+        """
+        convert the theme into a tarball
+        """
+        tarballname = "%s.%s-%s.tar.gz" % (namespace_package,name,version)
+        os.chdir(output_dir)
+        tar = tarfile.open("sample.tar.gz", "w:gz")
+        tar = tarfile.open(tarballname,"w:gz")
+        tar.add('%s.%s' % (namespace_package,name))
+        tar.close()
+        return  "%s/%s" % (output_dir,tarballname)
+
+    def theme_download(self,path,blocksize=32768):
+        self.context.REQUEST.RESPONSE.setHeader(
+                                    'content-type',
+                                    'application/x-tar')
+        self.context.REQUEST.RESPONSE.setHeader(
+                                    'content-length',
+                                    str(os.stat(path)[6]))
+        self.context.REQUEST.RESPONSE.setHeader(
+                                    'Content-Disposition',
+                                    ' attachment; filename='+basename(path))
+        download = open(path,'rb')
+        while True:
+            data = download.read(blocksize)
+            if data:
+                self.context.REQUEST.RESPONSE.write(data)
+            else:
+                break
+        download.close()
+
     def resource_to_jbot(self,resource,output_dir,namespace_package,name):
         """
         convert resource to just a bunch of templates (jbot)
@@ -80,7 +113,7 @@ class ThemeEditorExportForm(form.Form):
         """
         jbotname,tmpl_text = self.jbot_resource_info(resource)
         jbot_dir = "%s/%s.%s/%s/%s/jbot" % (output_dir,namespace_package,name,namespace_package,name)
- 
+
         import os
         if not os.path.exists(jbot_dir):
             os.makedirs (jbot_dir)
@@ -93,11 +126,11 @@ class ThemeEditorExportForm(form.Form):
         rm = getUtility(IResourceRetriever)
         resources = rm.iter_resources(name=resource.name,
                                               exact=True).next()
-        if resources[-1].info == u'On the filesystem': 
+        if resources[-1].info == u'On the filesystem':
             path = resources[-1].path
         else:
             # XXX change this to an exception
-            return "this is not a customized resource" 
+            return "this is not a customized resource"
         context_prefix = resources[-1].context[-1].split('.interfaces')[0]
         jbotname = '.'.join([context_prefix,basename(path)])
         tmpl_text = resource.text
