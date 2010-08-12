@@ -2,7 +2,7 @@ Alpha 1:
 - add support for viewlets and portlets
 - handle nested skin items
 - fix or at least find workaround for uploading files in popups
-  - the jquery forms plugin looks promising for this. David G will tt Steve M about incorporating into plone.app.jquerytools
+- the jquery forms plugin looks promising for this. David G will tt Steve M about incorporating into plone.app.jquerytools
 - put JS and CSS in separate files instead of inline in the templates
 - register configlet
 - add random salt to GET requests that shouldn't be cached, for IE

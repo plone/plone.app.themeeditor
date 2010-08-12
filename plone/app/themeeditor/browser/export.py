@@ -1,4 +1,6 @@
 import os
+import sys
+import fileinput
 import tarfile
 from os.path import basename
 from zope import interface, schema
@@ -57,11 +59,10 @@ class ThemeEditorExportForm(form.Form):
                 'plone3_theme',
                 name,] + vars)
         return (output_dir,data['namespace_package'],data['package'])
-        
         # not sure why an unnecessary 'example' folder gets created
         # so we remove it after the theme is created
 
-    def theme_populate(self,output_dir,namespace_package,name):
+    def theme_populate(self,output_dir,namespace_package,name,make_jbot_zcml=0):
         """
         retreive all the customized items and export to the theme_skel
         """
@@ -73,7 +74,10 @@ class ThemeEditorExportForm(form.Form):
         for resource in customized_resources:
             resource = resource[0]
             if resource.type in JBOTCOMPATIBLE:
+                make_jbot_zcml = 1
                 self.resource_to_jbot(resource,output_dir,namespace_package,name)
+        if make_jbot_zcml == 1:
+           self.create_jbot_zcml(output_dir,namespace_package,name)
 
     def theme_tarball(self,output_dir,namespace_package,name,version='0'):
         """
@@ -85,7 +89,7 @@ class ThemeEditorExportForm(form.Form):
         tar = tarfile.open(tarballname,"w:gz")
         tar.add('%s.%s' % (namespace_package,name))
         tar.close()
-        return  "%s/%s" % (output_dir,tarballname)
+        return  os.path.join(output_dir,tarballname)
 
     def theme_download(self,path,blocksize=32768):
         self.context.REQUEST.RESPONSE.setHeader(
@@ -112,15 +116,44 @@ class ThemeEditorExportForm(form.Form):
         we assume that this is an already customized resource
         """
         jbotname,tmpl_text = self.jbot_resource_info(resource)
-        jbot_dir = "%s/%s.%s/%s/%s/jbot" % (output_dir,namespace_package,name,namespace_package,name)
+        package_name = "%s.%s" % (namespace_package,name)
 
-        import os
+        jbot_dir = os.path.join(output_dir,package_name,namespace_package,name,"jbot")
+
         if not os.path.exists(jbot_dir):
             os.makedirs (jbot_dir)
-        jbot_file = "%s/%s" % (jbot_dir,jbotname)
+        jbot_file = os.path.join(jbot_dir,jbotname)
         f = open(jbot_file,'w')
         f.write(tmpl_text)
         f.close()
+
+
+    def create_jbot_zcml(self,output_dir,namespace_package,name):
+        package_name = "%s.%s" % (namespace_package,name)
+        jbot_zcml_file_content = """<configure
+                             xmlns="http://namespaces.zope.org/zope"
+                             xmlns:browser="http://namespaces.zope.org/browser"
+                             i18n_domain="%s">
+
+                              <include package="z3c.jbot" file="meta.zcml" />
+
+                              <browser:jbot
+                              directory="jbot"
+                              layer=".browser.interfaces.IThemeSpecific" />
+                         """ % package_name
+        configure_zcml = os.path.join(output_dir,package_name,namespace_package,name,'configure.zcml')
+        jbot_zcml_file = os.path.join(output_dir,package_name,namespace_package,name,'jbot.zcml')
+
+        # create the jbot.zcml file
+        f = open(jbot_zcml_file,'w')
+        f.write(jbot_zcml_file_content)
+        f.close()
+
+        # insert jbot zcml file include after the 9th line
+        for i, line in enumerate(fileinput.input(configure_zcml, inplace=1)):
+            sys.stdout.write(line)
+            if i == 8: sys.stdout.write('  <include file="jbot.zcml" />\n')
+
 
     def jbot_resource_info(self,resource):
         rm = getUtility(IResourceRetriever)
