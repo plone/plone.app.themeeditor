@@ -50,6 +50,7 @@ class CMFSkinsResourceType(object):
             layer_folder = self.skins_tool.unrestrictedTraverse(layer_path)
             for name, obj in layer_folder.items():
                 res = CMFResourceRegistration()
+                res.base_skin = self.skin
                 res.name = name
                 res.layer = layer_path
                 res.actions = []

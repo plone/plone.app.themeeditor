@@ -1,7 +1,18 @@
 Changelog
 =========
+1.0a2
+-------------------
+- the export view now generates a theme egg as a downloadable tarball [pigeonflight]
 
-1.0a1 (unreleased)
+- @@plone.app.themeeditor.export now writes jbot templates and directory 
+  view resources [pigeonflight]
+
+- setup.py generated from export now writes the author and author_email [pigeonflight]
+
+- added utils.py (borrowed from qPloneSkinDump product) for writing 
+  cmfskins resources [pigeonflight]
+
+1.0a1 
 ------------------
 - removed [plone3] extra from setup.py [davisagli]
 

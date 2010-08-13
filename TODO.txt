@@ -21,6 +21,8 @@ Research:
 - filter out known ZMI views unless overridden
 
 Alpha 2:
+- write cmfskins to separate folders (currently writes to a single folder)
+- refactor so that all .tmpl templates are written using write_tmpl in browser/export.py
 - gloworm integration
 - custom forms
   - filesystem page template: view, customize

@@ -9,6 +9,7 @@ from plone.z3cform.layout import wrap_form
 from plone.app.themeeditor.interfaces import _
 from plone.app.themeeditor.interfaces import IResourceRetriever
 from five.customerize.interfaces import IViewTemplateContainer
+from plone.app.themeeditor.utils import dumpSkin,dumpFolder,getFSSkinPath
 from zope.component import getUtility
 #from plone.app.themeeditor.export import TarballThemeExporter
 import zopeskel
@@ -38,8 +39,9 @@ class ThemeEditorExportForm(form.Form):
     @button.buttonAndHandler(_(u'Export Customizations'))
     def handleApply(self, action):
         data, errors = self.extractData()
-        output_dir,namespace_package,name = self.theme_skel(data)
-        self.theme_populate(output_dir,namespace_package,name)
+        output_dir,namespace_package,name,package_name = self.theme_skel(data)
+        self.theme_populate(output_dir,namespace_package,name,data['version'])
+        self.write_setuppy(data,namespace_package,package_name,output_dir)
         tarball = self.theme_tarball(output_dir,namespace_package,name,data['version'])
         self.theme_download(tarball)
 
@@ -58,11 +60,11 @@ class ThemeEditorExportForm(form.Form):
                 '-t',
                 'plone3_theme',
                 name,] + vars)
-        return (output_dir,data['namespace_package'],data['package'])
-        # not sure why an unnecessary 'example' folder gets created
-        # so we remove it after the theme is created
+        package_name = name
+        return (output_dir,data['namespace_package'],data['package'],package_name)
 
-    def theme_populate(self,output_dir,namespace_package,name,make_jbot_zcml=0):
+    def theme_populate(self,output_dir,namespace_package,name,make_jbot_zcml=0,
+                 dump_cmfskins=0,base_theme='Plone Default',version='100'):
         """
         retreive all the customized items and export to the theme_skel
         """
@@ -76,8 +78,32 @@ class ThemeEditorExportForm(form.Form):
             if resource.type in JBOTCOMPATIBLE:
                 make_jbot_zcml = 1
                 self.resource_to_jbot(resource,output_dir,namespace_package,name)
+            else:
+                dump_cmfskins = 1
+                base_theme = resource.base_skin
+        if dump_cmfskins == 1:
+            self.dump_cmfskins(output_dir,namespace_package,
+                                 name,base_theme,version)
         if make_jbot_zcml == 1:
-           self.create_jbot_zcml(output_dir,namespace_package,name)
+            self.create_jbot_zcml(output_dir,namespace_package,name)
+
+    def write_setuppy(self,data,namespace_package,package_name,output_dir):
+        # custom setup.py
+        # we give the theme name the package name
+        setup_vars = {
+        'version':data['version'],
+        'theme_name':package_name,
+        'namespace_package':namespace_package,
+        'namespace':namespace_package,
+        'theme_description':data['description'],
+        'author':data['author'],
+        'author_email':data['author_email'],
+        }
+        _templates_dir = os.path.join(os.path.dirname(__file__))
+        template = os.path.join(_templates_dir,'setup.py.tmpl')
+        output_file = os.path.join(output_dir,package_name,
+                                         'setup.py')
+        self.write_tmpl(template,output_file,vars=setup_vars)
 
     def theme_tarball(self,output_dir,namespace_package,name,version='0'):
         """
@@ -110,6 +136,77 @@ class ThemeEditorExportForm(form.Form):
                 break
         download.close()
 
+    def dump_cmfskins(self,output_dir,namespace_package,name,base_theme,version):
+        """
+        convert resource to filesystem directory
+        """
+        package_name = "%s.%s" % (namespace_package,name)
+        # we assume that we are dumping from the custom directory
+        zmi_skin_names = ['custom',]
+        fs_dest_directory = output_dir
+        fs_product_name = '%s.%s' % (namespace_package,name)
+        dumpSkin(self.context, zmi_skin_names,
+                fs_dest_directory, fs_product_name,
+                erase_from_skin=0)
+        # overwrite the existing skins.zcml file
+        skins_zcml_file = os.path.join(output_dir,package_name,
+                               namespace_package,name,'skins.zcml')
+
+        skin_vars = {'name':name,
+                     'namespace':namespace_package,
+                     'package_name':package_name,
+                     'theme_name':package_name,
+                     'base_theme':base_theme,
+                     'version':version,
+                     }
+
+        # custom skins.zcml
+        _templates_dir = os.path.join(os.path.dirname(__file__))
+        template = os.path.join(_templates_dir,'skins.zcml.tmpl')
+        output_file = os.path.join(output_dir,package_name,
+                               namespace_package,name,'skins.zcml')
+        self.write_tmpl(template,output_file,vars=skin_vars)
+
+        # custom skins.xml
+        _templates_dir = os.path.join(os.path.dirname(__file__))
+        template = os.path.join(_templates_dir,'skins.xml.tmpl')
+        output_file = os.path.join(output_dir,package_name,
+                               namespace_package,name,'profiles',
+                               'default','skins.xml')
+        self.write_tmpl(template,output_file,vars=skin_vars)
+
+        # custom viewlets.xml
+        _templates_dir = os.path.join(os.path.dirname(__file__))
+        template = os.path.join(_templates_dir,'viewlets.xml.tmpl')
+        output_file = os.path.join(output_dir,package_name,
+                               namespace_package,name,'profiles',
+                               'default','viewlets.xml')
+        self.write_tmpl(template,output_file,vars=skin_vars)
+
+        # custom metadata.xml
+        _templates_dir = os.path.join(os.path.dirname(__file__))
+        template = os.path.join(_templates_dir,'metadata.xml.tmpl')
+        output_file = os.path.join(output_dir,package_name,
+                               namespace_package,name,'profiles',
+                               'default','metadata.xml')
+        self.write_tmpl(template,output_file,vars=skin_vars)
+
+        # custom profile.zcml
+        template = os.path.join(_templates_dir,'profiles.zcml.tmpl')
+        output_file = os.path.join(output_dir,package_name,
+                               namespace_package,name,'profiles.zcml')
+        self.write_tmpl(template,output_file,vars=skin_vars)
+
+
+    def write_tmpl(self,tmpl,output_file,vars):
+        _template = open(tmpl)
+        _content = _template.read()
+        _template.close()
+        _content = _content % vars
+        f = open(output_file,'w')
+        f.write(_content)
+        f.close()
+
     def resource_to_jbot(self,resource,output_dir,namespace_package,name):
         """
         convert resource to just a bunch of templates (jbot)
@@ -131,16 +228,16 @@ class ThemeEditorExportForm(form.Form):
     def create_jbot_zcml(self,output_dir,namespace_package,name):
         package_name = "%s.%s" % (namespace_package,name)
         jbot_zcml_file_content = """<configure
-                             xmlns="http://namespaces.zope.org/zope"
-                             xmlns:browser="http://namespaces.zope.org/browser"
-                             i18n_domain="%s">
+xmlns="http://namespaces.zope.org/zope"
+xmlns:browser="http://namespaces.zope.org/browser"
+i18n_domain="%s">
 
-                              <include package="z3c.jbot" file="meta.zcml" />
+<include package="z3c.jbot" file="meta.zcml" />
 
-                              <browser:jbot
-                              directory="jbot"
-                              layer=".browser.interfaces.IThemeSpecific" />
-                         """ % package_name
+<browser:jbot
+directory="jbot"
+layer=".browser.interfaces.IThemeSpecific" />
+</configure>""" % package_name
         configure_zcml = os.path.join(output_dir,package_name,namespace_package,name,'configure.zcml')
         jbot_zcml_file = os.path.join(output_dir,package_name,namespace_package,name,'jbot.zcml')
 
@@ -168,6 +265,7 @@ class ThemeEditorExportForm(form.Form):
         jbotname = '.'.join([context_prefix,basename(path)])
         tmpl_text = resource.text
         return (jbotname,tmpl_text)
+
 
 
 ThemeEditorExportView = wrap_form(ThemeEditorExportForm)

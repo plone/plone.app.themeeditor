@@ -8,7 +8,7 @@ from plone.memoize.instance import memoize
 from plone.app.themeeditor.interfaces import _
 
 class EditorConsole(BrowserView):
-    
+
     console = ViewPageTemplateFile('console.pt')
 
     main_template = 'main_template'
@@ -21,20 +21,20 @@ class EditorConsole(BrowserView):
         ('stylesheet', _(u'Stylesheets')),
         ('javascript', _(u'Javascripts')),
     )
-    
+
     advanced_tags = basic_tags + (
         ('python-script', _('Python Scripts')),
         ('controller-page-template', _('CPT')),
         ('kss', _('KSS')),
         ('dtml', _('DTML'))
     )
-    
+
     @property
     @memoize
     def mode(self):
         if self.request.form.get('mode', None):
             self.request.SESSION['mode'] = self.request.form.get('mode')
-        
+
         return self.request.SESSION.get('mode', 'basic')
 
     @property
@@ -44,14 +44,14 @@ class EditorConsole(BrowserView):
             return self.basic_tags
         else:
             return self.advanced_tags
-    
+
     def failsafe_console(self):
         try:
             return self.console()
         except:
             self.main_template = '@@failsafe_main_template'
             return self.console()
-    
+
     @memoize
     def results(self):
         name = self.request.form.get('name')
@@ -63,7 +63,7 @@ class EditorConsole(BrowserView):
         return list(rm.iter_resources(name=name, tags=tag))
 
 class LayerListView(BrowserView):
-    
+
     def lookup(self):
         name = self.request.form.get('name')
         rm = getUtility(IResourceRetriever)

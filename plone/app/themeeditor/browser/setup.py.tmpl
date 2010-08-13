@@ -1,0 +1,34 @@
+from setuptools import setup, find_packages
+import os
+
+version = u'%(version)s'
+
+setup(name=u'%(theme_name)s',
+      version=version,
+      description="%(theme_description)s",
+      long_description=open("README.txt").read() + "\n" +
+                       open(os.path.join("docs", "HISTORY.txt")).read(),
+      classifiers=[
+        "Programming Language :: Python",
+        ],
+      keywords='theme plone skins template',
+      author='%(author)s',
+      author_email='%(author_email)s',
+      url='http://svn.plone.org/svn/collective/',
+      license='GPL',
+      packages=find_packages(exclude=['ez_setup']),
+      namespace_packages=[u'%(namespace)s'],
+      include_package_data=True,
+      zip_safe=False,
+      install_requires=[
+          'setuptools',
+          'z3c.jbot',
+          # -*- Extra requirements: -*-
+      ],
+      entry_points="""
+      # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
+      
+      """,
+      )
