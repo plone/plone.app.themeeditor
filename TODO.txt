@@ -21,12 +21,12 @@ Research:
 - filter out known ZMI views unless overridden
 
 Alpha 2:
-- add a link in the UI for the export view
-- clean up the export view to not content_views
-- show a "summary" with instructions on how to install exported theme
-- export customizations as a new theme 
-- refactor so that all .tmpl templates are written using write_tmpl in browser/export.py
-- fix missing i18n (view X of Y in zopeview.py)
+- [ ] - add a link in the UI for the export view
+- [ ] - clean up the export view to not show content_views
+- [ ] - show a "summary" with instructions on how to install exported theme
+- [x] - export customizations as a new theme 
+- [x] - refactor so that all .tmpl templates are written using write_tmpl in browser/export.py
+- [ ] - fix missing i18n (view X of Y in zopeview.py)
 
 Alpha 3:
 - custom forms
