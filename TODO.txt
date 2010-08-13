@@ -21,9 +21,14 @@ Research:
 - filter out known ZMI views unless overridden
 
 Alpha 2:
-- write cmfskins to separate folders (currently writes to a single folder)
+- add a link in the UI for the export view
+- clean up the export view to not content_views
+- show a "summary" with instructions on how to install exported theme
+- export customizations as a new theme 
 - refactor so that all .tmpl templates are written using write_tmpl in browser/export.py
-- gloworm integration
+- fix missing i18n (view X of Y in zopeview.py)
+
+Alpha 3:
 - custom forms
   - filesystem page template: view, customize
   - filesystem image: view, customize
@@ -32,15 +37,13 @@ Alpha 2:
 - support showing resources for themes other than the active one
 - implement z3c.jbot based customizations (need to figure out a way to detect and how
   jbot based customizations in the UI)
-- possibly create a resource that type that can introspect z3c.jbot template
-  override registry
-- fix missing i18n (view X of Y in zopeview.py)
-
-Alpha 3:
-- export customizations as a new theme 
+- write cmfskins to separate folders (currently writes to a single folder)
+- gloworm integration
 - (based on conversation with davisagli) implement an export method for earch resource type
   the idea is to make it possible to iterate over each customized resourse using the 
   resource retreiever and export the result to the "export" directory
+- possibly create a resource that type that can introspect z3c.jbot template
+  override registry
 
 
 User stories

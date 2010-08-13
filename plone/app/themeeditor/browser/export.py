@@ -1,4 +1,5 @@
 import os
+import shutil
 import sys
 import fileinput
 import tarfile
@@ -44,6 +45,7 @@ class ThemeEditorExportForm(form.Form):
         self.write_setuppy(data,namespace_package,package_name,output_dir)
         tarball = self.theme_tarball(output_dir,namespace_package,name,data['version'])
         self.theme_download(tarball)
+        shutil.rmtree(output_dir)
 
     def theme_skel(self,data):
         name = data.pop('name')

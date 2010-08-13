@@ -2,6 +2,10 @@ Changelog
 =========
 1.0a2
 -------------------
+- bumped version [pigeonflight]
+
+- the exporter now "cleans up" after itself and removes temp files [pigeonflight]
+
 - refactored the way the jbot.zcml file is generated [pigeonflight]
 
 - the export view now generates a theme egg as a downloadable tarball [pigeonflight]

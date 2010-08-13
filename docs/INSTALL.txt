@@ -12,21 +12,14 @@ recipe to manage your project, you can do this:
         ...
         plone.app.themeeditor
   
- * Tell the plone.recipe.zope2instance recipe to install a ZCML slug::
-   
-    [instance]
-    recipe = plone.recipe.zope2instance
-    ...
-    zcml =
-        plone.app.themeeditor
   
  * Re-run buildout, e.g. with:
    
    $ ./bin/buildout
         
 
-Plone 3 notes
--------------
+Version Notes
+---------------------
 
 You will need to pin newer versions of plone.app.customerize and
 plone.app.jquerytools as shown below::
@@ -40,10 +33,21 @@ plone.app.jquerytools as shown below::
     plone.app.customerize = 1.2
 
 Important: the versions noted here were correct at the time of release (Plone 3.3.5). 
-If you are using a newer version of Plone 3.x which requires a newer version of 
+It is likely that newer versions of Plone 3 will adopt the versions of plone.app.jquerytools
+and plone.app.customerize listed above. If your version of plone requires a newer version of 
 plone.app.jquerytools or plone.app.customerize there is no need to pin them in the 
-version section.
+[versions] section.
 
-Troubleshooting notes
-------------------------
+Plone Versions between 3.1.x and 3.2.x
+----------------------------------------
 
+Versions of Plone before 3.3 do not use z3c.autoinclude so it is necessary
+to add a zcml entry in buildout
+
+ * Tell the plone.recipe.zope2instance recipe to install a ZCML slug::
+   
+    [instance]
+    recipe = plone.recipe.zope2instance
+    ...
+    zcml =
+        plone.app.themeeditor
