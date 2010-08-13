@@ -43,3 +43,7 @@ Important: the versions noted here were correct at the time of release (Plone 3.
 If you are using a newer version of Plone 3.x which requires a newer version of 
 plone.app.jquerytools or plone.app.customerize there is no need to pin them in the 
 version section.
+
+Troubleshooting notes
+------------------------
+

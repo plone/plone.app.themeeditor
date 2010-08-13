@@ -227,24 +227,14 @@ class ThemeEditorExportForm(form.Form):
 
     def create_jbot_zcml(self,output_dir,namespace_package,name):
         package_name = "%s.%s" % (namespace_package,name)
-        jbot_zcml_file_content = """<configure
-xmlns="http://namespaces.zope.org/zope"
-xmlns:browser="http://namespaces.zope.org/browser"
-i18n_domain="%s">
+        jbot_vars = {'package_name':package_name}
+        _templates_dir = os.path.join(os.path.dirname(__file__))
+        template = os.path.join(_templates_dir,'jbot.zcml.tmpl')
+        output_file = os.path.join(output_dir,package_name,
+                               namespace_package,name,'jbot.zcml')
+        self.write_tmpl(template,output_file,vars=jbot_vars)
 
-<include package="z3c.jbot" file="meta.zcml" />
-
-<browser:jbot
-directory="jbot"
-layer=".browser.interfaces.IThemeSpecific" />
-</configure>""" % package_name
         configure_zcml = os.path.join(output_dir,package_name,namespace_package,name,'configure.zcml')
-        jbot_zcml_file = os.path.join(output_dir,package_name,namespace_package,name,'jbot.zcml')
-
-        # create the jbot.zcml file
-        f = open(jbot_zcml_file,'w')
-        f.write(jbot_zcml_file_content)
-        f.close()
 
         # insert jbot zcml file include after the 9th line
         for i, line in enumerate(fileinput.input(configure_zcml, inplace=1)):

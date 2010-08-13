@@ -2,10 +2,15 @@ Changelog
 =========
 1.0a2
 -------------------
+- refactored the way the jbot.zcml file is generated [pigeonflight]
+
 - the export view now generates a theme egg as a downloadable tarball [pigeonflight]
 
 - @@plone.app.themeeditor.export now writes jbot templates and directory 
   view resources [pigeonflight]
+
+- The themes that are generated now have z3c.autoinclude in their setup.py
+  and lists
 
 - setup.py generated from export now writes the author and author_email [pigeonflight]
 
