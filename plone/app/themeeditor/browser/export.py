@@ -6,7 +6,7 @@ import tarfile
 from os.path import basename
 from zope import interface, schema
 from z3c.form import form, field, button
-from plone.z3cform.layout import wrap_form
+from plone.z3cform.layout import FormWrapper 
 from plone.app.themeeditor.interfaces import _
 from plone.app.themeeditor.interfaces import IResourceRetriever
 from five.customerize.interfaces import IViewTemplateContainer
@@ -271,7 +271,14 @@ class ThemeEditorExportForm(form.Form):
 
 
 
-ThemeEditorExportView = wrap_form(ThemeEditorExportForm)
+#ThemeEditorExportView = wrap_form(ThemeEditorExportForm)
+class ThemeEditorExportView(FormWrapper):
+    
+    form = ThemeEditorExportForm
+    
+    def __init__(self, context, request):
+        FormWrapper.__init__(self, context, request)
+        request.set('disable_border', 1)
 
 def _create_tpl():
     commands = get_commands()
