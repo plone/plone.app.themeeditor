@@ -233,7 +233,7 @@ def getFSSkinPath(folder, fs_dest_directory, fs_product_name):
 
     folder_path = '/'.join(folder.getPhysicalPath()[list(folder.getPhysicalPath()).index('portal_skins')+1:])
     namespace,name = fs_product_name.split('.')
-    skins_folder = "%s_%s_%s" % (namespace,name,folder_path)
+    skins_folder = "%s_%s_%s_templates" % (namespace,name,folder_path)
     skinpath = os.path.join(fs_dest_directory,
                             fs_product_name, namespace, name,
                             'skins',skins_folder)

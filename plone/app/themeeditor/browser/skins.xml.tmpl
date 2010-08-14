@@ -16,9 +16,6 @@
       of your product (on the filesystem) as Filesystem Directory Views within
       the portal_skins tool, so that they become usable as skin layers.
       -->
- <object name="%(namespace)s_%(name)s_custom"
-    meta_type="Filesystem Directory View"
-    directory="%(namespace)s.%(name)s:skins/%(namespace)s_%(name)s_custom"/>
  <object name="%(namespace)s_%(name)s_custom_images"
     meta_type="Filesystem Directory View"
     directory="%(namespace)s.%(name)s:skins/%(namespace)s_%(name)s_custom_images"/>
@@ -42,10 +39,8 @@
        "all".
        -->
  <skin-path name="%(theme_name)s" based-on="%(base_theme)s">
-  <layer name="%(namespace)s_%(name)s_custom"
-     insert-after="custom"/>
   <layer name="%(namespace)s_%(name)s_custom_images"
-     insert-after="%(namespace)s_%(name)s_custom"/>
+     insert-after="custom"/>
   <layer name="%(namespace)s_%(name)s_custom_templates"
      insert-after="%(namespace)s_%(name)s_custom_images"/>
   <layer name="%(namespace)s_%(name)s_styles"
