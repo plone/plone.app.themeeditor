@@ -8,6 +8,12 @@ jq(function() {
   }
   var activateUI = function() {
     // edit popups
+    jq('a[href*=/@@plone.app.themeeditor.export]', this).prepOverlay({
+      subtype: 'ajax',
+      filter: '#content',
+      formselector: 'form'
+          });
+
     jq('a[href*=/manage_main],a[href*=/@@customizezpt]', this).prepOverlay({
       subtype: 'ajax',
       filter: 'form,form+*', // everything after the 2nd table
@@ -59,6 +65,7 @@ jq(function() {
       jq(this).closest('dd').remove();
     });
   }
+  activateUI.apply(jq('#plone-app-themeeditor-export'));
   activateUI.apply(jq('#plone-app-themeeditor-browser'));
   // update results via AJAX
   jq('#plone-app-themeeditor-filter-form').submit(function(e) {

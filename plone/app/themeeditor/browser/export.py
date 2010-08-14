@@ -10,6 +10,7 @@ from plone.z3cform.layout import FormWrapper
 from plone.app.themeeditor.interfaces import _
 from plone.app.themeeditor.interfaces import IResourceRetriever
 from five.customerize.interfaces import IViewTemplateContainer
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.themeeditor.utils import dumpSkin,dumpFolder,getFSSkinPath
 from zope.component import getUtility
 #from plone.app.themeeditor.export import TarballThemeExporter
@@ -36,6 +37,7 @@ class ThemeEditorExportForm(form.Form):
     fields = field.Fields(IThemeEditorExportForm)
     ignoreContext = True # don't use context to get widget data
     label = _(u"Export your customizations")
+    template = ViewPageTemplateFile('export_form.pt')
 
     @button.buttonAndHandler(_(u'Export Customizations'))
     def handleApply(self, action):

@@ -14,3 +14,9 @@ dl#plone-app-themeeditor-browser  { }
 #content #plone-app-themeeditor-tags { float: right; }
 #content #plone-app-themeeditor-tags li { list-style: none; display: inline; margin: 0 3px 0 0; background-color: #ccc; border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; padding: 2px .5em;}
 #content #plone-app-themeeditor-tags li.selected { background-color: #fff; border: solid 2px #999; }
+#themeeditor-export{
+ font-size:1.5em;border-width:5px;border-color:green; margin: 0 3px 0em 0; background-color: #ccc; border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; padding: .2em .5em;}
+#plone-app-themeeditor-export a img{
+position:relative;
+bottom:5px;
+}

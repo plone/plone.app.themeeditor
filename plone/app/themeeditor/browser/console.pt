@@ -18,9 +18,8 @@
     <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++plone.app.jquerytools.js"></script>
     <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++plone.app.jquerytools.overlayhelpers.js"></script>
   </tal:failsafe_js>
-  <script type="text/javascript" src="++resource++plone.app.themeeditor.js"></script>
+  <script type="text/javascript" src="++resource++plone.app.themeeditor.js?fresh"></script>
 </tal:javascript>
-
 <tal:css metal:fill-slot="style_slot">
   
   <link tal:condition="is_failsafe"
@@ -76,6 +75,15 @@
              i18n:attributes="value label_filter;"
              value="Filter" class="allowMultiSubmit"/>
       </form>
+     <dl id="plone-app-themeeditor-export">
+      <dt>
+       <a id="themeeditor-export" href="" 
+      tal:attributes="href string:${portal_url}/@@plone.app.themeeditor.export"
+       >
+       <img src="arrowUpAlternative.png" />
+       Export</a>
+     </dt>
+     </dl>
     
       <dl id="plone-app-themeeditor-browser">
         <p class="plone-app-themeeditor-result-count" tal:condition="python:len(request.form)">

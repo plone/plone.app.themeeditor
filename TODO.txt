@@ -1,15 +1,15 @@
 Alpha 1:
-- add support for viewlets and portlets
-- handle nested skin items
-- fix or at least find workaround for uploading files in popups
-- the jquery forms plugin looks promising for this. David G will tt Steve M about incorporating into plone.app.jquerytools
-- put JS and CSS in separate files instead of inline in the templates
-- register configlet
-- add random salt to GET requests that shouldn't be cached, for IE
+- [ ] - add support for viewlets and portlets
+- [ ] - handle nested skin items
+- [ ] - fix or at least find workaround for uploading files in popups
+- [ ] - the jquery forms plugin looks promising for this. David G will tt Steve M about incorporating into plone.app.jquerytools
+- [ ] - put JS and CSS in separate files instead of inline in the templates
+- [ ] - register configlet
+- [ ] - add random salt to GET requests that shouldn't be cached, for IE
   - (first check to confirm if this is an issue)
-- on popup close, update opened drawers rather than entire page
-- option to show only customized resources
-- fix lookup of layers for 2 views with the same name but different contexts
+- [ ] - on popup close, update opened drawers rather than entire page
+- [ ] - option to show only customized resources
+- [ ] - fix lookup of layers for 2 views with the same name but different contexts
 
 Research:
 - warning on customizing something that has already been customized
@@ -22,27 +22,27 @@ Research:
 
 Alpha 2:
 - [ ] - add a link in the UI for the export view
-- [ ] - clean up the export view to not show content_views
+- [x] - clean up the export view to not show content_views
 - [ ] - show a "summary" with instructions on how to install exported theme
 - [x] - export customizations as a new theme 
 - [x] - refactor so that all .tmpl templates are written using write_tmpl in browser/export.py
 - [ ] - fix missing i18n (view X of Y in zopeview.py)
 
 Alpha 3:
-- custom forms
+- [ ] - custom forms
   - filesystem page template: view, customize
   - filesystem image: view, customize
   - page template: view, edit, remove
   - image: view, edit, remove
-- support showing resources for themes other than the active one
-- implement z3c.jbot based customizations (need to figure out a way to detect and how
+- [ ] - support showing resources for themes other than the active one
+- [ ] - implement z3c.jbot based customizations (need to figure out a way to detect and how
   jbot based customizations in the UI)
-- write cmfskins to separate folders (currently writes to a single folder)
-- gloworm integration
-- (based on conversation with davisagli) implement an export method for earch resource type
+- [ ] - write cmfskins to separate folders (currently writes to a single folder)
+- [ ] - gloworm integration
+- [ ] - (based on conversation with davisagli) implement an export method for earch resource type
   the idea is to make it possible to iterate over each customized resourse using the 
   resource retreiever and export the result to the "export" directory
-- possibly create a resource that type that can introspect z3c.jbot template
+- [ ] - possibly create a resource that type that can introspect z3c.jbot template
   override registry
 
 

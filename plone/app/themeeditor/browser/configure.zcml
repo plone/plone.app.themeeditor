@@ -31,6 +31,10 @@
     name="plone.app.themeeditor.icon"
     file="resources/icon.png"
     />
+  <browser:resource
+    name="plone.app.themeeditor.sample.png"
+    file="resources/sample.png"
+    />
   <browser:page
     for="*"
     name="failsafe_main_template"
