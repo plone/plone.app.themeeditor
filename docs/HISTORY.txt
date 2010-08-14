@@ -2,6 +2,12 @@ Changelog
 =========
 1.0a2
 -------------------
+- the export form now shows up in a popup window with instructions [pigeonflight]
+
+- updated the TODO.txt [pigeonflight]
+
+- added an export button to the UI [pigeonflight]
+
 - bumped version [pigeonflight]
 
 - the exporter now "cleans up" after itself and removes temp files [pigeonflight]

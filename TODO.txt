@@ -1,7 +1,7 @@
 Alpha 1:
-- [ ] - add support for viewlets and portlets
+- [x] - add support for viewlets and portlets
 - [ ] - handle nested skin items
-- [ ] - fix or at least find workaround for uploading files in popups
+- [x] - fix or at least find workaround for uploading files in popups
 - [ ] - the jquery forms plugin looks promising for this. David G will tt Steve M about incorporating into plone.app.jquerytools
 - [ ] - put JS and CSS in separate files instead of inline in the templates
 - [ ] - register configlet
@@ -21,12 +21,13 @@ Research:
 - filter out known ZMI views unless overridden
 
 Alpha 2:
-- [ ] - add a link in the UI for the export view
+- [x] - add a link in the UI for the export view
 - [x] - clean up the export view to not show content_views
 - [ ] - show a "summary" with instructions on how to install exported theme
 - [x] - export customizations as a new theme 
 - [x] - refactor so that all .tmpl templates are written using write_tmpl in browser/export.py
 - [ ] - fix missing i18n (view X of Y in zopeview.py)
+- [ ] - add tests for the export functionality
 
 Alpha 3:
 - [ ] - custom forms
