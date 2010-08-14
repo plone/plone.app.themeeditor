@@ -88,6 +88,7 @@ class ThemeEditorExportForm(form.Form):
                                  name,base_theme,version)
         if make_jbot_zcml == 1:
             self.create_jbot_zcml(output_dir,namespace_package,name)
+        self.write_browser_configure_zcml(output_dir,namespace_package,name,base_theme,version)
 
     def write_setuppy(self,data,namespace_package,package_name,output_dir):
         # custom setup.py
@@ -137,6 +138,26 @@ class ThemeEditorExportForm(form.Form):
             else:
                 break
         download.close()
+
+    def write_browser_configure_zcml(self,output_dir,namespace_package,name,base_theme,version):
+        """
+        write a custom version of browser/configure.zcml
+        """
+        package_name = "%s.%s" % (namespace_package,name)
+        fs_product_name = '%s.%s' % (namespace_package,name)
+        skin_vars = {'name':name,
+                     'namespace':namespace_package,
+                     'package_name':package_name,
+                     'theme_name':package_name,
+                     'base_theme':base_theme,
+                     'version':version,
+                     }
+        # custom browser/configure.zcml
+        _templates_dir = os.path.join(os.path.dirname(__file__))
+        template = os.path.join(_templates_dir,'browser_configure.zcml.tmpl')
+        output_file = os.path.join(output_dir,package_name,
+                               namespace_package,name,'browser','configure.zcml')
+        self.write_tmpl(template,output_file,vars=skin_vars)
 
     def dump_cmfskins(self,output_dir,namespace_package,name,base_theme,version):
         """
