@@ -88,7 +88,8 @@ class ThemeEditorExportForm(form.Form):
                                  name,base_theme,version)
         if make_jbot_zcml == 1:
             self.create_jbot_zcml(output_dir,namespace_package,name)
-        self.write_browser_configure_zcml(output_dir,namespace_package,name,base_theme,version)
+        self.write_zcml_and_generic_setup(output_dir,namespace_package,name,
+                                 base_theme,version)
 
     def write_setuppy(self,data,namespace_package,package_name,output_dir):
         # custom setup.py
@@ -104,8 +105,7 @@ class ThemeEditorExportForm(form.Form):
         }
         _templates_dir = os.path.join(os.path.dirname(__file__))
         template = os.path.join(_templates_dir,'setup.py.tmpl')
-        output_file = os.path.join(output_dir,package_name,
-                                         'setup.py')
+        output_file = os.path.join(output_dir,package_name,'setup.py')
         self.write_tmpl(template,output_file,vars=setup_vars)
 
     def theme_tarball(self,output_dir,namespace_package,name,version='0'):
@@ -139,26 +139,6 @@ class ThemeEditorExportForm(form.Form):
                 break
         download.close()
 
-    def write_browser_configure_zcml(self,output_dir,namespace_package,name,base_theme,version):
-        """
-        write a custom version of browser/configure.zcml
-        """
-        package_name = "%s.%s" % (namespace_package,name)
-        fs_product_name = '%s.%s' % (namespace_package,name)
-        skin_vars = {'name':name,
-                     'namespace':namespace_package,
-                     'package_name':package_name,
-                     'theme_name':package_name,
-                     'base_theme':base_theme,
-                     'version':version,
-                     }
-        # custom browser/configure.zcml
-        _templates_dir = os.path.join(os.path.dirname(__file__))
-        template = os.path.join(_templates_dir,'browser_configure.zcml.tmpl')
-        output_file = os.path.join(output_dir,package_name,
-                               namespace_package,name,'browser','configure.zcml')
-        self.write_tmpl(template,output_file,vars=skin_vars)
-
     def dump_cmfskins(self,output_dir,namespace_package,name,base_theme,version):
         """
         convert resource to filesystem directory
@@ -171,6 +151,9 @@ class ThemeEditorExportForm(form.Form):
         dumpSkin(self.context, zmi_skin_names,
                 fs_dest_directory, fs_product_name,
                 erase_from_skin=0)
+
+    def write_zcml_and_generic_setup(self,output_dir,namespace_package,name,base_theme,version):
+        package_name = "%s.%s" % (namespace_package,name)
         # overwrite the existing skins.zcml file
         skins_zcml_file = os.path.join(output_dir,package_name,
                                namespace_package,name,'skins.zcml')
@@ -182,6 +165,7 @@ class ThemeEditorExportForm(form.Form):
                      'base_theme':base_theme,
                      'version':version,
                      }
+
 
         # custom skins.zcml
         _templates_dir = os.path.join(os.path.dirname(__file__))
@@ -218,6 +202,12 @@ class ThemeEditorExportForm(form.Form):
         template = os.path.join(_templates_dir,'profiles.zcml.tmpl')
         output_file = os.path.join(output_dir,package_name,
                                namespace_package,name,'profiles.zcml')
+        self.write_tmpl(template,output_file,vars=skin_vars)
+
+        # custom browser/configure.zcml
+        template = os.path.join(_templates_dir,'browser_configure.zcml.tmpl')
+        output_file = os.path.join(output_dir,package_name,
+                               namespace_package,name,'browser','configure.zcml')
         self.write_tmpl(template,output_file,vars=skin_vars)
 
 
