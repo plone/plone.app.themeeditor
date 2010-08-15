@@ -53,6 +53,7 @@ class ThemeEditorIntegrationTestCase(WindmillTestCase):
         client.click(jquery=u"('dt[id^=themeeditor-logo.jpg] a')[0]")
         client.waits.forElement(xpath=u"//dd[@class='plone-app-themeeditor-layers']")
         client.click(link=u'Remove')
+        client.click(id=u'themeeditor-export')
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)

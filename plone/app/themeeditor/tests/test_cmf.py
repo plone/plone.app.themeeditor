@@ -30,6 +30,7 @@ class TestCMFResourceType(unittest.TestCase):
         self.failUnless(resources)
         res = resources[0]
         
+        self.assertEqual(res.base_skin,'test')
         self.assertEqual(res.name, 'test')
         self.assertEqual(res.type, 'cmfskins')
         self.assertEqual(res.context, 'zope.interface.Interface')
