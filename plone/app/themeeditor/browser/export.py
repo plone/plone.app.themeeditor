@@ -5,8 +5,8 @@ import fileinput
 import tarfile
 from os.path import basename
 from zope import interface, schema
-from z3c.form import form, field, button
-from plone.z3cform.layout import FormWrapper 
+from z3c.form import form, field, button, validator
+from plone.z3cform.layout import FormWrapper
 from plone.app.themeeditor.interfaces import _
 from plone.app.themeeditor.interfaces import IResourceRetriever
 from five.customerize.interfaces import IViewTemplateContainer
@@ -19,6 +19,8 @@ from paste.script.command import get_commands
 import tempfile
 import logging
 JBOTCOMPATIBLE = ('portlet','view','viewlet')
+_templates_dir = os.path.join(os.path.dirname(__file__))
+_templates_dir = os.path.join(_templates_dir,'..','templates')
 
 
 LOGGER="plone.app.themeeditor"
@@ -42,12 +44,15 @@ class ThemeEditorExportForm(form.Form):
     @button.buttonAndHandler(_(u'Export Customizations'))
     def handleApply(self, action):
         data, errors = self.extractData()
+        if errors:
+            return
         output_dir,namespace_package,name,package_name = self.theme_skel(data)
         self.theme_populate(output_dir,namespace_package,name,data['version'])
         self.write_setuppy(data,namespace_package,package_name,output_dir)
         tarball = self.theme_tarball(output_dir,namespace_package,name,data['version'])
         self.theme_download(tarball)
         shutil.rmtree(output_dir)
+        return "hello universe"
 
     def theme_skel(self,data):
         name = data.pop('name')
@@ -105,7 +110,6 @@ class ThemeEditorExportForm(form.Form):
         'author':data['author'],
         'author_email':data['author_email'],
         }
-        _templates_dir = os.path.join(os.path.dirname(__file__))
         template = os.path.join(_templates_dir,'setup.py.tmpl')
         output_file = os.path.join(output_dir,package_name,'setup.py')
         self.write_tmpl(template,output_file,vars=setup_vars)
@@ -170,14 +174,12 @@ class ThemeEditorExportForm(form.Form):
 
 
         # custom skins.zcml
-        _templates_dir = os.path.join(os.path.dirname(__file__))
         template = os.path.join(_templates_dir,'skins.zcml.tmpl')
         output_file = os.path.join(output_dir,package_name,
                                namespace_package,name,'skins.zcml')
         self.write_tmpl(template,output_file,vars=skin_vars)
 
         # custom skins.xml
-        _templates_dir = os.path.join(os.path.dirname(__file__))
         template = os.path.join(_templates_dir,'skins.xml.tmpl')
         output_file = os.path.join(output_dir,package_name,
                                namespace_package,name,'profiles',
@@ -185,7 +187,6 @@ class ThemeEditorExportForm(form.Form):
         self.write_tmpl(template,output_file,vars=skin_vars)
 
         # custom viewlets.xml
-        _templates_dir = os.path.join(os.path.dirname(__file__))
         template = os.path.join(_templates_dir,'viewlets.xml.tmpl')
         output_file = os.path.join(output_dir,package_name,
                                namespace_package,name,'profiles',
@@ -193,7 +194,6 @@ class ThemeEditorExportForm(form.Form):
         self.write_tmpl(template,output_file,vars=skin_vars)
 
         # custom metadata.xml
-        _templates_dir = os.path.join(os.path.dirname(__file__))
         template = os.path.join(_templates_dir,'metadata.xml.tmpl')
         output_file = os.path.join(output_dir,package_name,
                                namespace_package,name,'profiles',
@@ -243,7 +243,6 @@ class ThemeEditorExportForm(form.Form):
     def create_jbot_zcml(self,output_dir,namespace_package,name):
         package_name = "%s.%s" % (namespace_package,name)
         jbot_vars = {'package_name':package_name}
-        _templates_dir = os.path.join(os.path.dirname(__file__))
         template = os.path.join(_templates_dir,'jbot.zcml.tmpl')
         output_file = os.path.join(output_dir,package_name,
                                namespace_package,name,'jbot.zcml')
@@ -275,9 +274,9 @@ class ThemeEditorExportForm(form.Form):
 
 #ThemeEditorExportView = wrap_form(ThemeEditorExportForm)
 class ThemeEditorExportView(FormWrapper):
-    
+
     form = ThemeEditorExportForm
-    
+
     def __init__(self, context, request):
         FormWrapper.__init__(self, context, request)
         request.set('disable_border', 1)

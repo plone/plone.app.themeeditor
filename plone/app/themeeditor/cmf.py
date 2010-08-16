@@ -47,7 +47,12 @@ class CMFSkinsResourceType(object):
         if skin_path is None:
             return
         for layer_path in skin_path.split(','):
-            layer_folder = self.skins_tool.unrestrictedTraverse(layer_path)
+            try:
+                layer_folder = self.skins_tool.unrestrictedTraverse(layer_path)
+            except KeyError:
+                # Sometimes the active theme declares nonexistent folders
+                # this is not themeeditors fault, so we skip the error
+                continue
             for name, obj in layer_folder.items():
                 res = CMFResourceRegistration()
                 res.base_skin = self.skin

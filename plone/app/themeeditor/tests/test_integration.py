@@ -62,7 +62,8 @@ class ThemeEditorIntegrationTestCase(WindmillTestCase):
         client.waits.forPageLoad(timeout=u'20000')
         client.click(link=u'Theme Editor')
         client.click(link=u'Export')
-        client.waits.forPageLoad(timeout=u'20000')
+        # client.waits.forPageLoad(timeout=u'20000')
+        client.waits.forElement(timeout=u'', id=u'form-widgets-name')
         # fill out the form
         client.type(text=u'plonetheme.test', id=u'form-widgets-name')
         client.type(text=u'1.0', id=u'form-widgets-version')
@@ -72,7 +73,7 @@ class ThemeEditorIntegrationTestCase(WindmillTestCase):
         # export the theme
         # XXX not sure why it doesn't actually generate the download
         client.click(id=u'form-buttons-4578706f727420437573746f6d697a6174696f6e73')
-        client.waits.forPageLoad(timeout=u'220000')
+        # client.waits.forPageLoad(timeout=u'200')
         client.click(xpath=u"//div[@id='pb_2']/div[1]")
 
 def test_suite():

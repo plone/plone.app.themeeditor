@@ -2,6 +2,18 @@ Changelog
 =========
 1.0a2
 -------------------
+- created a templates directory and moved all the .tmpl template from the browser 
+  directory to the templates directory, updated the browser/export.py form code
+  to grab templates from the new location [pigeonflight]
+
+- fixed the popup export form (removed formselector in themeeditor.js) so that the theme 
+  actually downloads [pigeonflight] 
+
+- added validator to checks to see that themes are named with proper dotted named [pigeonflight]
+
+- ensure that themeeditor doesn't break if the active theme declares nonexistent 
+  filesystem skin folders [pigeonflight]
+
 - removed redundant export.py file [pigeonflight]
 
 - update tests including a windmill based test of the exporter [pigeonflight]

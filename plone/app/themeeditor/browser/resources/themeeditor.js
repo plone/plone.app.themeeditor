@@ -11,7 +11,7 @@ jq(function() {
     jq('a[href*=/@@plone.app.themeeditor.export]', this).prepOverlay({
       subtype: 'ajax',
       filter: '#content',
-      formselector: 'form'
+      //formselector: 'form',
           });
 
     jq('a[href*=/manage_main],a[href*=/@@customizezpt]', this).prepOverlay({

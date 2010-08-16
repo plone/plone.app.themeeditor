@@ -47,5 +47,9 @@
     class=".export.ThemeEditorExportView"
     permission="zope2.View"
     />
+  <adapter
+    factory=".validator.DottedNameValidator"
+    provides="z3c.form.interfaces.IValidator"
+    />
 
 </configure>
