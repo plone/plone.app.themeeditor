@@ -2,6 +2,10 @@ Changelog
 =========
 1.0a2
 -------------------
+- removed redundant export.py file [pigeonflight]
+
+- update tests including a windmill based test of the exporter [pigeonflight]
+
 - the export form now shows up in a popup window with instructions [pigeonflight]
 
 - updated the TODO.txt [pigeonflight]

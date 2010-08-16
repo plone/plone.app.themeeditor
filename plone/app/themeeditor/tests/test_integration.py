@@ -53,7 +53,27 @@ class ThemeEditorIntegrationTestCase(WindmillTestCase):
         client.click(jquery=u"('dt[id^=themeeditor-logo.jpg] a')[0]")
         client.waits.forElement(xpath=u"//dd[@class='plone-app-themeeditor-layers']")
         client.click(link=u'Remove')
-        client.click(id=u'themeeditor-export')
+
+    def test_exporter(self):
+        client = self.wm
+        client.click(id=u'user-name')
+        # load customizer
+        client.click(link=u'Site Setup')
+        client.waits.forPageLoad(timeout=u'20000')
+        client.click(link=u'Theme Editor')
+        client.click(link=u'Export')
+        client.waits.forPageLoad(timeout=u'20000')
+        # fill out the form
+        client.type(text=u'plonetheme.test', id=u'form-widgets-name')
+        client.type(text=u'1.0', id=u'form-widgets-version')
+        client.type(text=u'A Theme to test this', id=u'form-widgets-description')
+        client.type(text=u'John Doe', id=u'form-widgets-author')
+        client.type(text=u'john.doe@example.com', id=u'form-widgets-author_email')
+        # export the theme
+        # XXX not sure why it doesn't actually generate the download
+        client.click(id=u'form-buttons-4578706f727420437573746f6d697a6174696f6e73')
+        client.waits.forPageLoad(timeout=u'220000')
+        client.click(xpath=u"//div[@id='pb_2']/div[1]")
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
