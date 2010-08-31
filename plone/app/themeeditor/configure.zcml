@@ -4,7 +4,10 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:i18n="http://namespaces.zope.org/i18n">
 
- <i18n:registerTranslations directory="locales" />
+  <include package="plone.app.z3cform"/>
+  <include package="plone.app.jquerytools"/>
+
+  <i18n:registerTranslations directory="locales" />
   
   <permission id="plone.app.themeeditor.ThemeEditor"
     title="plone.app.themeeditor: Theme Editor"
