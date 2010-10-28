@@ -119,7 +119,12 @@ def adjustMetadata(str):
 
 def filewrite( filename, data, mode = 'wb' ):
     f = open( filename, mode )
-    f.write( prepareData(data) )
+    print "*****",filename,"********"
+    try:
+        f.write( prepareData(data) )
+    except TypeError:
+        # XXX this is a quick fix need to check back here
+        f.write( prepareData(data.data) )
     f.close()
 
 def filewritelines( filename, data ):

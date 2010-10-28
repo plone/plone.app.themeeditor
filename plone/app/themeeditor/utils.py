@@ -1,10 +1,18 @@
 ##############################################################################
 #
-# This code is borrowed from the qPloneSkinDump Product
+#  This code is borrowed from the qPloneSkinDump Product
 #
 ##############################################################################
 """Skin dump Utility
 """
+from AccessControl import ClassSecurityInfo
+from Globals import DTMLFile
+from Globals import package_home
+from Globals import InitializeClass
+from OFS.SimpleItem import SimpleItem
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+
+
 import os, re, string, sets, time
 from zope.component import queryMultiAdapter
 from App.config import getConfiguration
@@ -55,7 +63,12 @@ def get_id(obj):
 
 def getData(obj, meta_type):
     """ Return object's data."""
-    return meta_type in ['Image', 'File'] and obj.manage_FTPget() or obj.document_src()
+    #return meta_type in ['Image', 'File'] and obj.manage_FTPget() or obj.document_src()
+    return meta_type in ['Image', 'File'] and obj.data or obj.document_src()
+    if meta_type == 'Image':
+        return obj.data
+    if meta_type == 'File':
+        return obj.document_src() or obj.data
 
 def dumpPortalViewCustomization(context):
     result = []

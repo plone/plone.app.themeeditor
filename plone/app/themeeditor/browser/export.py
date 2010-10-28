@@ -15,7 +15,9 @@ from plone.app.themeeditor.utils import dumpSkin,dumpFolder,getFSSkinPath
 from zope.component import getUtility
 #from plone.app.themeeditor.export import TarballThemeExporter
 import zopeskel
-from paste.script.command import get_commands
+from paste.script import command
+
+from paste.script import pluginlib
 import tempfile
 import logging
 JBOTCOMPATIBLE = ('portlet','view','viewlet')
@@ -55,6 +57,7 @@ class ThemeEditorExportForm(form.Form):
         return "hello universe"
 
     def theme_skel(self,data):
+
         name = data.pop('name')
         data['namespace_package'],data['package'] = name.split('.')
         tpl,create,output_dir=_create_tpl()
@@ -70,6 +73,8 @@ class ThemeEditorExportForm(form.Form):
                 'plone3_theme',
                 name,] + vars)
         package_name = name
+
+
         return (output_dir,data['namespace_package'],data['package'],package_name)
 
     def theme_populate(self,output_dir,namespace_package,name,make_jbot_zcml=0,
@@ -119,11 +124,19 @@ class ThemeEditorExportForm(form.Form):
         convert the theme into a tarball
         """
         tarballname = "%s.%s-%s.tar.gz" % (namespace_package,name,version)
+        # while working, we store the original directory
+        # so that we can reset it later
+        original_dir = os.getcwd()
         os.chdir(output_dir)
         tar = tarfile.open("sample.tar.gz", "w:gz")
         tar = tarfile.open(tarballname,"w:gz")
         tar.add('%s.%s' % (namespace_package,name))
         tar.close()
+
+        # reset the working directory
+        # if we don't do this, it won't be able to find the egg_info_dir 
+        # in the future
+        os.chdir(original_dir)
         return  os.path.join(output_dir,tarballname)
 
     def theme_download(self,path,blocksize=32768):
@@ -282,11 +295,12 @@ class ThemeEditorExportView(FormWrapper):
         request.set('disable_border', 1)
 
 def _create_tpl():
-    commands = get_commands()
+    commands = command.get_commands()
     create = commands['create'].load()
     create=create('any name here')
     output_dir = tempfile.mkdtemp()
     tpl = zopeskel.plone3_theme.Plone3Theme("new template")
+
     return tpl,create,output_dir
 
 

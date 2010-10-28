@@ -2,6 +2,8 @@ Changelog
 =========
 1.0a2
 -------------------
+- fixed an error that was causing exports to work only once in a single session [pigeonflight]
+
 - created a templates directory and moved all the .tmpl template from the browser 
   directory to the templates directory, updated the browser/export.py form code
   to grab templates from the new location [pigeonflight]
