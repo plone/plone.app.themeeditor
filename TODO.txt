@@ -1,14 +1,10 @@
-Alpha 1:
+1.0 Alpha 1:
 - [x] - add support for viewlets and portlets
 - [ ] - handle nested skin items
 - [x] - fix or at least find workaround for uploading files in popups
-- [ ] - the jquery forms plugin looks promising for this. David G will tt Steve M about incorporating into plone.app.jquerytools
-- [ ] - put JS and CSS in separate files instead of inline in the templates
-- [ ] - register configlet
-- [ ] - add random salt to GET requests that shouldn't be cached, for IE
-  - (first check to confirm if this is an issue)
-- [ ] - on popup close, update opened drawers rather than entire page
-- [ ] - option to show only customized resources
+- [x] - the jquery forms plugin looks promising for this. David G will tt Steve M about incorporating into plone.app.jquerytools
+- [x] - register configlet
+- [x] - option to show only customized resources
 - [ ] - fix lookup of layers for 2 views with the same name but different contexts
 
 Research:
@@ -20,16 +16,18 @@ Research:
   - any way to detect when switching to Restricted Python is going to cause access problems?
 - filter out known ZMI views unless overridden
 
-Alpha 2:
+1.0 Alpha 2:
 - [x] - add a link in the UI for the export view
 - [x] - clean up the export view to not show content_views
-- [ ] - show a "summary" with instructions on how to install exported theme
 - [x] - export customizations as a new theme 
 - [x] - refactor so that all .tmpl templates are written using write_tmpl in browser/export.py
-- [ ] - fix missing i18n (view X of Y in zopeview.py)
-- [ ] - add tests for the export functionality
 
-Alpha 3:
+1.0 Alpha 3:
+- [ ] - show a "summary" with instructions on how to install exported theme
+- [ ] - add tests for the export functionality
+- [x] - fix missing i18n (view X of Y in zopeview.py)
+- [ ] - on popup close, update opened drawers rather than entire page
+- [ ] - put JS and CSS in separate files instead of inline in the templates
 - [ ] - custom forms
   - filesystem page template: view, customize
   - filesystem image: view, customize
@@ -43,9 +41,24 @@ Alpha 3:
 - [ ] - (based on conversation with davisagli) implement an export method for earch resource type
   the idea is to make it possible to iterate over each customized resourse using the 
   resource retreiever and export the result to the "export" directory
-- [ ] - possibly create a resource that type that can introspect z3c.jbot template
-  override registry
 
+1.0 Beta
+- [ ] - More ajax updating when an item is changed
+- [ ] - Reduce the need to force refresh
+
+1.0 
+- [ ] - feature freeze
+- [ ] - polish UI 
+
+2.0
+- [ ] - gloworm style UI
+- [ ] - find a way to deal with 'hidden viewlets' viewlets that don't have templates etc....
+- [ ] - create new templates by cloning and renaming
+- [ ] - A theme egg installation UI
+- [ ] - possibly create a way to introspect z3c.jbot template
+  override registry (useful for roundtripping)
+- [ ] - add random salt to GET requests that shouldn't be cached, for IE
+  - (first check to confirm if this is an issue)
 
 User stories
 ============

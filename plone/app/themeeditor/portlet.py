@@ -11,6 +11,7 @@ from five.customerize.interfaces import ITTWViewTemplate
 from plone.portlets.interfaces import IPortletRenderer
 # translation machinery
 from plone.app.themeeditor.interfaces import  _
+from zope.i18n import translate
 # borrow some exisiting translations from plone
 from zope.i18nmessageid import MessageFactory
 PMF = MessageFactory('plone')
@@ -56,9 +57,10 @@ class PortletResourceType(object):
             context = required[0]
             if context == 'zope.interface.Interface':
                 context = '*'
-            res.description = _('portlet for X in the manager Y',
+            res.description = translate(_('portlet for X in the manager Y',
                                 default = u'Portlet for ${context} in the ${manager} manager',
-                                mapping = {'context': context, 'manager': required[3]})
+                                mapping = {'context': context, 'manager':
+                                                           required[3]}))
             res.layer = required[1]
             res.actions = []
             res.tags = ['portlet']
@@ -68,17 +70,17 @@ class PortletResourceType(object):
                 obj = getattr(pvc, info['customized'])
                 path = '/'.join(obj.getPhysicalPath())
                 res.text = obj._text
-                res.info = _(u"In the database", 
+                res.info = translate(_(u"In the database", 
                                default=u"In the database: ${path}",
-                               mapping={u"path" : path})
+                               mapping={u"path" : path}))
                 res.actions.append((PMF(u'Edit'), obj.absolute_url() + '/manage_main'))
                 remove_url = pvc.absolute_url() + '/manage_delObjects?ids=' + info['customized']
                 res.actions.append((PMF(u'Remove'), remove_url))
             else:
                 res.path = info['zptfile']
-                res.info = _(u"On the filesystem", 
+                res.info = translate(_(u"On the filesystem", 
                                default=u"On the filesystem: ${path}",
-                               mapping={u"path" : res.path})
+                               mapping={u"path" : res.path}))
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
                 res.actions.append((PMF(u'View'), view_url))
             yield res

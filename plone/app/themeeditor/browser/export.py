@@ -49,6 +49,7 @@ class ThemeEditorExportForm(form.Form):
         if errors:
             return
         output_dir,namespace_package,name,package_name = self.theme_skel(data)
+
         self.theme_populate(output_dir,namespace_package,name,data['version'])
         self.write_setuppy(data,namespace_package,package_name,output_dir)
         tarball = self.theme_tarball(output_dir,namespace_package,name,data['version'])
@@ -57,7 +58,7 @@ class ThemeEditorExportForm(form.Form):
         return "hello universe"
 
     def theme_skel(self,data):
-
+        """ method that generates a theme skeleton """
         name = data.pop('name')
         data['namespace_package'],data['package'] = name.split('.')
         tpl,create,output_dir=_create_tpl()
@@ -73,7 +74,6 @@ class ThemeEditorExportForm(form.Form):
                 'plone3_theme',
                 name,] + vars)
         package_name = name
-
 
         return (output_dir,data['namespace_package'],data['package'],package_name)
 
@@ -263,11 +263,10 @@ class ThemeEditorExportForm(form.Form):
 
         configure_zcml = os.path.join(output_dir,package_name,namespace_package,name,'configure.zcml')
 
-        # insert jbot zcml file include after the 9th line
+        # insert jbot zcml file include (after the 9th line)
         for i, line in enumerate(fileinput.input(configure_zcml, inplace=1)):
             sys.stdout.write(line)
             if i == 8: sys.stdout.write('  <include file="jbot.zcml" />\n')
-
 
     def jbot_resource_info(self,resource):
         rm = getUtility(IResourceRetriever)
@@ -282,8 +281,6 @@ class ThemeEditorExportForm(form.Form):
         jbotname = '.'.join([context_prefix,basename(path)])
         tmpl_text = resource.text
         return (jbotname,tmpl_text)
-
-
 
 #ThemeEditorExportView = wrap_form(ThemeEditorExportForm)
 class ThemeEditorExportView(FormWrapper):
@@ -302,5 +299,3 @@ def _create_tpl():
     tpl = zopeskel.plone3_theme.Plone3Theme("new template")
 
     return tpl,create,output_dir
-
-

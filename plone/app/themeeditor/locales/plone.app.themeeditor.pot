@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-08-09 21:56+0000\n"
+"POT-Creation-Date: 2010-10-30 11:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone.app.themeeditor\n"
 
-#: ./browser/export.py:26
+#: ./browser/export.py:37
 msgid "Author"
 msgstr ""
 
-#: ./browser/export.py:27
+#: ./browser/export.py:38
 msgid "Author Email"
 msgstr ""
 
@@ -37,15 +37,15 @@ msgstr ""
 msgid "DTML"
 msgstr ""
 
-#: ./browser/export.py:25
+#: ./browser/export.py:36
 msgid "Description"
 msgstr ""
 
-#: ./browser/export.py:34
+#: ./browser/export.py:46
 msgid "Export Customizations"
 msgstr ""
 
-#: ./browser/export.py:32
+#: ./browser/export.py:43
 msgid "Export your customizations"
 msgstr ""
 
@@ -54,9 +54,9 @@ msgid "Images"
 msgstr ""
 
 #. Default: "In the database: ${path}"
-#: ./cmf.py:69
-#: ./portlet.py:70
-#: ./viewlet.py:70
+#: ./cmf.py:75
+#: ./portlet.py:71
+#: ./viewlet.py:71
 msgid "In the database"
 msgstr ""
 
@@ -68,14 +68,14 @@ msgstr ""
 msgid "KSS"
 msgstr ""
 
-#: ./browser/export.py:23
+#: ./browser/export.py:34
 msgid "Name"
 msgstr ""
 
 #. Default: "On the filesystem: ${path}"
-#: ./cmf.py:60
-#: ./portlet.py:78
-#: ./viewlet.py:77
+#: ./cmf.py:66
+#: ./portlet.py:79
+#: ./viewlet.py:78
 msgid "On the filesystem"
 msgstr ""
 
@@ -99,7 +99,7 @@ msgstr ""
 msgid "Theme Editor"
 msgstr ""
 
-#: ./browser/export.py:24
+#: ./browser/export.py:35
 msgid "Version"
 msgstr ""
 
@@ -113,22 +113,22 @@ msgid "Viewlets"
 msgstr ""
 
 #. Default: "Advanced"
-#: ./browser/console.pt:45
+#: ./browser/console.pt:44
 msgid "label_advanced"
 msgstr ""
 
 #. Default: "Basic"
-#: ./browser/console.pt:39
+#: ./browser/console.pt:38
 msgid "label_basic"
 msgstr ""
 
 #. Default: "Filter"
-#: ./browser/console.pt:75
+#: ./browser/console.pt:74
 msgid "label_filter"
 msgstr ""
 
 #. Default: "Theme Editor"
-#: ./browser/console.pt:53
+#: ./browser/console.pt:52
 msgid "label_themeeditor"
 msgstr ""
 

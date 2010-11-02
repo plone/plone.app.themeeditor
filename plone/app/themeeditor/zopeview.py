@@ -8,6 +8,7 @@ from zope.interface import implements
 from plone.app.customerize.registration import templateViewRegistrationInfos
 from plone.memoize.instance import memoize
 from five.customerize.interfaces import ITTWViewTemplate
+from zope.i18n import translate
 
 # get the message factory
 from plone.app.themeeditor.interfaces import _
@@ -53,9 +54,9 @@ class ZopeViewResourceType(object):
             res.context = context = required[0]
             if context == 'zope.interface.Interface':
                 context = '*'
-            res.description = _('View for X',
+            res.description = translate(_('View for X',
                                 default = u'View for ${context}',
-                                mapping = {'context': context})
+                                mapping = {u'context': context}))
             res.layer = required[1]
             res.actions = []
             res.tags = ['template']
@@ -65,17 +66,17 @@ class ZopeViewResourceType(object):
                 obj = getattr(pvc, info['customized'])
                 res.path = '/'.join(obj.getPhysicalPath())
                 res.text = obj._text
-                res.info = _('In the database',
+                res.info = translate(_('In the database',
                              default = u'In the database: ${path}',
-                             mapping = {'path': res.path})
+                             mapping = {'path': res.path}))
                 res.actions.append(('Edit', obj.absolute_url() + '/manage_main'))
                 remove_url = pvc.absolute_url() + '/manage_delObjects?ids=' + info['customized']
                 res.actions.append(('Remove', remove_url))
             else:
                 res.path = info['zptfile']
-                res.info = _(u"On the filesystem", 
+                res.info = translate(_(u"On the filesystem", 
                                default=u"On the filesystem: ${path}",
-                               mapping={u"path" : res.path})
+                               mapping={u"path" : res.path}))
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
                 res.actions.append(('View', view_url))
             name = info['viewname'].lower()

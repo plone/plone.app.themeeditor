@@ -12,6 +12,7 @@ from zope.viewlet.interfaces import IViewlet
 # get translation machinery
 from plone.app.themeeditor.interfaces import _
 # borrow from plone message factory
+from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
 PMF = MessageFactory('plone')
 
@@ -68,16 +69,16 @@ class ViewletResourceType(object):
                 obj = getattr(pvc, info['customized'])
                 res.text = obj._text
                 res.path = '/'.join(obj.getPhysicalPath())
-                res.info = _(u"In the database", 
+                res.info = translate(_(u"In the database", 
                                default=u"In the database: ${path}",
-                               mapping={u"path" : res.path})
+                               mapping={u"path" : res.path}))
                 res.actions.append((PMF(u'Edit'), obj.absolute_url() + '/manage_main'))
                 remove_url = pvc.absolute_url() + '/manage_delObjects?ids=' + info['customized']
                 res.actions.append((PMF(u'Remove'), remove_url))
             else:
-                res.info = _('On the filesystem',
+                res.info = translate(_('On the filesystem',
                              default = u'On the filesystem: ${path}',
-                             mapping = {'path': info['zptfile']})
+                             mapping = {'path': info['zptfile']}))
                 res.path = info['zptfile']
                 view_url = pvc.absolute_url() + '/@@customizezpt.html?required=%s&view_name=%s' % (info['required'], info['viewname'])
                 res.actions.append((PMF(u'View'), view_url))
