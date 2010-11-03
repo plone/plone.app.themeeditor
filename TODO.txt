@@ -28,19 +28,9 @@ Research:
 - [x] - fix missing i18n (view X of Y in zopeview.py)
 - [ ] - on popup close, update opened drawers rather than entire page
 - [ ] - put JS and CSS in separate files instead of inline in the templates
-- [ ] - custom forms
-  - filesystem page template: view, customize
-  - filesystem image: view, customize
-  - page template: view, edit, remove
-  - image: view, edit, remove
-- [ ] - support showing resources for themes other than the active one
-- [ ] - implement z3c.jbot based customizations (need to figure out a way to detect and how
-  jbot based customizations in the UI)
 - [ ] - write cmfskins to separate folders (currently writes to a single folder)
-- [ ] - gloworm integration
-- [ ] - (based on conversation with davisagli) implement an export method for earch resource type
-  the idea is to make it possible to iterate over each customized resourse using the 
-  resource retreiever and export the result to the "export" directory
+- [ ] - add random salt to GET requests that shouldn't be cached, for IE
+  - (first check to confirm if this is an issue)
 
 1.0 Beta
 - [ ] - More ajax updating when an item is changed
@@ -51,14 +41,21 @@ Research:
 - [ ] - polish UI 
 
 2.0
+- [ ] - (based on conversation with davisagli) implement an export method for each resource type
+  the idea is to make it possible to iterate over each customized resourse using the 
+  resource retreiever and export the result to the "export" directory
+- [ ] - custom forms
+  - filesystem page template: view, customize
+  - filesystem image: view, customize
+  - page template: view, edit, remove
+  - image: view, edit, remove
+- [ ] - support showing resources for themes other than the active one
 - [ ] - gloworm style UI
 - [ ] - find a way to deal with 'hidden viewlets' viewlets that don't have templates etc....
 - [ ] - create new templates by cloning and renaming
 - [ ] - A theme egg installation UI
 - [ ] - possibly create a way to introspect z3c.jbot template
   override registry (useful for roundtripping)
-- [ ] - add random salt to GET requests that shouldn't be cached, for IE
-  - (first check to confirm if this is an issue)
 
 User stories
 ============
