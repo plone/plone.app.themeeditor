@@ -1,0 +1,139 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-04-05 11:49+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: JeanMichel FRANCOIS <toutpt@gmail.com>\n"
+"Language-Team: LANGUAGE <plone-fr@lists.plone.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: fr\n"
+"Language-Name: French\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone.app.themeeditor\n"
+
+#: ./browser/export.py:37
+msgid "Author"
+msgstr "Auteur"
+
+#: ./browser/export.py:38
+msgid "Author Email"
+msgstr "Courriel de l'auteur"
+
+#: ./browser/console.py:27
+msgid "CPT"
+msgstr "CPT"
+
+#: ./browser/console.py:16
+msgid "Customized Items"
+msgstr "Eléments modifiés"
+
+#: ./browser/console.py:29
+msgid "DTML"
+msgstr "DTML"
+
+#: ./browser/export.py:36
+msgid "Description"
+msgstr "Description"
+
+#: ./browser/export.py:46
+msgid "Export Customizations"
+msgstr "Exporter les modifications"
+
+#: ./browser/export.py:43
+msgid "Export your customizations"
+msgstr "Exporter vos modifications"
+
+#: ./browser/console.py:20
+msgid "Images"
+msgstr "Images"
+
+#. Default: "In the database: ${path}"
+#: ./cmf.py:75
+#: ./portlet.py:71
+#: ./viewlet.py:71
+msgid "In the database"
+msgstr "Dans la base de données"
+
+#: ./browser/console.py:22
+msgid "Javascripts"
+msgstr "Javascripts"
+
+#: ./browser/console.py:28
+msgid "KSS"
+msgstr "KSS"
+
+#: ./browser/export.py:34
+msgid "Name"
+msgstr "Nom"
+
+#. Default: "On the filesystem: ${path}"
+#: ./cmf.py:66
+#: ./portlet.py:79
+#: ./viewlet.py:78
+msgid "On the filesystem"
+msgstr "Sur le système de fichier"
+
+#: ./browser/console.py:18
+msgid "Portlets"
+msgstr "Portlets"
+
+#: ./browser/console.py:26
+msgid "Python Scripts"
+msgstr "Scripts Python"
+
+#: ./browser/console.py:21
+msgid "Stylesheets"
+msgstr "Feuilles de style"
+
+#: ./browser/console.py:17
+msgid "Templates"
+msgstr "Templates"
+
+#: ./profiles/default/controlpanel.xml
+msgid "Theme Editor"
+msgstr "Editeur de Thème"
+
+#: ./browser/export.py:35
+msgid "Version"
+msgstr "Version"
+
+#. Default: "View for ${context}"
+#: ./zopeview.py:56
+msgid "View for X"
+msgstr "Vue pour X"
+
+#: ./browser/console.py:19
+msgid "Viewlets"
+msgstr "Viewlets"
+
+#. Default: "Advanced"
+#: ./browser/console.pt:44
+msgid "label_advanced"
+msgstr "Avancé"
+
+#. Default: "Basic"
+#: ./browser/console.pt:38
+msgid "label_basic"
+msgstr "Basique"
+
+#. Default: "Filter"
+#: ./browser/console.pt:74
+msgid "label_filter"
+msgstr "Filtre"
+
+#. Default: "Theme Editor"
+#: ./browser/console.pt:52
+msgid "label_themeeditor"
+msgstr "Editeur de thème"
+
+#. Default: "Portlet for ${context} in the ${manager} manager"
+#: ./portlet.py:59
+msgid "portlet for X in the manager Y"
+msgstr "portlet pour X dans le manager Y"
+

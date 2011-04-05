@@ -1,5 +1,9 @@
 Changelog
 =========
+1.0a3
+-------------------
+- Add french translation [toutpt]
+
 1.0a2
 -------------------
 - fixed an error that was causing exports to work only once in a single session [pigeonflight]
