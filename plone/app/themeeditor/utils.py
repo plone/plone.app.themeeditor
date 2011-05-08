@@ -63,12 +63,16 @@ def get_id(obj):
 
 def getData(obj, meta_type):
     """ Return object's data."""
-    #return meta_type in ['Image', 'File'] and obj.manage_FTPget() or obj.document_src()
-    return meta_type in ['Image', 'File'] and obj.data or obj.document_src()
-    if meta_type == 'Image':
-        return obj.data
-    if meta_type == 'File':
-        return obj.document_src() or obj.data
+    if meta_type in ['Image', 'File']:
+         output = obj.data
+    else:
+        try:
+            output = obj.document_src()
+        except AttributeError:
+            # XXX Fixme now fails silently (though it should never fail, add a test for this silent fail)
+            return
+    return output
+    
 
 def dumpPortalViewCustomization(context):
     result = []

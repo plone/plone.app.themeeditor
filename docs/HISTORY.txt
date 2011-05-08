@@ -3,6 +3,7 @@ Changelog
 1.0a3
 -------------------
 - Add french translation [toutpt]
+- Fixed broken export for resources that were identified as 'zopeview' [pigeonflight]
 
 1.0a2
 -------------------

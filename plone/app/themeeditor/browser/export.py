@@ -20,12 +20,18 @@ from paste.script import command
 from paste.script import pluginlib
 import tempfile
 import logging
-JBOTCOMPATIBLE = ('portlet','view','viewlet')
+JBOTCOMPATIBLE = ('zopeview','portlet','view','viewlet')
 _templates_dir = os.path.join(os.path.dirname(__file__))
 _templates_dir = os.path.join(_templates_dir,'..','templates')
 
 
 LOGGER="plone.app.themeeditor"
+
+class JBOTResourceException(Exception):
+    def __init__(self, value):
+        self.parameter = value
+    def __str__(self):
+        return repr(self.parameter)
 
 def info(msg):
     logging.getLogger(LOGGER).info(msg)
@@ -94,7 +100,10 @@ class ThemeEditorExportForm(form.Form):
                 self.resource_to_jbot(resource,output_dir,namespace_package,name)
             else:
                 dump_cmfskins = 1
-                base_theme = resource.base_skin
+                try:
+                    base_theme = resource.base_skin
+                except AttributeError:
+                    base_theme = ""
         if dump_cmfskins == 1:
             self.dump_cmfskins(output_dir,namespace_package,
                                  name,base_theme,version)
@@ -240,7 +249,13 @@ class ThemeEditorExportForm(form.Form):
         convert resource to just a bunch of templates (jbot)
         we assume that this is an already customized resource
         """
-        jbotname,tmpl_text = self.jbot_resource_info(resource)
+        try:
+            resource_info = self.jbot_resource_info(resource)
+        except JBOTResourceException:
+            # XXX Fixme - should use a more robust test
+            # skip this resource
+            return
+        jbotname,tmpl_text = resource_info
         package_name = "%s.%s" % (namespace_package,name)
 
         jbot_dir = os.path.join(output_dir,package_name,namespace_package,name,"jbot")
@@ -272,11 +287,10 @@ class ThemeEditorExportForm(form.Form):
         rm = getUtility(IResourceRetriever)
         resources = rm.iter_resources(name=resource.name,
                                               exact=True).next()
-        if resources[-1].info == u'On the filesystem':
+        if resources[-1].info.startswith(u'On the filesystem'):
             path = resources[-1].path
         else:
-            # XXX change this to an exception
-            return "this is not a customized resource"
+            raise JBOTResourceException("%s is not a working properly with jbot this may be a bug in plone.app.themeeditor " % resource.name)
         context_prefix = resources[-1].context[-1].split('.interfaces')[0]
         jbotname = '.'.join([context_prefix,basename(path)])
         tmpl_text = resource.text
