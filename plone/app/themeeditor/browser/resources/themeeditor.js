@@ -19,11 +19,17 @@ jq(function() {
       subtype: 'ajax',
       filter: 'form,form+*', // everything after the 2nd table
       formselector: 'form',
+      afterpost: function(el){
+        el.find('input[name=submit]').attr('name', 'x-browser');
+      },
       config: {
         onLoad: function() {
           // absolutize relative form actions
           var base = this.getTrigger().data('pbo').src
           jq('form', this.getOverlay()).each(function() {
+            // jquerytools.form does not accept input elements those name is submit
+            // zope never checks that anyway
+            jq(this).find('input[name=submit]').attr('name', 'x-browser');
             var action = jq(this).attr('action');
             if (action.charAt(0) != '/') {
               jq(this).attr('action', base.substr(0,base.lastIndexOf('/')) + '/' + action);
@@ -70,7 +76,7 @@ jq(function() {
     updateResults();
   });
   // collapsible layer lists
-  jq('a.plone-app-themeeditor-resource').live('click', function(e) {
+  jq('a.plone-app-themeeditor-resource-link').live('click', function(e) {
     e.preventDefault();
     var link = jq(this);
     link.toggleClass('open');

@@ -95,7 +95,7 @@
           <dt class="plone-app-themeeditor-resource"
              tal:define="first_resource python:resource[0]"
              tal:attributes="id string:themeeditor-${first_resource/name}-${repeat/resource/number}">
-          <a class="plone-app-themeeditor-resource"
+          <a class="plone-app-themeeditor-resource-link"
              tal:attributes="href string:@@plone.app.themeeditor.layers?name=${first_resource/name};">
                     
               <img tal:condition="first_resource/icon" tal:attributes="src first_resource/icon;alt first_resource/type" />

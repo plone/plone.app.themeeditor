@@ -1,7 +1,7 @@
 #plone-app-themeeditor-browser p { margin: 0; }
 dl#plone-app-themeeditor-browser  { }
 .plone-app-themeeditor-result-count { margin: .5em 0; }
-#content dt.plone-app-themeeditor-resource a.plone-app-themeeditor-resource  {display:block;border-bottom:none;padding:0.5em 1.5em;background:url(treeCollapsed.png) 5px 50% no-repeat; }
+#content dt.plone-app-themeeditor-resource a.plone-app-themeeditor-resource-link  {display:block;border-bottom:none;padding:0.5em 1.5em;background:url(treeCollapsed.png) 5px 50% no-repeat; }
 #content dt.plone-app-themeeditor-resource  {width:96%;position:relative; border: solid 1px #ccc; cursor: pointer; border-radius:5px;-moz-border-radius: 5px; -webkit-border-radius: 5px; margin-top: 1px; padding: 0 .5em 0 .3em; background: #f8f8f8;
 }
 #content .plone-app-themeeditor-resource.open dt { background-image: url(treeExpanded.png); }
