@@ -14,6 +14,7 @@ jq(function() {
       //formselector: 'form',
           });
 
+
     jq('a[href*=/manage_main],a[href*=/@@customizezpt]', this).prepOverlay({
       subtype: 'ajax',
       filter: 'form,form+*', // everything after the 2nd table
@@ -22,11 +23,7 @@ jq(function() {
         onLoad: function() {
           // absolutize relative form actions
           var base = this.getTrigger().data('pbo').src
-          var content = document;
-          if(this.getContent != undefined){
-            content = this.getContent();
-          }
-          jq('form', content).each(function() {
+          jq('form', this.getOverlay()).each(function() {
             var action = jq(this).attr('action');
             if (action.charAt(0) != '/') {
               jq(this).attr('action', base.substr(0,base.lastIndexOf('/')) + '/' + action);
