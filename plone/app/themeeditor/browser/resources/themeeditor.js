@@ -73,7 +73,7 @@ jq(function() {
     updateResults();
   });
   // collapsible layer lists
-  jq('.plone-app-themeeditor-resource').live('click', function(e) {
+  jq('a.plone-app-themeeditor-resource').live('click', function(e) {
     e.preventDefault();
     var link = jq(this);
     link.toggleClass('open');
