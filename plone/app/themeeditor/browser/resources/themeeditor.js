@@ -21,7 +21,7 @@ jq(function() {
       config: {
         onLoad: function() {
           // absolutize relative form actions
-          var base = this.getTrigger().data('target');
+          var base = this.getTrigger().data('pbo').src
           var content = document;
           if(this.getContent != undefined){
             content = this.getContent();
@@ -34,7 +34,7 @@ jq(function() {
           });
           
           // prevent customizing already-customized resources
-          var source = this.getTrigger().data('source');
+          var source = this.getTrigger().data('pbo').source
           if(source.find('.plone-app-themeeditor-layers.customized').size() >= 1){
               var overlay = this.getOverlay();
               overlay.find('input[type=submit]').hide();
@@ -42,7 +42,7 @@ jq(function() {
           }
         },
         onClose: function(){
-          var trigger = this.getTrigger().data('source').parent();
+          var trigger = this.getTrigger().data('pbo').source.parent();
           var title = trigger.prev('.plone-app-themeeditor-resource.open');
           trigger.load(title.attr('href'), null, function(){
             // remove custom and view info
