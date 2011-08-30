@@ -7,7 +7,7 @@
 """
 from AccessControl import ClassSecurityInfo
 from App.special_dtml import DTMLFile
-from App.common import package_home
+from App.Common import package_home
 from App.class_init import InitializeClass
 from OFS.SimpleItem import SimpleItem
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
