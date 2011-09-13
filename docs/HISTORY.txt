@@ -1,5 +1,18 @@
+
+
 Changelog
 =========
+
+1.0a4 (unreleased)
+------------------
+
+- Updated some imports to work with Zope 2.13 [pbauer]
+- Fixed broken customization js code [do3cc]
+- New jquerytools do not allow fields with name submit. Now mangling
+  forms to change that name [do3cc]
+- Updated js code to datastructure changes introduced in p.a.jquerytools
+  [do3cc]
+
 1.0a3
 -------------------
 - Add french translation [toutpt]
