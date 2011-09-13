@@ -41,8 +41,8 @@ class ThemeEditorIntegrationTestCase(WindmillTestCase):
         client.waits.forElement(xpath=u"//dd[@class='plone-app-themeeditor-layers']")
         client.click(jquery=u"('a[href*=plone_images/logo.jpg/manage_main]')[0]")
         client.waits.forElement(jquery=u"('#pb_1 input[value=Customize]')")
-        client.click(name=u'submit')
-        client.waits.forElement(timeout=u'', id=u'pb_2')
+        client.click(name=u'x-browser')
+        client.waits.forElement(timeout=u'', id=u'pb_3')
         # XXX for now we don't have a good way to actually make an assertion that
         # the customized image is rendered instead...at least we can make sure
         # there's now a 'Remove' link which we can use

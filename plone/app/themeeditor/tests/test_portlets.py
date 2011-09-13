@@ -83,9 +83,8 @@ class TestPortletResourceType(unittest.TestCase):
         res = resources[0]
         self.assertEqual(res.name, 'portlet')
         self.assertEqual(res.type, 'portlet')
-        self.assertEqual(res.description.mapping, {'context': '*', 'manager': 'plone.app.themeeditor.tests.test_portlets.IDummyPortletManager'})
-        self.assertEqual(res.info, 'In the database')
-        self.assertEqual(res.info.mapping['path'], 'portal_view_customizations/customized_portlet')
+        self.assertEqual(res.description, u'Portlet for * in the plone.app.themeeditor.tests.test_portlets.IDummyPortletManager manager')
+        self.assertEqual(res.info, 'In the database: portal_view_customizations/customized_portlet')
         self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.themeeditor.tests.test_portlets.IDummyPortletManager'))
         self.assertEqual(res.layer, 'plone.app.themeeditor.tests.test_portlets.IDummyBrowserLayer')
         self.assertEqual(res.actions, [('Edit', 'customized_portlet/manage_main'),
@@ -96,9 +95,8 @@ class TestPortletResourceType(unittest.TestCase):
         res = resources[1]
         self.assertEqual(res.name, 'portlet')
         self.assertEqual(res.type, 'portlet')
-        self.assertEqual(res.description.mapping, {'context': '*', 'manager': 'plone.app.themeeditor.tests.test_portlets.IDummyPortletManager'})
-        self.assertEqual(res.info, 'On the filesystem')
-        self.failUnless(res.info.mapping['path'].endswith('cmf_test_skins/test/test.pt'))
+        self.assertEqual(res.description, u'Portlet for * in the plone.app.themeeditor.tests.test_portlets.IDummyPortletManager manager')
+        self.assertEqual(res.info, u'On the filesystem: /home/do3cc/p/plone.app.themeeditor/plone/app/themeeditor/tests/cmf_test_skins/test/test.pt')
         self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.themeeditor.tests.test_portlets.IDummyPortletManager'))
         self.assertEqual(res.layer, 'plone.app.themeeditor.tests.test_portlets.IDummyBrowserLayer')
         self.assertEqual(res.actions, [('View', '/@@customizezpt.html?required=zope.interface.Interface,plone.app.themeeditor.tests.test_portlets.IDummyBrowserLayer,zope.browser.interfaces.IView,plone.app.themeeditor.tests.test_portlets.IDummyPortletManager,zope.interface.Interface&view_name=portlet')])
@@ -108,9 +106,8 @@ class TestPortletResourceType(unittest.TestCase):
         res = resources[2]
         self.assertEqual(res.name, 'portlet')
         self.assertEqual(res.type, 'portlet')
-        self.assertEqual(res.description.mapping, {'context': '*', 'manager': 'plone.app.themeeditor.tests.test_portlets.IDummyPortletManager'})
-        self.assertEqual(res.info, 'On the filesystem')
-        self.failUnless(res.info.mapping['path'].endswith('cmf_test_skins/test/test.pt'))
+        self.assertEqual(res.description, u'Portlet for * in the plone.app.themeeditor.tests.test_portlets.IDummyPortletManager manager')
+        self.assertEqual(res.info, u'On the filesystem: /home/do3cc/p/plone.app.themeeditor/plone/app/themeeditor/tests/cmf_test_skins/test/test.pt')
         self.assertEqual(res.context, ('zope.interface.Interface', 'plone.app.themeeditor.tests.test_portlets.IDummyPortletManager'))
         self.assertEqual(res.layer, 'zope.publisher.interfaces.browser.IBrowserRequest')
         self.assertEqual(res.actions, [('View', '/@@customizezpt.html?required=zope.interface.Interface,zope.publisher.interfaces.browser.IBrowserRequest,zope.browser.interfaces.IView,plone.app.themeeditor.tests.test_portlets.IDummyPortletManager,zope.interface.Interface&view_name=portlet')])
