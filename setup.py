@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0a4dev'
+version = '1.0a4'
 
 setup(name='plone.app.themeeditor',
       version=version,
