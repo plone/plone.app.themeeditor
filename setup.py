@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0a4'
+version = '1.0a5.dev0'
 
 setup(name='plone.app.themeeditor',
       version=version,
@@ -20,7 +20,7 @@ through the web""",
       url='',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['plone'],
+      namespace_packages=['plone', 'plone.app'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
