@@ -14,8 +14,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.themeeditor.utils import dumpSkin,dumpFolder,getFSSkinPath
 from zope.component import getUtility
 #from plone.app.themeeditor.export import TarballThemeExporter
-import zopeskel
 from paste.script import command
+from templer.localcommands import TemplerLocalCommand
 
 from paste.script import pluginlib
 import tempfile
@@ -55,7 +55,6 @@ class ThemeEditorExportForm(form.Form):
         if errors:
             return
         output_dir,namespace_package,name,package_name = self.theme_skel(data)
-
         self.theme_populate(output_dir,namespace_package,name,data['version'])
         self.write_setuppy(data,namespace_package,package_name,output_dir)
         tarball = self.theme_tarball(output_dir,namespace_package,name,data['version'])
@@ -66,6 +65,7 @@ class ThemeEditorExportForm(form.Form):
     def theme_skel(self,data):
         """ method that generates a theme skeleton """
         name = data.pop('name')
+        data['add_profile'] = True
         data['namespace_package'],data['package'] = name.split('.')
         tpl,create,output_dir=_create_tpl()
         info("ThemeEditorExportForm.theme_skel: Creating theme skeleton outputdir=%s, theme_name=%s" % (output_dir, name) )
@@ -77,8 +77,16 @@ class ThemeEditorExportForm(form.Form):
                 '--output-dir',
                 output_dir,
                 '-t',
-                'plone3_theme',
+                'plone_basic',
                 name,] + vars)
+        cwd = os.getcwd()
+        try:
+            os.chdir('/'.join([output_dir, name, 'src']))
+            add = TemplerLocalCommand('add')
+            add.template_vars['view_name'] = 'example'
+            add.run(['browserview', 'view_name=example'])
+        finally:
+            os.chdir(cwd)
         package_name = name
 
         return (output_dir,data['namespace_package'],data['package'],package_name)
@@ -183,7 +191,7 @@ class ThemeEditorExportForm(form.Form):
     def write_zcml_and_generic_setup(self,output_dir,namespace_package,name,base_theme,version):
         package_name = "%s.%s" % (namespace_package,name)
         # overwrite the existing skins.zcml file
-        skins_zcml_file = os.path.join(output_dir,package_name,
+        skins_zcml_file = os.path.join(output_dir,package_name,'src',
                                namespace_package,name,'skins.zcml')
 
         skin_vars = {'name':name,
@@ -197,40 +205,40 @@ class ThemeEditorExportForm(form.Form):
 
         # custom skins.zcml
         template = os.path.join(_templates_dir,'skins.zcml.tmpl')
-        output_file = os.path.join(output_dir,package_name,
+        output_file = os.path.join(output_dir,package_name, 'src',
                                namespace_package,name,'skins.zcml')
         self.write_tmpl(template,output_file,vars=skin_vars)
 
         # custom skins.xml
         template = os.path.join(_templates_dir,'skins.xml.tmpl')
-        output_file = os.path.join(output_dir,package_name,
+        output_file = os.path.join(output_dir,package_name, 'src',
                                namespace_package,name,'profiles',
                                'default','skins.xml')
         self.write_tmpl(template,output_file,vars=skin_vars)
 
         # custom viewlets.xml
         template = os.path.join(_templates_dir,'viewlets.xml.tmpl')
-        output_file = os.path.join(output_dir,package_name,
+        output_file = os.path.join(output_dir,package_name,'src',
                                namespace_package,name,'profiles',
                                'default','viewlets.xml')
         self.write_tmpl(template,output_file,vars=skin_vars)
 
         # custom metadata.xml
         template = os.path.join(_templates_dir,'metadata.xml.tmpl')
-        output_file = os.path.join(output_dir,package_name,
+        output_file = os.path.join(output_dir,package_name,'src',
                                namespace_package,name,'profiles',
                                'default','metadata.xml')
         self.write_tmpl(template,output_file,vars=skin_vars)
 
         # custom profile.zcml
         template = os.path.join(_templates_dir,'profiles.zcml.tmpl')
-        output_file = os.path.join(output_dir,package_name,
+        output_file = os.path.join(output_dir,package_name,'src',
                                namespace_package,name,'profiles.zcml')
         self.write_tmpl(template,output_file,vars=skin_vars)
 
         # custom browser/configure.zcml
         template = os.path.join(_templates_dir,'browser_configure.zcml.tmpl')
-        output_file = os.path.join(output_dir,package_name,
+        output_file = os.path.join(output_dir,package_name,'src',
                                namespace_package,name,'browser','configure.zcml')
         self.write_tmpl(template,output_file,vars=skin_vars)
 
@@ -310,6 +318,7 @@ def _create_tpl():
     create = commands['create'].load()
     create=create('any name here')
     output_dir = tempfile.mkdtemp()
-    tpl = zopeskel.plone3_theme.Plone3Theme("new template")
+    #tpl = zopeskel.plone3_theme.Plone3Theme("new template")
+    tpl = None
 
     return tpl,create,output_dir
