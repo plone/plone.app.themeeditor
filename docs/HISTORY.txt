@@ -6,7 +6,8 @@ Changelog
 1.0a5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Use templer for egg creation [do3cc]
+- update setup.py so that z3c.autoinclude works [do3cc]
 
 
 1.0a4 (2011-09-13)
