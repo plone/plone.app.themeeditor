@@ -372,7 +372,7 @@ class ThemeEditorExportForm(form.Form):
         (jbotname, tmpl_text) = resource_info
         package_name = '%s.%s' % (namespace_package, name)
 
-        jbot_dir = os.path.join(output_dir, package_name,
+        jbot_dir = os.path.join(output_dir, package_name, 'src',
                                 namespace_package, name, 'jbot')
 
         if not os.path.exists(jbot_dir):
@@ -392,11 +392,11 @@ class ThemeEditorExportForm(form.Form):
         package_name = '%s.%s' % (namespace_package, name)
         jbot_vars = {'package_name': package_name}
         template = os.path.join(_templates_dir, 'jbot.zcml.tmpl')
-        output_file = os.path.join(output_dir, package_name,
+        output_file = os.path.join(output_dir, package_name, 'src',
                                    namespace_package, name, 'jbot.zcml')
         self.write_tmpl(template, output_file, vars=jbot_vars)
 
-        configure_zcml = os.path.join(output_dir, package_name,
+        configure_zcml = os.path.join(output_dir, package_name, 'src',
                 namespace_package, name, 'configure.zcml')
 
         # insert jbot zcml file include (after the 9th line)

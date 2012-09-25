@@ -303,9 +303,10 @@ def getFSSkinPath(folder, fs_dest_directory, fs_product_name):
                            + 1:])
     (namespace, name) = fs_product_name.split('.')
     skins_folder = '%s_%s_%s_templates' % (namespace, name, folder_path)
-    skinpath = os.path.join(
+    skinpath = ospJoin(
         fs_dest_directory,
         fs_product_name,
+        'src',
         namespace,
         name,
         'skins',
