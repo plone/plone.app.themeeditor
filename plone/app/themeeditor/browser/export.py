@@ -5,13 +5,13 @@ import fileinput
 import tarfile
 from os.path import basename
 from zope import interface, schema
-from z3c.form import form, field, button, validator
+from z3c.form import form, field, button
 from plone.z3cform.layout import FormWrapper
 from plone.app.themeeditor.interfaces import _
 from plone.app.themeeditor.interfaces import IResourceRetriever
 from five.customerize.interfaces import IViewTemplateContainer
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.app.themeeditor.utils import dumpSkin,dumpFolder,getFSSkinPath
+from plone.app.themeeditor.utils import dumpSkin
 from zope.component import getUtility
 #from plone.app.themeeditor.export import TarballThemeExporter
 from paste.script import command

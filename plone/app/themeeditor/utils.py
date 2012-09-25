@@ -5,17 +5,9 @@
 ##############################################################################
 """Skin dump Utility
 """
-from AccessControl import ClassSecurityInfo
-from App.special_dtml import DTMLFile
-from App.Common import package_home
-from App.class_init import InitializeClass
-from OFS.SimpleItem import SimpleItem
-from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
-
-import os, re, string, sets, time
+import os, re, sets, time
 from zope.component import queryMultiAdapter
-from App.config import getConfiguration
 from Products.CMFCore.utils import getToolByName
 
 #from config import *
@@ -27,11 +19,11 @@ from zope.component import getMultiAdapter, getUtility, getSiteManager
 from zope.publisher.interfaces.browser import IBrowserRequest
 from five.customerize.interfaces import IViewTemplateContainer, ITTWViewTemplate
 from plone.portlets.interfaces import IPortletAssignmentMapping, IPortletManager, IPlacelessPortletManager
-from plone.portlets.interfaces import IPortletContext, IPortletDataProvider
+from plone.portlets.interfaces import IPortletDataProvider
 from plone.portlets.interfaces import ILocalPortletAssignmentManager
-from plone.app.customerize.registration import generateIdFromRegistration, interfaceName
+from plone.app.customerize.registration import interfaceName
 
-from Products.GenericSetup.utils import _getDottedName, _resolveDottedName
+from Products.GenericSetup.utils import _getDottedName
 from Products.GenericSetup.interfaces import IBody
 from Products.GenericSetup.context import BaseContext
 
