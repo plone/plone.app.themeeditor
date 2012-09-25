@@ -11,7 +11,7 @@ from zope.component import queryMultiAdapter
 from Products.CMFCore.utils import getToolByName
 
 #from config import *
-from write_utils import writeProps, writeFileContent, writeObjectsMeta
+from plone.app.themeeditor.write_utils import writeProps, writeFileContent, writeObjectsMeta
 
 from zope.interface import providedBy
 from zope.schema import getFields
