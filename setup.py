@@ -39,6 +39,7 @@ through the web""",
           'setuptools',
           'templer.localcommands',
           'templer.plone', #Indirect requirement
+          'templer.plone.localcommands', #Indirect requirement
           'z3c.form',
           'zc.buildout',
           'ZODB3', #Provides persistent
