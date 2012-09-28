@@ -3,7 +3,7 @@
 Changelog
 =========
 
-1.0a5 (2012-09-28)
+1.0a6 (2012-09-28)
 ------------------
 
 - Use templer for egg creation [do3cc]
