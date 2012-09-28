@@ -1,5 +1,5 @@
 include README.txt TODO.txt
 recursive-include plone *
-recursive-inclode docs *
+recursive-include docs *
 global-exclude *pyc
 
