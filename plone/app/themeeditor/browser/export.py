@@ -360,7 +360,6 @@ class ThemeEditorExportForm(form.Form):
         convert resource to just a bunch of templates (jbot)
         we assume that this is an already customized resource
         '''
-
         try:
             resource_info = self.jbot_resource_info(resource)
         except JBOTResourceException:
@@ -416,8 +415,10 @@ class ThemeEditorExportForm(form.Form):
         else:
             raise JBOTResourceException('%s is not a working properly with jbot this may be a bug in plone.app.themeeditor '
                     , resource.name)
-        context_prefix = resources[-1].context[-1].split('.interfaces'
-                )[0]
+        context = resources[-1].context
+        if isinstance(context, (list, tuple)):
+            context = context[-1]
+        context_prefix = context.split('.interfaces')[0]
         jbotname = '.'.join([context_prefix, basename(path)])
         tmpl_text = resource.text
         return (jbotname, tmpl_text)
