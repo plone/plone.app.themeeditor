@@ -6,7 +6,7 @@ Changelog
 1.0a8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add 4.3-compatability (fix popups and export) [pbauer]
 
 
 1.0a7 (2012-09-28)
@@ -41,16 +41,16 @@ Changelog
 -------------------
 - fixed an error that was causing exports to work only once in a single session [pigeonflight]
 
-- created a templates directory and moved all the .tmpl template from the browser 
+- created a templates directory and moved all the .tmpl template from the browser
   directory to the templates directory, updated the browser/export.py form code
   to grab templates from the new location [pigeonflight]
 
-- fixed the popup export form (removed formselector in themeeditor.js) so that the theme 
-  actually downloads [pigeonflight] 
+- fixed the popup export form (removed formselector in themeeditor.js) so that the theme
+  actually downloads [pigeonflight]
 
 - added validator to checks to see that themes are named with proper dotted named [pigeonflight]
 
-- ensure that themeeditor doesn't break if the active theme declares nonexistent 
+- ensure that themeeditor doesn't break if the active theme declares nonexistent
   filesystem skin folders [pigeonflight]
 
 - removed redundant export.py file [pigeonflight]
@@ -71,7 +71,7 @@ Changelog
 
 - the export view now generates a theme egg as a downloadable tarball [pigeonflight]
 
-- @@plone.app.themeeditor.export now writes jbot templates and directory 
+- @@plone.app.themeeditor.export now writes jbot templates and directory
   view resources [pigeonflight]
 
 - The themes that are generated now have z3c.autoinclude in their setup.py
@@ -79,10 +79,10 @@ Changelog
 
 - setup.py generated from export now writes the author and author_email [pigeonflight]
 
-- added utils.py (borrowed from qPloneSkinDump product) for writing 
+- added utils.py (borrowed from qPloneSkinDump product) for writing
   cmfskins resources [pigeonflight]
 
-1.0a1 
+1.0a1
 ------------------
 - removed [plone3] extra from setup.py [davisagli]
 
@@ -99,7 +99,7 @@ Changelog
 - added an export form view @@plone.app.themeeditor.export currently only writes
   a generic zopeskel theme to a temporary directory [pigeonflight]
 
-- dropped dependency plone.app.z3cform and collective.monkeypatcher will 
+- dropped dependency plone.app.z3cform and collective.monkeypatcher will
   introduce this when we start working on export via zopeskel [pigeonflight]
 
 - removed browser/export.py (will work on this in the zopeskel branch [pigeonflight]
@@ -108,14 +108,14 @@ Changelog
 
 - extended the 'extras_require' to included a [plone3] section [pigeonflight]
 
-- added new README information and a docs/INSTALL.txt explaining how to install 
+- added new README information and a docs/INSTALL.txt explaining how to install
   noting the use of the [plone3] extra for Plone 3. [pigeonflight]
 
 - Renamed to plone.app.themeeditor (was plone.app.skineditor) [pigeonflight]
 
 - Added a link to the themeeditor in site actions via actions.xml [pigeonflight]
 
-- Adjusted the html in console.pt as it did not validate 
+- Adjusted the html in console.pt as it did not validate
   (a tag should not contain dt tag) [pigeonflight]
 
 - updated css to work with the new structure of console.pt [pigeonflight]
@@ -134,6 +134,6 @@ Changelog
   used collective.monkeypatcher
   (this should improve performance of theme editor on Plone 3) [pigeonflight]
 
-- using collective.monkeypatcher preconditions parameter didn't seem to work 
+- using collective.monkeypatcher preconditions parameter didn't seem to work
   used a zcml:condition instead to select for Plone 3 and apply the patch
   [pigeonflight]
