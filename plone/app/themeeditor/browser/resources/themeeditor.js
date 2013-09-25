@@ -1,21 +1,21 @@
-jq(function() {
+$(function() {
   var updateResults = function() {
-    jq('#plone-app-themeeditor-tags .selected').removeClass('selected');
-    jq('#plone-app-themeeditor-browser').load(
+    $('#plone-app-themeeditor-tags .selected').removeClass('selected');
+    $('#plone-app-themeeditor-browser').load(
       '@@plone.app.themeeditor.browse #plone-app-themeeditor-browser', 
-      jq('#plone-app-themeeditor-filter-form').serialize()
+      $('#plone-app-themeeditor-filter-form').serialize()
     );
   }
   var activateUI = function() {
     // edit popups
-    jq('a[href*=/@@plone.app.themeeditor.export]', this).prepOverlay({
+    $('a[href*="/@@plone.app.themeeditor.export"]', this).prepOverlay({
       subtype: 'ajax',
       filter: '#content',
       //formselector: 'form',
           });
 
 
-    jq('a[href*=/manage_main],a[href*=/@@customizezpt]', this).prepOverlay({
+    $('a[href*="/manage_main"],a[href*="/@@customizezpt"]', this).prepOverlay({
       subtype: 'ajax',
       filter: 'form,form+*', // everything after the 2nd table
       formselector: 'form',
@@ -26,13 +26,13 @@ jq(function() {
         onLoad: function() {
           // absolutize relative form actions
           var base = this.getTrigger().data('pbo').src
-          jq('form', this.getOverlay()).each(function() {
+          $('form', this.getOverlay()).each(function() {
             // jquerytools.form does not accept input elements those name is submit
             // zope never checks that anyway
-            jq(this).find('input[name=submit]').attr('name', 'x-browser');
-            var action = jq(this).attr('action');
+            $(this).find('input[name=submit]').attr('name', 'x-browser');
+            var action = $(this).attr('action');
             if (action.charAt(0) != '/') {
-              jq(this).attr('action', base.substr(0,base.lastIndexOf('/')) + '/' + action);
+              $(this).attr('action', base.substr(0,base.lastIndexOf('/')) + '/' + action);
             }
           });
           
@@ -53,7 +53,7 @@ jq(function() {
             while (dd.is('dd')) {
                 var to_remove = dd; dd = dd.next(); to_remove.remove();
             }
-            var dd = jq(this).find('dd');
+            var dd = $(this).find('dd');
             title.after(dd);
             dd.show();
             activateUI.apply(dd);
@@ -62,30 +62,30 @@ jq(function() {
       }
     });
     // removal of customized items
-    jq('a[href*=/manage_delObjects]', this).click(function(e) {
+    $('a[href*="/manage_delObjects"]', this).click(function(e) {
       e.preventDefault();
-      jq.get(jq(this).attr('href'));
-      jq(this).closest('dd').remove();
+      jq.get($(this).attr('href'));
+      $(this).closest('dd').remove();
     });
   }
-  activateUI.apply(jq('#plone-app-themeeditor-export'));
-  activateUI.apply(jq('#plone-app-themeeditor-browser'));
+  activateUI.apply($('#plone-app-themeeditor-export'));
+  activateUI.apply($('#plone-app-themeeditor-browser'));
   // update results via AJAX
-  jq('#plone-app-themeeditor-filter-form').submit(function(e) {
+  $('#plone-app-themeeditor-filter-form').submit(function(e) {
     e.preventDefault();
     updateResults();
   });
   // collapsible layer lists
-  jq('a.plone-app-themeeditor-resource-link').live('click', function(e) {
+  $('a.plone-app-themeeditor-resource-link').live('click', function(e) {
     e.preventDefault();
-    var link = jq(this);
+    var link = $(this);
     link.toggleClass('open');
-    var dd = jq(this).next();
+    var dd = $(this).next();
     if (dd.is('dd')) {
       while(dd.is('dd')) { dd.slideToggle('fast'); dd = dd.next(); }
     } else {
-      jq('<div><' + '/div>').load(jq(this).attr('href'), null, function() {
-        jq('dd', this).insertAfter(link).slideDown('fast').each(function() {
+      $('<div><' + '/div>').load($(this).attr('href'), null, function() {
+        $('dd', this).insertAfter(link).slideDown('fast').each(function() {
           activateUI.apply(this);
         });
       });
